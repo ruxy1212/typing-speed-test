@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Menu from "./_fragments/menu";
+import TextContainer from "./_fragments/text-container";
 
 export type Difficulty = 'easy' | 'medium' | 'hard';
 export type Mode = 'timed' | 'passage';
@@ -15,9 +16,13 @@ export default function Main() {
             <Menu 
                 difficulty={difficulty}
                 mode={mode}
+                accuracy={'100%'}
+                wpm={'130'}
+                time={'0:60'}
                 onDifficultyChange={setDifficulty}
                 onModeChange={setMode}
             />
+            <TextContainer></TextContainer>
         </main>
     )
 }
