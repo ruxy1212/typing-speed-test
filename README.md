@@ -1,49 +1,59 @@
-# Front-end Style Guide
+We store the passage data in a local `data.json` file. You can use that to randomly select passages of varying difficulty.
 
-## Layout
+The users should be able to:
 
-The designs were created to the following widths:
+#### Test Controls
 
-- Mobile: 375px
-- Tablet 768px
-- Desktop: 1440px
+- Start a test by clicking the start button or by clicking the passage and typing
+- Select a difficulty level (Easy, Medium, Hard) for passages of varying complexity
+- Switch between "Timed (60s)" mode and "Passage" mode (timer counts up, no limit)
+- Restart at any time to get a new random passage from the selected difficulty
 
-> 💡 These are just the design sizes. Ensure content is responsive and meets WCAG requirements by testing the full range of screen sizes from 320px to large screens.
+#### Typing Experience
 
-## Colors
+- See real-time WPM, accuracy, and time stats while typing
+- See visual feedback showing correct characters (green), errors (red/underlined), and cursor position
+- Correct mistakes with backspace (original errors still count against accuracy)
 
-### Neutral
+#### Results & Progress
 
-- **Neutral 900**: hsl(0, 0%, 7%)
-- **Neutral 800**: hsl(0, 0%, 15%)
-- **Neutral 500**: hsl(240, 3%, 46%)
-- **Neutral 400**: hsl(240, 1%, 59%)
-- **Neutral 0**: hsl(0, 0%, 100%)
+- View results showing WPM, accuracy, and characters (correct/incorrect) after completing a test
+- See a "Baseline Established!" message on their first test, setting their personal best
+- See a "High Score Smashed!" celebration with confetti when beating their personal best
+- Have their personal best persist across sessions via localStorage
 
-### Blue
+#### UI & Responsiveness
 
-- **Blue 600**: hsl(214, 100%, 55%)
-- **Blue 400**: hsl(210, 100%, 65%)
+- View the optimal layout depending on their device's screen size
+- See hover and focus states for all interactive elements
 
-### Red
+### Data Model
 
-- **Red 500**: hsl(354, 63%, 57%)
+A `data.json` file is provided with passages organized by difficulty. Each passage has the following structure:
 
-### Green
+```json
+{
+  "id": "easy-1",
+  "text": "The sun rose over the quiet town. Birds sang in the trees as people woke up and started their day."
+}
+```
 
-- **Green 500**: hsl(140, 63%, 57%)
+| Property | Type | Description |
+| --- | --- | --- |
+| `id` | string | Unique identifier for the passage (e.g., "easy-1", "medium-3", "hard-10") |
+| `text` | string | The passage text the user will type |
 
-### Yellow
+### Expected Behaviors
 
-- **Yellow 400**: hsl(49, 85%, 70%)
+- **Starting the test**: The timer begins when the user starts typing or clicks the start button. Clicking directly on the passage text and typing also initiates the test
+- **Timed mode**: 60-second countdown. Test ends when timer reaches 0 or passage is completed
+- **Passage mode**: Timer counts up with no limit. Test ends when the full passage is typed
+- **Error handling**: Incorrect characters are highlighted in red with an underline. Backspace allows corrections, but errors still count against accuracy
+- **Results logic**:
+  - First completed test: "Baseline Established!" - sets initial personal best
+  - New personal best: "High Score Smashed!" with confetti animation
+  - Normal completion: "Test Complete!" with encouragement message
 
-## Typography
+### Data Persistence
 
-### Body Copy
-
-- Font size (labels): 16px
-
-### Font
-
-- Family: [Sora](https://fonts.google.com/specimen/Sora)
-- Weights: 400, 600, 700
+The personal best score should persist across browser sessions using `localStorage`. When a user beats their high score, the new value should be saved and displayed on subsequent visits.
