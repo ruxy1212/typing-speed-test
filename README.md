@@ -12,7 +12,7 @@ The users should be able to:
 #### Typing Experience
 
 - See real-time WPM, accuracy, and time stats while typing
-- See visual feedback showing correct characters (green), errors (red/underlined), and cursor position
+- See visual feedback showing correct characters (green), errors (red/underlined), and cursor position (highlight current character to be typed)
 - Correct mistakes with backspace (original errors still count against accuracy)
 
 #### Results & Progress

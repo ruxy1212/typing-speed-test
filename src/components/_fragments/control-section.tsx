@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 interface ControlSectionProps<T extends string> {
     label: string;
@@ -32,7 +32,7 @@ export default function ControlSection<T extends string>({
                                 transition-colors text-sm font-medium
                                 ${value === option.value
                                     ? 'border-ts-blue-400 text-ts-blue-400'
-                                    : 'border-ts-neutral-500 text-ts-neutral-0 hover:border-ts-neutral-400'
+                                    : 'border-ts-neutral-500 text-ts-neutral-0 hover:border-ts-blue-400 hover:text-ts-blue-400'
                                 }
                             `}
                         >
@@ -70,27 +70,32 @@ export default function ControlSection<T extends string>({
                 
                 {isOpen && (
                     <div className="absolute z-10 w-full mt-1 bg-ts-neutral-800 border border-ts-neutral-500 rounded shadow-lg">
-                        {options.map((option) => (
-                            <label
-                                key={option.value}
-                                className="flex items-center gap-3 px-3 py-2.5 hover:bg-ts-neutral-700 cursor-pointer text-ts-neutral-0"
-                                onClick={() => {
-                                    onChange(option.value as T);
-                                    setIsOpen(false);
-                                }}
-                            >
-                                <div className="relative flex items-center justify-center">
-                                    <input
-                                        type="radio"
-                                        name={`${name}-mobile`}
-                                        value={option.value}
-                                        checked={value === option.value}
-                                        onChange={() => {}}
-                                        className="appearance-none w-4 h-4 border-2 border-ts-neutral-400 rounded-full checked:border-ts-blue-400 checked:border-[6px]"
-                                    />
-                                </div>
-                                <span className="text-sm">{option.label}</span>
-                            </label>
+                        {options.map((option, index) => (
+                            <Fragment key={option.value}>
+                                <label
+                                    className="flex items-center gap-3 px-3 py-2.5 hover:bg-ts-neutral-700 cursor-pointer text-ts-neutral-0"
+                                    onClick={() => {
+                                        onChange(option.value as T);
+                                        setIsOpen(false);
+                                    }}
+                                >
+                                    <div className="relative flex items-center justify-center">
+                                        <input
+                                            type="radio"
+                                            name={`${name}-mobile`}
+                                            value={option.value}
+                                            checked={value === option.value}
+                                            onChange={() => {}}
+                                            className="appearance-none w-4 h-4 border-2 border-ts-neutral-400 rounded-full checked:border-ts-blue-400 checked:border-[6px]"
+                                        />
+                                    </div>
+                                    <span className="text-sm">{option.label}</span>
+                                </label>
+
+                                {index < options.length - 1 && (
+                                    <div className="h-px bg-ts-neutral-700 mx-2" />
+                                )}
+                            </Fragment>
                         ))}
                     </div>
                 )}

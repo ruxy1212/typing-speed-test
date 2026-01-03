@@ -12,6 +12,7 @@ export default function Home() {
           accuracy={'100%'}
           wpm={'130'}
           characters={'120/5'}
+          verdict={'high-score'}
       />):(<Main />)}
       <Footer isTyping={false} />
     </div>
