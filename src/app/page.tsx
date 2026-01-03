@@ -1,9 +1,11 @@
 import Header from "@/components/header";
+import Main from "@/components/main";
 
 export default function Home() {
   return (
-    <main className="p-4 md:p-8">
+    <div className="p-4 md:p-8">
       <Header />
-    </main>
+      <Main />
+    </div>
   );
 }
