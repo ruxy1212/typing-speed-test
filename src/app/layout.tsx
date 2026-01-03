@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${sora.variable} antialiased`}
+        className={`${sora.variable} antialiased min-h-screen bg-ts-neutral-900`}
       >
         {children}
       </body>
