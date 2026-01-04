@@ -6,6 +6,16 @@ import Main from "@/components/main";
 import Result from "@/components/result";
 import { TypingTestProvider, useTypingTestContext } from "@/context/TypingTestContext";
 
+const RenderCharacters = (correct: number, incorrect: number) => {
+  return (
+    <>
+      <span className="text-ts-green-500">{correct}</span>
+      <span className="text-ts-neutral-400">/</span>
+      <span className={incorrect > 0 ? 'text-ts-red-500' : 'text-ts-neutral-0' }>{incorrect}</span>
+    </>
+  )
+}
+
 function HomeContent() {
   const { testState, result } = useTypingTestContext();
   const showResult = testState === 'completed' && result !== null;
@@ -17,7 +27,7 @@ function HomeContent() {
         <Result
           accuracy={`${result.accuracy}%`}
           wpm={result.wpm.toString()}
-          characters={`${result.correctChars}/${result.incorrectChars}`}
+          characters={RenderCharacters(result.correctChars, result.incorrectChars)}
           verdict={result.verdict}
         />
       ) : (

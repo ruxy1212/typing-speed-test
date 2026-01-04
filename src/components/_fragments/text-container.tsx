@@ -53,13 +53,13 @@ export default function TextContainer() {
             let className = '';
             switch (status) {
                 case 'correct':
-                    className = 'text-ts-green-400';
+                    className = 'text-ts-green-500';
                     break;
                 case 'incorrect':
                     className = 'text-ts-red-500 underline decoration-ts-red-500';
                     break;
                 case 'current':
-                    className = 'bg-ts-blue-600 text-ts-neutral-0';
+                    className = 'bg-ts-blue-600/30 text-ts-neutral-0';
                     break;
                 case 'upcoming':
                 default:

@@ -5,11 +5,11 @@ import Star2 from "@/assets/pattern-star-2.svg";
 import Confetti from "@/assets/pattern-confetti.svg";
 import ResultCard from "./_fragments/result-card";
 
-export default function Result({ wpm, accuracy, characters, verdict = 'default' }: { wpm: string; accuracy: string; characters: string; verdict?: 'new-game' | 'default' | 'high-score' }) {
+export default function Result({ wpm, accuracy, characters, verdict = 'default' }: { wpm: string; accuracy: string; characters: React.ReactNode; verdict?: 'new-game' | 'default' | 'high-score' }) {
     const title = {
         'new-game': {
             heading: 'Baseline Established!',
-            message: 'You’ve set the bar. Now the real challenge begins—time to beat it.',
+            message: "You've set the bar. Now the real challenge begins — time to beat it.",
         },
         'default' : {
             heading: 'Test Complete!',
@@ -39,8 +39,8 @@ export default function Result({ wpm, accuracy, characters, verdict = 'default' 
             </div>
             <div className="w-full flex flex-col justify-center items-center gap-4 md:flex-row md:gap-5">
                 <ResultCard label="WPM" value={wpm} />
-                <ResultCard label="Accuracy" value={accuracy} />
-                <ResultCard label="Characters" value={characters} />
+                <ResultCard label="Accuracy" value={accuracy} color={parseFloat(accuracy) >= 50 ? 'text-ts-green-500' : 'text-ts-red-500'} />
+                <ResultCard label="Characters" value={characters} type="node" />
             </div>
             {verdict === 'high-score' ? (
                 <Confetti className="fixed bottom-0 left-0 w-full -z-1" />    
