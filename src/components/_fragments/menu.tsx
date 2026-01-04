@@ -1,6 +1,6 @@
 'use client';
 
-import type { Difficulty, Mode } from '../main';
+import type { Difficulty, Mode } from '@/hooks/useTypingTest';
 import Divider from './divider';
 import ControlSection from './control-section';
 import StatSection from './stat-section';
