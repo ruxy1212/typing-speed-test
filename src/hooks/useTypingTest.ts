@@ -70,6 +70,9 @@ export function useTypingTest() {
   useEffect(() => {
     setPersonalBest(getPersonalBest());
   }, []);
+  useEffect(() => {
+    setPassage(getRandomPassage('easy'));
+  }, []);
 
   // Calculate current stats
   const currentCharIndex = typedText.length;
@@ -155,7 +158,7 @@ export function useTypingTest() {
     setTestState('completed');
     
     const finalWPM = calculateWPM(correctChars, timeElapsed);
-    const finalAccuracy = calculateAccuracy(correctChars, correctChars + incorrectChars);
+    const finalAccuracy = calculateAccuracy(correctChars, correctChars + errorIndices.size);
     
     // Determine verdict
     let verdict: Verdict = 'default';
