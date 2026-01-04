@@ -17,15 +17,10 @@ The users should be able to:
 
 #### Results & Progress
 
-- View results showing WPM, accuracy, and characters (correct/incorrect) after completing a test
+- View results showing WPM, accuracy, and characters (correct/incorrect, e.g. 125/43) after completing a test
 - See a "Baseline Established!" message on their first test, setting their personal best
 - See a "High Score Smashed!" celebration with confetti when beating their personal best
 - Have their personal best persist across sessions via localStorage
-
-#### UI & Responsiveness
-
-- View the optimal layout depending on their device's screen size
-- See hover and focus states for all interactive elements
 
 ### Data Model
 
