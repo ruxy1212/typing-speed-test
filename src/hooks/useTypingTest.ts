@@ -51,7 +51,7 @@ export function useTypingTest() {
   
   // Test state
   const [testState, setTestState] = useState<TestState>('idle');
-  const [passage, setPassage] = useState<Passage>(() => getRandomPassage('easy'));
+  const [passage, setPassage] = useState<Passage>(passageData['easy'][0]);
   const [typedText, setTypedText] = useState<string>('');
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
   const [personalBest, setPersonalBest] = useState<number | null>(null);
