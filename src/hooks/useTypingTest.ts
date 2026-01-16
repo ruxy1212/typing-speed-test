@@ -217,17 +217,16 @@ export function useTypingTest() {
   
   // Handle key press
   const handleKeyPress = useCallback((key: string) => {
-    alert('inside');
     if (testState === 'completed') return;
     
     // Start test on first keypress if idle
-    if (testState === 'idle') { alert('still idle');
+    if (testState === 'idle') {
       startTest();
     }
     
     if (key === 'Backspace') {
       setTypedText(prev => prev.slice(0, -1));
-    } else if (key.length === 1) { alert(key);
+    } else if (key.length === 1) {
       const newTypedText = typedText + key;
       const newIndex = typedText.length;
       
@@ -235,7 +234,6 @@ export function useTypingTest() {
       if (key !== passageText[newIndex]) {
         setErrorIndices(prev => new Set(prev).add(newIndex));
       }
-      alert(newTypedText+'::'+newIndex);
       setTypedText(newTypedText);
     }
   }, [testState, typedText, passageText, startTest]);
