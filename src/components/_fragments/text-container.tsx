@@ -60,10 +60,11 @@ export default function TextContainer() {
       e.preventDefault?.();
     };
     
-    // Focus the container when test starts or on mount
+    // Focus the input when test starts or on mount so keyboard target is the input
     useEffect(() => {
-      if (containerRef.current && (isTyping || isIdle)) {
-          containerRef.current.focus();
+      if (inputRef.current && (isTyping || isIdle)) {
+          // focus must be triggered during a user gesture on mobile to reliably open keyboard
+          try { inputRef.current.focus(); } catch { /* ignore */ }
       }
     }, [isTyping, isIdle]);
     
@@ -85,14 +86,15 @@ export default function TextContainer() {
       }
     };
     
-    // Handle container click
-    const handleContainerClick = () => {
-        if (inputRef.current) {
-            inputRef.current.focus();
-        } else if (containerRef.current) {
-            containerRef.current.focus();
-        }
-    };
+  // Handle container interaction (click/touch/pointer) and forward focus to the input.
+  // Focusing the actual <input> element (instead of the container) improves mobile keyboard behavior.
+  const handleContainerClick = () => {
+    if (inputRef.current) {
+      try { inputRef.current.focus(); } catch { /* ignore */ }
+    } else if (containerRef.current) {
+      try { containerRef.current.focus(); } catch { /* ignore */ }
+    }
+  };
 
     const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
       e.preventDefault();
@@ -156,7 +158,9 @@ export default function TextContainer() {
                 onDrop={handleDrop}
                 onCompositionStart={handleCompositionStart}
                 onCompositionEnd={handleCompositionEnd}
-                className="absolute opacity-0 pointer-events-none"
+                // Make the input cover the container but remain visually hidden.
+                // This ensures mobile treats it as a real, focusable input and reliably opens the keyboard.
+                className="absolute inset-0 w-full h-full opacity-0"
             />
             <div className={`leading-normal text-3xl min-h-[50vh] md:text-4xl ${isIdle ? 'blur-lg' : ''}`}>
                 {isIdle ? passage.text : renderCharacters()}
