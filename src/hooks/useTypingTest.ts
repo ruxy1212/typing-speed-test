@@ -226,7 +226,7 @@ export function useTypingTest() {
     
     if (key === 'Backspace') {
       setTypedText(prev => prev.slice(0, -1));
-    } else if (key.length === 1) {
+    } else if (key.length === 1) { alert(key);
       const newTypedText = typedText + key;
       const newIndex = typedText.length;
       
@@ -234,7 +234,7 @@ export function useTypingTest() {
       if (key !== passageText[newIndex]) {
         setErrorIndices(prev => new Set(prev).add(newIndex));
       }
-      
+      alert(newTypedText+'::'+newIndex);
       setTypedText(newTypedText);
     }
   }, [testState, typedText, passageText, startTest]);
