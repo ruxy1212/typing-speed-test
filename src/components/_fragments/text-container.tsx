@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { KeyboardEvent, useEffect, useRef } from 'react';
 import { useTypingTestContext } from '@/context/TypingTestContext';
 
 export default function TextContainer() {
@@ -13,6 +13,7 @@ export default function TextContainer() {
     } = useTypingTestContext();
     
     const containerRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
     const isTyping = testState === 'running';
     const isIdle = testState === 'idle';
     
@@ -24,7 +25,7 @@ export default function TextContainer() {
     }, [isTyping, isIdle]);
     
     // Handle keyboard input
-    const handleKeyDown = (e: React.KeyboardEvent) => {
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
         // Prevent default for most keys to avoid scrolling, etc.
         if (e.key !== 'Tab' && e.key !== 'Escape') {
             e.preventDefault();
@@ -40,7 +41,9 @@ export default function TextContainer() {
     
     // Handle container click
     const handleContainerClick = () => {
-        if (containerRef.current) {
+        if (inputRef.current) {
+            inputRef.current.focus();
+        } else if (containerRef.current) {
             containerRef.current.focus();
         }
     };
@@ -83,6 +86,18 @@ export default function TextContainer() {
             onKeyDown={handleKeyDown}
             className="relative text-ts-neutral-400 pb-4 border-b border-ts-neutral-700 outline-none cursor-text"
         >
+            <input 
+                ref={inputRef}
+                type="text"
+                inputMode="text"
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck={false}
+                aria-label="Typing input"
+                onKeyDown={handleKeyDown}
+                className="absolute opacity-0 pointer-events-none"
+            />
             <div className={`leading-normal text-3xl min-h-[50vh] md:text-4xl ${isIdle ? 'blur-lg' : ''}`}>
                 {isIdle ? passage.text : renderCharacters()}
             </div>
