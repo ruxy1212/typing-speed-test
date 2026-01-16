@@ -90,8 +90,10 @@ export default function TextContainer() {
   // Focusing the actual <input> element (instead of the container) improves mobile keyboard behavior.
   const handleContainerClick = () => {
     if (inputRef.current) {
+      startTest();
       try { inputRef.current.focus(); } catch { /* ignore */ }
     } else if (containerRef.current) {
+      startTest();
       try { containerRef.current.focus(); } catch { /* ignore */ }
     }
   };
