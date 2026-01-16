@@ -36,12 +36,12 @@ export default function TextContainer() {
 
       if (isComposingRef.current) return;
 
-      if (inputType === 'insertFromPaste' || (data && data.length > 1)) { alert('insert');
+      if (inputType === 'insertFromPaste' || (data && data.length > 1)) { console.log('beforeinput: insertFromPaste or multi-char paste', { inputType, data });
         e.preventDefault?.();
         return;
       }
 
-      if (inputType === 'insertText' && data) { alert('key:'+data);
+      if (inputType === 'insertText' && data) { console.log('beforeinput: insertText', data);
         if (data.length === 1 && isAllowedChar(data)) {
           e.preventDefault?.();
           handleKeyPress(data);
@@ -51,7 +51,7 @@ export default function TextContainer() {
         return;
       }
 
-      if (inputType === 'deleteContentBackward') { alert('backspace');
+      if (inputType === 'deleteContentBackward') { console.log('beforeinput: deleteContentBackward');
         e.preventDefault?.();
         handleKeyPress('Backspace');
         return;
@@ -166,24 +166,6 @@ export default function TextContainer() {
       onKeyDown={handleKeyDown}
       className="relative text-ts-neutral-400 pb-4 border-b border-ts-neutral-700 outline-none cursor-text"
     >
-      <input 
-        ref={inputRef}
-        type="text"
-        inputMode="text"
-        autoComplete="off"
-        autoCorrect="off"
-        autoCapitalize="off"
-        spellCheck={false}
-        aria-label="Typing input"
-        onKeyDown={handleKeyDown}
-        onInput={handleInput}
-        onBeforeInput={handleBeforeInput}
-        onPaste={handlePaste}
-        onDrop={handleDrop}
-        onCompositionStart={handleCompositionStart}
-        onCompositionEnd={handleCompositionEnd}
-        className="absolute inset-0 w-full h-full opacity-0"
-      />
             <div className={`leading-normal text-3xl min-h-[50vh] md:text-4xl ${isIdle ? 'blur-lg' : ''}`}>
                 {isIdle ? passage.text : renderCharacters()}
             </div>
@@ -208,6 +190,28 @@ export default function TextContainer() {
                     </div>
                 </div>
             )}
+            {/* Hidden input positioned last so it sits above the text and reliably receives pointer events on mobile */}
+            <input
+              ref={inputRef}
+              type="text"
+              inputMode="text"
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck={false}
+              aria-label="Typing input"
+              onKeyDown={handleKeyDown}
+              onInput={handleInput}
+              onBeforeInput={handleBeforeInput}
+              onPaste={handlePaste}
+              onDrop={handleDrop}
+              onCompositionStart={handleCompositionStart}
+              onCompositionEnd={handleCompositionEnd}
+              onFocus={() => { console.log('typing input focused'); }}
+              onBlur={() => { console.log('typing input blurred'); }}
+              onClick={() => { startTest(); try { inputRef.current?.focus(); } catch {} }}
+              className="absolute inset-0 w-full h-full opacity-0 z-50"
+            />
         </div>
     );
 }
