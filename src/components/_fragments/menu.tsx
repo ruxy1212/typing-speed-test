@@ -38,7 +38,7 @@ export default function Menu({
     testState
 }: MenuProps) {
     return (
-        <div className="flex justify-between items-center flex-wrap lg:flex-nowrap gap-4 pb-4 border-b border-ts-neutral-700">
+        <div className="flex justify-between items-center flex-wrap lg:flex-nowrap gap-4 pb-4 border-b border-ts-neutral-700 overflow-x-auto no-scrollbar">
             <div className="flex gap-4 justify-center items-center w-full lg:w-auto md:justify-start">
                 <StatSection label="WPM" value={wpm} />
                 <Divider />

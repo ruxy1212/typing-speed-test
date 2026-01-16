@@ -34,3 +34,12 @@
 body {
   font-family: "Sora", sans-serif;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: 0;
+}
