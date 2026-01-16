@@ -1,6 +1,6 @@
 'use client';
 
-import { KeyboardEvent, useEffect, useRef } from 'react';
+import { FormEvent, KeyboardEvent, useEffect, useRef } from 'react';
 import { useTypingTestContext } from '@/context/TypingTestContext';
 
 export default function TextContainer() {
@@ -16,28 +16,73 @@ export default function TextContainer() {
     const inputRef = useRef<HTMLInputElement>(null);
     const isTyping = testState === 'running';
     const isIdle = testState === 'idle';
+    const isAllowedChar = (ch: string) => /^[\x20-\x7E]$/.test(ch);
+    const isComposingRef = useRef(false);
+
+    const handleCompositionStart = () => { isComposingRef.current = true; };
+    
+    const handleCompositionEnd = (e: React.CompositionEvent<HTMLInputElement>) => {
+      isComposingRef.current = false;
+      const committed = e.data || '';
+      if (committed.length === 1 && isAllowedChar(committed)) {
+        handleKeyPress(committed);
+      }
+    };
+
+    const handleBeforeInput = (e: FormEvent<HTMLInputElement>) => {
+      const native = (e.nativeEvent as InputEvent);
+      const inputType = native.inputType;
+      const data = (native).data ?? null;
+
+      if (isComposingRef.current) return;
+
+      if (inputType === 'insertFromPaste' || (data && data.length > 1)) {
+        e.preventDefault?.();
+        return;
+      }
+
+      if (inputType === 'insertText' && data) {
+        if (data.length === 1 && isAllowedChar(data)) {
+          e.preventDefault?.();
+          handleKeyPress(data);
+        } else {
+          e.preventDefault?.();
+        }
+        return;
+      }
+
+      if (inputType === 'deleteContentBackward') {
+        e.preventDefault?.();
+        handleKeyPress('Backspace');
+        return;
+      }
+
+      e.preventDefault?.();
+    };
     
     // Focus the container when test starts or on mount
     useEffect(() => {
-        if (containerRef.current && (isTyping || isIdle)) {
-            containerRef.current.focus();
-        }
+      if (containerRef.current && (isTyping || isIdle)) {
+          containerRef.current.focus();
+      }
     }, [isTyping, isIdle]);
     
     // Handle keyboard input
-    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-        // Prevent default for most keys to avoid scrolling, etc.
-        if (e.key !== 'Tab' && e.key !== 'Escape') {
-            e.preventDefault();
-        }
-        
-        // Ignore modifier keys alone
-        if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock'].includes(e.key)) {
-            return;
-        }
-        
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement | HTMLDivElement>) => {
+      if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock'].includes(e.key)) return;
+
+      if (e.key === 'Backspace' || e.key === 'Enter' || e.key === 'Tab' || e.key === 'Escape') {
+        e.preventDefault();
         handleKeyPress(e.key);
-        alert(e.key);
+        return;
+      }
+
+      if (e.key && e.key.length === 1 && isAllowedChar(e.key)) {
+        e.preventDefault();
+        handleKeyPress(e.key);
+      } else {
+        e.preventDefault();
+      }
     };
     
     // Handle container click
@@ -47,6 +92,15 @@ export default function TextContainer() {
         } else if (containerRef.current) {
             containerRef.current.focus();
         }
+    };
+
+    const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+      e.preventDefault();
+      // Show UI that paste is disallowed
+    };
+
+    const handleDrop = (e: React.DragEvent<HTMLInputElement>) => {
+      e.preventDefault();
     };
     
     // Render characters with appropriate styling
@@ -97,6 +151,11 @@ export default function TextContainer() {
                 spellCheck={false}
                 aria-label="Typing input"
                 onKeyDown={handleKeyDown}
+                onBeforeInput={handleBeforeInput}
+                onPaste={handlePaste}
+                onDrop={handleDrop}
+                onCompositionStart={handleCompositionStart}
+                onCompositionEnd={handleCompositionEnd}
                 className="absolute opacity-0 pointer-events-none"
             />
             <div className={`leading-normal text-3xl min-h-[50vh] md:text-4xl ${isIdle ? 'blur-lg' : ''}`}>
