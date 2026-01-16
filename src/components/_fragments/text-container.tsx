@@ -29,37 +29,6 @@ export default function TextContainer() {
       }
     };
 
-    const handleBeforeInput = (e: FormEvent<HTMLInputElement>) => {
-      const native = (e.nativeEvent as InputEvent);
-      const inputType = native.inputType;
-      const data = (native).data ?? null;
-
-      if (isComposingRef.current) return;
-
-      if (inputType === 'insertFromPaste' || (data && data.length > 1)) { console.log('beforeinput: insertFromPaste or multi-char paste', { inputType, data });
-        e.preventDefault?.();
-        return;
-      }
-
-      if (inputType === 'insertText' && data) { console.log('beforeinput: insertText', data);
-        if (data.length === 1 && isAllowedChar(data)) {
-          e.preventDefault?.();
-          handleKeyPress(data);
-        } else {
-          e.preventDefault?.();
-        }
-        return;
-      }
-
-      if (inputType === 'deleteContentBackward') { console.log('beforeinput: deleteContentBackward');
-        e.preventDefault?.();
-        handleKeyPress('Backspace');
-        return;
-      }
-
-      e.preventDefault?.();
-    };
-    
     // Focus the input when test starts or on mount so keyboard target is the input
     useEffect(() => {
       if (inputRef.current && (isTyping || isIdle)) {
@@ -70,8 +39,6 @@ export default function TextContainer() {
     
     // Handle keyboard input
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement | HTMLDivElement>) => {
-      // Some mobile browsers/IME send `key === 'Unidentified'` for character keydowns.
-      // We ignore those here and rely on `beforeinput` / `input` events to get actual characters.
       if (e.key === 'Unidentified') return;
 
       if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock'].includes(e.key)) return;
@@ -89,14 +56,13 @@ export default function TextContainer() {
       }
     };
 
-    // Fallback for browsers that don't fire beforeinput reliably: read the input's value.
     const handleInput = (e: FormEvent<HTMLInputElement>) => {
       if (isComposingRef.current) return;
       const el = e.currentTarget as HTMLInputElement;
       const val = el.value;
       if (!val) return;
 
-      // Process each character (should usually be a single char)
+      // Process each character (val can be multiple characters on some IMEs/pastes)
       for (const ch of val) {
         if (isAllowedChar(ch)) handleKeyPress(ch);
       }
@@ -105,8 +71,6 @@ export default function TextContainer() {
       el.value = '';
     };
     
-  // Handle container interaction (click/touch/pointer) and forward focus to the input.
-  // Focusing the actual <input> element (instead of the container) improves mobile keyboard behavior.
   const handleContainerClick = () => {
     if (inputRef.current) {
       startTest();
@@ -161,8 +125,6 @@ export default function TextContainer() {
       ref={containerRef}
       tabIndex={0}
       onClick={handleContainerClick}
-      onPointerDown={handleContainerClick}
-      onTouchStart={handleContainerClick}
       onKeyDown={handleKeyDown}
       className="relative text-ts-neutral-400 pb-4 border-b border-ts-neutral-700 outline-none cursor-text"
     >
@@ -202,7 +164,6 @@ export default function TextContainer() {
               aria-label="Typing input"
               onKeyDown={handleKeyDown}
               onInput={handleInput}
-              onBeforeInput={handleBeforeInput}
               onPaste={handlePaste}
               onDrop={handleDrop}
               onCompositionStart={handleCompositionStart}
