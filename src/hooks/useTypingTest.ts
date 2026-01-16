@@ -217,10 +217,11 @@ export function useTypingTest() {
   
   // Handle key press
   const handleKeyPress = useCallback((key: string) => {
+    alert('inside');
     if (testState === 'completed') return;
     
     // Start test on first keypress if idle
-    if (testState === 'idle') {
+    if (testState === 'idle') { alert('still idle');
       startTest();
     }
     

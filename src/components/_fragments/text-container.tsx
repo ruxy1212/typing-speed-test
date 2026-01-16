@@ -37,7 +37,7 @@ export default function TextContainer() {
         }
         
         handleKeyPress(e.key);
-        alert('pressed');
+        alert(e.key);
     };
     
     // Handle container click
