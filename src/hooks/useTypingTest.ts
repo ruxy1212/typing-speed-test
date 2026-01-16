@@ -218,7 +218,7 @@ export function useTypingTest() {
   // Handle key press
   const handleKeyPress = useCallback((key: string) => {
     if (testState === 'completed') return;
-    
+    alert(key+' pressed');
     // Start test on first keypress if idle
     if (testState === 'idle') {
       startTest();
