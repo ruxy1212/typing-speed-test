@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, KeyboardEvent, useEffect, useRef } from 'react';
+import { ClipboardEvent, DragEvent, FormEvent, KeyboardEvent, useEffect, useRef } from 'react';
 import { useTypingTestContext } from '@/context/TypingTestContext';
 
 export default function TextContainer() {
@@ -32,7 +32,6 @@ export default function TextContainer() {
     // Focus the input when test starts or on mount so keyboard target is the input
     useEffect(() => {
       if (inputRef.current && (isTyping || isIdle)) {
-          // focus must be triggered during a user gesture on mobile to reliably open keyboard
           try { inputRef.current.focus(); } catch { /* ignore */ }
       }
     }, [isTyping, isIdle]);
@@ -62,12 +61,10 @@ export default function TextContainer() {
       const val = el.value;
       if (!val) return;
 
-      // Process each character (val can be multiple characters on some IMEs/pastes)
       for (const ch of val) {
         if (isAllowedChar(ch)) handleKeyPress(ch);
       }
-
-      // Clear the input's value since we handle characters ourselves
+      
       el.value = '';
     };
     
@@ -81,12 +78,12 @@ export default function TextContainer() {
     }
   };
 
-    const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    const handlePaste = (e: ClipboardEvent<HTMLInputElement>) => {
       e.preventDefault();
       // Show UI that paste is disallowed
     };
 
-    const handleDrop = (e: React.DragEvent<HTMLInputElement>) => {
+    const handleDrop = (e: DragEvent<HTMLInputElement>) => {
       e.preventDefault();
     };
     
@@ -128,48 +125,48 @@ export default function TextContainer() {
       onKeyDown={handleKeyDown}
       className="relative text-ts-neutral-400 pb-4 border-b border-ts-neutral-700 outline-none cursor-text"
     >
-            <input
-              ref={inputRef}
-              type="text"
-              inputMode="text"
-              autoComplete="off"
-              autoCorrect="off"
-              autoCapitalize="off"
-              spellCheck={false}
-              aria-label="Typing input"
-              onKeyDown={handleKeyDown}
-              onInput={handleInput}
-              onPaste={handlePaste}
-              onDrop={handleDrop}
-              onCompositionStart={handleCompositionStart}
-              onCompositionEnd={handleCompositionEnd}
-              onClick={() => { startTest(); try { inputRef.current?.focus(); } catch {} }}
-              className="absolute inset-0 w-full h-full opacity-0"
-            />
-            <div className={`leading-normal text-3xl min-h-[50vh] md:text-4xl ${isIdle ? 'blur-lg' : ''}`}>
-                {isIdle ? passage.text : renderCharacters()}
-            </div>
-            {isIdle && (
-                <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-[clamp(20vh,50%,30vh)]">
-                    <div className="flex flex-col justify-center items-center gap-4 whitespace-nowrap md:gap-5">
-                        <button 
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                startTest();
-                                if (inputRef.current) {
-                                  inputRef.current.focus();
-                                } else if (containerRef.current) {
-                                  containerRef.current.focus();
-                                }
-                            }} 
-                            className="text-center bg-ts-blue-600 text-ts-neutral-0 text-xl rounded-lg cursor-pointer px-4 py-2 md:px-6 md:py-4 transition-colors hover:bg-ts-blue-400"
-                        >
-                            Start Typing Test
-                        </button>
-                        <span className="text-center text-ts-neutral-0 text-xl">Or click the text and start typing</span>
-                    </div>
-                </div>
-            )}
+      <input
+        ref={inputRef}
+        type="text"
+        inputMode="text"
+        autoComplete="off"
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck={false}
+        aria-label="Typing input"
+        onKeyDown={handleKeyDown}
+        onInput={handleInput}
+        onPaste={handlePaste}
+        onDrop={handleDrop}
+        onCompositionStart={handleCompositionStart}
+        onCompositionEnd={handleCompositionEnd}
+        onClick={() => { startTest(); try { inputRef.current?.focus(); } catch {} }}
+        className="absolute inset-0 w-full h-full opacity-0"
+      />
+      <div className={`leading-normal text-3xl min-h-[50vh] md:text-4xl ${isIdle ? 'blur-lg' : ''}`}>
+        {isIdle ? passage.text : renderCharacters()}
+      </div>
+      {isIdle && (
+        <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-[clamp(20vh,50%,30vh)]">
+          <div className="flex flex-col justify-center items-center gap-4 whitespace-nowrap md:gap-5">
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                startTest();
+                if (inputRef.current) {
+                  inputRef.current.focus();
+                } else if (containerRef.current) {
+                  containerRef.current.focus();
+                }
+              }} 
+              className="text-center bg-ts-blue-600 text-ts-neutral-0 text-xl rounded-lg cursor-pointer px-4 py-2 md:px-6 md:py-4 transition-colors hover:bg-ts-blue-400"
+            >
+              Start Typing Test
+            </button>
+            <span className="text-center text-ts-neutral-0 text-xl">Or click the text and start typing</span>
+          </div>
         </div>
-    );
+      )}
+    </div>
+  );
 }
