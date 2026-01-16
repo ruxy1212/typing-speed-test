@@ -69,8 +69,6 @@ export function useTypingTest() {
   // Load personal best on mount
   useEffect(() => {
     setPersonalBest(getPersonalBest());
-  }, []);
-  useEffect(() => {
     setPassage(getRandomPassage('easy'));
   }, []);
 
@@ -114,7 +112,7 @@ export function useTypingTest() {
   
   // Get current accuracy (based on total errors ever made, not just current state)
   const totalErrorCount = errorIndices.size;
-  const totalTypedEver = Math.max(typedText.length, errorIndices.size > 0 ? Math.max(...Array.from(errorIndices)) + 1 : 0);
+  // const totalTypedEver = Math.max(typedText.length, errorIndices.size > 0 ? Math.max(...Array.from(errorIndices)) + 1 : 0);
   const currentAccuracy = typedText.length > 0 
     ? calculateAccuracy(typedText.length - totalErrorCount, typedText.length)
     : 100;
@@ -183,23 +181,31 @@ export function useTypingTest() {
       incorrectChars,
       verdict,
     });
-  }, [stopTimer, calculateWPM, calculateAccuracy, correctChars, incorrectChars, timeElapsed]);
+  }, [stopTimer, calculateWPM, calculateAccuracy, correctChars, incorrectChars, timeElapsed, errorIndices.size]);
   
   // Check for test completion
   useEffect(() => {
     if (testState !== 'running') return;
+    let timerId: number | undefined;
     
     // Check if passage is completed
     if (typedText.length >= passageText.length) {
-      completeTest();
-      return;
+      timerId = window.setTimeout(() => {
+        completeTest();
+      }, 0);
     }
     
     // Check if time is up in timed mode
-    if (mode === 'timed' && timeElapsed >= TIMED_MODE_DURATION) {
-      completeTest();
-      return;
+    else if (mode === 'timed' && timeElapsed >= TIMED_MODE_DURATION) {
+      timerId = window.setTimeout(() => {
+        completeTest();
+      }, 0);
     }
+    return () => {
+      if (timerId !== undefined) {
+        window.clearTimeout(timerId);
+      }
+    };
   }, [testState, typedText.length, passageText.length, mode, timeElapsed, completeTest]);
   
   // Start the test

@@ -29,7 +29,7 @@ export default function TextContainer() {
         // Prevent default for most keys to avoid scrolling, etc.
         if (e.key !== 'Tab' && e.key !== 'Escape') {
             e.preventDefault();
-        } alert('pressed');
+        }
         
         // Ignore modifier keys alone
         if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock'].includes(e.key)) {
@@ -37,6 +37,7 @@ export default function TextContainer() {
         }
         
         handleKeyPress(e.key);
+        alert('pressed');
     };
     
     // Handle container click
