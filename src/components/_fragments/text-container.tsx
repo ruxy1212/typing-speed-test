@@ -70,8 +70,11 @@ export default function TextContainer() {
     
     // Handle keyboard input
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement | HTMLDivElement>) => {
+      // Some mobile browsers/IME send `key === 'Unidentified'` for character keydowns.
+      // We ignore those here and rely on `beforeinput` / `input` events to get actual characters.
+      if (e.key === 'Unidentified') return;
+
       if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock'].includes(e.key)) return;
-alert(e.key+' pressed');
       if (e.key === 'Backspace' || e.key === 'Enter' || e.key === 'Tab' || e.key === 'Escape') {
         e.preventDefault();
         handleKeyPress(e.key);
@@ -84,6 +87,22 @@ alert(e.key+' pressed');
       } else {
         e.preventDefault();
       }
+    };
+
+    // Fallback for browsers that don't fire beforeinput reliably: read the input's value.
+    const handleInput = (e: FormEvent<HTMLInputElement>) => {
+      if (isComposingRef.current) return;
+      const el = e.currentTarget as HTMLInputElement;
+      const val = el.value;
+      if (!val) return;
+
+      // Process each character (should usually be a single char)
+      for (const ch of val) {
+        if (isAllowedChar(ch)) handleKeyPress(ch);
+      }
+
+      // Clear the input's value since we handle characters ourselves
+      el.value = '';
     };
     
   // Handle container interaction (click/touch/pointer) and forward focus to the input.
@@ -107,63 +126,64 @@ alert(e.key+' pressed');
       e.preventDefault();
     };
     
-    // Render characters with appropriate styling
-    const renderCharacters = () => {
-        return passage.text.split('').map((char, index) => {
-            const status = getCharacterStatus(index);
-            
-            let className = '';
-            switch (status) {
-                case 'correct':
-                    className = 'text-ts-green-500';
-                    break;
-                case 'incorrect':
-                    className = 'text-ts-red-500 underline decoration-ts-red-500';
-                    break;
-                case 'current':
-                    className = 'bg-ts-blue-600/30 text-ts-neutral-0';
-                    break;
-                case 'upcoming':
-                default:
-                    className = 'text-ts-neutral-400';
-                    break;
-            }
-            
-            return (
-                <span key={index} className={className}>
-                    {char}
-                </span>
-            );
-        });
-    };
+  // Render characters with appropriate styling
+  const renderCharacters = () => {
+    return passage.text.split('').map((char, index) => {
+      const status = getCharacterStatus(index);
 
-    return (
-        <div 
-            ref={containerRef}
-            tabIndex={0}
-            onClick={handleContainerClick}
-            onKeyDown={handleKeyDown}
-            className="relative text-ts-neutral-400 pb-4 border-b border-ts-neutral-700 outline-none cursor-text"
-        >
-            <input 
-                ref={inputRef}
-                type="text"
-                inputMode="text"
-                autoComplete="off"
-                autoCorrect="off"
-                autoCapitalize="off"
-                spellCheck={false}
-                aria-label="Typing input"
-                onKeyDown={handleKeyDown}
-                onBeforeInput={handleBeforeInput}
-                onPaste={handlePaste}
-                onDrop={handleDrop}
-                onCompositionStart={handleCompositionStart}
-                onCompositionEnd={handleCompositionEnd}
-                // Make the input cover the container but remain visually hidden.
-                // This ensures mobile treats it as a real, focusable input and reliably opens the keyboard.
-                className="absolute inset-0 w-full h-full opacity-0"
-            />
+      let className = '';
+      switch (status) {
+        case 'correct':
+          className = 'text-ts-green-500';
+          break;
+        case 'incorrect':
+          className = 'text-ts-red-500 underline decoration-ts-red-500';
+          break;
+        case 'current':
+          className = 'bg-ts-blue-600/30 text-ts-neutral-0';
+          break;
+        case 'upcoming':
+        default:
+          className = 'text-ts-neutral-400';
+          break;
+      }
+
+      return (
+        <span key={index} className={className}>
+          {char}
+        </span>
+      );
+    });
+  };
+
+  return (
+    <div 
+      ref={containerRef}
+      tabIndex={0}
+      onClick={handleContainerClick}
+      onPointerDown={handleContainerClick}
+      onTouchStart={handleContainerClick}
+      onKeyDown={handleKeyDown}
+      className="relative text-ts-neutral-400 pb-4 border-b border-ts-neutral-700 outline-none cursor-text"
+    >
+      <input 
+        ref={inputRef}
+        type="text"
+        inputMode="text"
+        autoComplete="off"
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck={false}
+        aria-label="Typing input"
+        onKeyDown={handleKeyDown}
+        onInput={handleInput}
+        onBeforeInput={handleBeforeInput}
+        onPaste={handlePaste}
+        onDrop={handleDrop}
+        onCompositionStart={handleCompositionStart}
+        onCompositionEnd={handleCompositionEnd}
+        className="absolute inset-0 w-full h-full opacity-0"
+      />
             <div className={`leading-normal text-3xl min-h-[50vh] md:text-4xl ${isIdle ? 'blur-lg' : ''}`}>
                 {isIdle ? passage.text : renderCharacters()}
             </div>
