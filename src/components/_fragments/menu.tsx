@@ -13,6 +13,7 @@ interface MenuProps {
     time: string;
     onDifficultyChange: (difficulty: Difficulty) => void;
     onModeChange: (mode: Mode) => void;
+    testState: 'idle' | 'running' | 'completed';
 }
 
 const difficultyOptions: { value: Difficulty; label: string }[] = [
@@ -33,7 +34,8 @@ export default function Menu({
     wpm,
     time,
     onDifficultyChange, 
-    onModeChange 
+    onModeChange,
+    testState
 }: MenuProps) {
     return (
         <div className="flex justify-between items-center flex-wrap lg:flex-nowrap gap-4 pb-4 border-b border-ts-neutral-700">
@@ -52,6 +54,7 @@ export default function Menu({
                     options={difficultyOptions}
                     value={difficulty}
                     onChange={onDifficultyChange}
+                    disabled={testState === 'running'}
                 />
                 <Divider className="hidden md:block"/>
                 
@@ -62,6 +65,7 @@ export default function Menu({
                     options={modeOptions}
                     value={mode}
                     onChange={onModeChange}
+                    disabled={testState === 'running'}
                 />
             </div>
         </div>

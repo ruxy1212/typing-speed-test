@@ -15,6 +15,7 @@ export default function Main() {
         currentWPM,
         currentAccuracy,
         displayTime,
+        testState,
     } = useTypingTestContext();
 
     return (
@@ -27,6 +28,7 @@ export default function Main() {
                 time={displayTime}
                 onDifficultyChange={setDifficulty}
                 onModeChange={setMode}
+                testState={testState}
             />
             <TextContainer />
         </main>

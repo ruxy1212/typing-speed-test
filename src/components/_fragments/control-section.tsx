@@ -6,6 +6,7 @@ interface ControlSectionProps<T extends string> {
     options: { value: T; label: string }[];
     value: T;
     onChange: (value: T) => void;
+    disabled?: boolean;
 }
 
 export default function ControlSection<T extends string>({ 
@@ -13,7 +14,8 @@ export default function ControlSection<T extends string>({
     name, 
     options, 
     value, 
-    onChange 
+    onChange, 
+    disabled
 }: ControlSectionProps<T>) {
     const [isOpen, setIsOpen] = useState(false);
     const selectedOption = options.find(opt => opt.value === value);
@@ -28,11 +30,12 @@ export default function ControlSection<T extends string>({
                         <label
                             key={option.value}
                             className={`
-                                px-3 py-1.5 rounded border cursor-pointer
+                                px-3 py-1.5 rounded border
                                 transition-colors text-sm font-medium
+                                ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}
                                 ${value === option.value
                                     ? 'border-ts-blue-400 text-ts-blue-400'
-                                    : 'border-ts-neutral-500 text-ts-neutral-0 hover:border-ts-blue-400 hover:text-ts-blue-400'
+                                    : `border-ts-neutral-500 text-ts-neutral-0 ${disabled ? '' : 'hover:border-ts-blue-400 hover:text-ts-blue-400'}`
                                 }
                             `}
                         >
@@ -41,8 +44,9 @@ export default function ControlSection<T extends string>({
                                 name={name}
                                 value={option.value}
                                 checked={value === option.value}
-                                onChange={(e) => onChange(e.target.value as T)}
+                                onChange={(e) => !disabled && onChange(e.target.value as T)}
                                 className="sr-only"
+                                disabled={disabled}
                             />
                             {option.label}
                         </label>
@@ -54,8 +58,9 @@ export default function ControlSection<T extends string>({
             <div className="md:hidden relative">
                 <button
                     type="button"
-                    onClick={() => setIsOpen(!isOpen)}
-                    className="w-full px-3 py-2 bg-ts-neutral-800 border border-ts-neutral-500 rounded text-ts-neutral-0 text-left flex justify-between items-center"
+                    onClick={() => { if (disabled) return; setIsOpen(!isOpen); }}
+                    disabled={disabled}
+                    className={`w-full px-3 py-2 bg-ts-neutral-800 border border-ts-neutral-500 rounded text-ts-neutral-0 text-left flex justify-between items-center ${disabled ? 'opacity-60 cursor-not-allowed' : ''}`}
                 >
                     <span>{selectedOption?.label}</span>
                     <svg 
@@ -68,13 +73,14 @@ export default function ControlSection<T extends string>({
                     </svg>
                 </button>
                 
-                {isOpen && (
+                {isOpen && !disabled && (
                     <div className="absolute z-10 w-full mt-1 bg-ts-neutral-800 border border-ts-neutral-500 rounded shadow-lg">
                         {options.map((option, index) => (
                             <Fragment key={option.value}>
                                 <label
                                     className="flex items-center gap-3 px-3 py-2.5 hover:bg-ts-neutral-700 cursor-pointer text-ts-neutral-0"
                                     onClick={() => {
+                                        if (disabled) return;
                                         onChange(option.value as T);
                                         setIsOpen(false);
                                     }}
@@ -87,6 +93,7 @@ export default function ControlSection<T extends string>({
                                             checked={value === option.value}
                                             onChange={() => {}}
                                             className="appearance-none w-4 h-4 border-2 border-ts-neutral-400 rounded-full checked:border-ts-blue-400 checked:border-[6px]"
+                                            disabled={disabled}
                                         />
                                     </div>
                                     <span className="text-sm">{option.label}</span>
