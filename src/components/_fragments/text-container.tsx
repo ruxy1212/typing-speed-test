@@ -71,7 +71,7 @@ export default function TextContainer() {
     // Handle keyboard input
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement | HTMLDivElement>) => {
       if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock'].includes(e.key)) return;
-
+alert(e.key+' pressed');
       if (e.key === 'Backspace' || e.key === 'Enter' || e.key === 'Tab' || e.key === 'Escape') {
         e.preventDefault();
         handleKeyPress(e.key);
