@@ -83,7 +83,7 @@ export default function TextContainer() {
             onKeyDown={handleKeyDown}
             className="relative text-ts-neutral-400 pb-4 border-b border-ts-neutral-700 outline-none cursor-text"
         >
-            <div className={`leading-normal text-3xl min-h-[50vh] md:text-4xl ${isIdle ? 'blur-[16px]' : ''}`}>
+            <div className={`leading-normal text-3xl min-h-[50vh] md:text-4xl ${isIdle ? 'blur-lg' : ''}`}>
                 {isIdle ? passage.text : renderCharacters()}
             </div>
             {isIdle && (
