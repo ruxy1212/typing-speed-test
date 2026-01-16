@@ -226,7 +226,7 @@ export function useTypingTest() {
     
     if (key === 'Backspace') {
       setTypedText(prev => prev.slice(0, -1));
-    } else if (key.length === 1) {
+    } else if (key.length === 1) { alert(key);
       const newTypedText = typedText + key;
       const newIndex = typedText.length;
       
