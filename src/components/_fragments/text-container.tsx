@@ -29,7 +29,7 @@ export default function TextContainer() {
         // Prevent default for most keys to avoid scrolling, etc.
         if (e.key !== 'Tab' && e.key !== 'Escape') {
             e.preventDefault();
-        }
+        } alert('pressed');
         
         // Ignore modifier keys alone
         if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock'].includes(e.key)) {
@@ -108,8 +108,10 @@ export default function TextContainer() {
                             onClick={(e) => {
                                 e.stopPropagation();
                                 startTest();
-                                if (containerRef.current) {
-                                    containerRef.current.focus();
+                                if (inputRef.current) {
+                                  inputRef.current.focus();
+                                } else if (containerRef.current) {
+                                  containerRef.current.focus();
                                 }
                             }} 
                             className="text-center bg-ts-blue-600 text-ts-neutral-0 text-xl rounded-lg cursor-pointer px-4 py-2 md:px-6 md:py-4 transition-colors hover:bg-ts-blue-400"
