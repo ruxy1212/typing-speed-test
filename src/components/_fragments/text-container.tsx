@@ -36,12 +36,12 @@ export default function TextContainer() {
 
       if (isComposingRef.current) return;
 
-      if (inputType === 'insertFromPaste' || (data && data.length > 1)) {
+      if (inputType === 'insertFromPaste' || (data && data.length > 1)) { alert('insert');
         e.preventDefault?.();
         return;
       }
 
-      if (inputType === 'insertText' && data) {
+      if (inputType === 'insertText' && data) { alert('key:'+data);
         if (data.length === 1 && isAllowedChar(data)) {
           e.preventDefault?.();
           handleKeyPress(data);
@@ -51,7 +51,7 @@ export default function TextContainer() {
         return;
       }
 
-      if (inputType === 'deleteContentBackward') {
+      if (inputType === 'deleteContentBackward') { alert('backspace');
         e.preventDefault?.();
         handleKeyPress('Backspace');
         return;
