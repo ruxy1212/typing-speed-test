@@ -21,7 +21,7 @@ interface TestResult {
   verdict: Verdict;
 }
 
-const TIMED_MODE_DURATION = 60; // seconds
+const DEFAULT_TIMED_MODE_DURATION = 60;
 const PERSONAL_BEST_KEY = 'typing-test-personal-best';
 
 // Get personal best from localStorage
@@ -48,6 +48,7 @@ export function useTypingTest() {
   // Settings
   const [difficulty, setDifficulty] = useState<Difficulty>('easy');
   const [mode, setMode] = useState<Mode>('timed');
+  const [timedDuration, setTimedDuration] = useState<number>(DEFAULT_TIMED_MODE_DURATION);
   
   // Test state
   const [testState, setTestState] = useState<TestState>('idle');
@@ -126,7 +127,7 @@ export function useTypingTest() {
   
   // Get time remaining for timed mode, or elapsed for passage mode
   const displayTime = mode === 'timed' 
-    ? formatTime(Math.max(0, TIMED_MODE_DURATION - timeElapsed))
+    ? formatTime(Math.max(0, timedDuration - timeElapsed))
     : formatTime(timeElapsed);
   
   // Start the timer
@@ -196,7 +197,7 @@ export function useTypingTest() {
     }
     
     // Check if time is up in timed mode
-    else if (mode === 'timed' && timeElapsed >= TIMED_MODE_DURATION) {
+    else if (mode === 'timed' && timeElapsed >= timedDuration) {
       timerId = window.setTimeout(() => {
         completeTest();
       }, 0);
@@ -206,7 +207,7 @@ export function useTypingTest() {
         window.clearTimeout(timerId);
       }
     };
-  }, [testState, typedText.length, passageText.length, mode, timeElapsed, completeTest]);
+  }, [testState, typedText.length, passageText.length, mode, timeElapsed, timedDuration, completeTest]);
   
   // Start the test
   const startTest = useCallback(() => {
@@ -311,5 +312,9 @@ export function useTypingTest() {
     
     // Result
     result,
+    
+    // Timed config
+    timedDuration,
+    setTimedDuration,
   };
 }

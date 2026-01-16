@@ -21,7 +21,7 @@ export default function Result({ wpm, accuracy, characters, verdict = 'default' 
         }
     }
     return (
-        <div className="relative flex flex-col justify-center items-center gap-6 md:gap-8">
+        <div className="relative flex flex-col justify-center items-center max-w-344 mx-auto gap-6 md:gap-8">
             {verdict === 'high-score' ? (
                 <IconHighScore className="" />    
             ) : (

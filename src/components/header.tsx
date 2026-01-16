@@ -9,7 +9,7 @@ export default function Header() {
     const { personalBest } = useTypingTestContext();
     
     return (
-        <header className="w-full max-w-300 mx-auto flex justify-between items-center">
+        <header className="w-full max-w-344 mx-auto flex justify-between items-center">
             <div>
                 <LogoLarge className="hidden md:block h-10" />
                 <LogoSmall className="block md:hidden h-8" />

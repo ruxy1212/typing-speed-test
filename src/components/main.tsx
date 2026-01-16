@@ -16,10 +16,12 @@ export default function Main() {
         currentAccuracy,
         displayTime,
         testState,
+        timedDuration,
+        setTimedDuration,
     } = useTypingTestContext();
 
     return (
-        <main className="flex flex-col gap-8">
+        <main className="flex flex-col max-w-344 mx-auto gap-8">
             <Menu 
                 difficulty={difficulty}
                 mode={mode}
@@ -28,6 +30,8 @@ export default function Main() {
                 time={displayTime}
                 onDifficultyChange={setDifficulty}
                 onModeChange={setMode}
+                timedDuration={timedDuration}
+                onTimedChange={setTimedDuration}
                 testState={testState}
             />
             <TextContainer />
