@@ -128,6 +128,24 @@ export default function TextContainer() {
       onKeyDown={handleKeyDown}
       className="relative text-ts-neutral-400 pb-4 border-b border-ts-neutral-700 outline-none cursor-text"
     >
+            <input
+              ref={inputRef}
+              type="text"
+              inputMode="text"
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck={false}
+              aria-label="Typing input"
+              onKeyDown={handleKeyDown}
+              onInput={handleInput}
+              onPaste={handlePaste}
+              onDrop={handleDrop}
+              onCompositionStart={handleCompositionStart}
+              onCompositionEnd={handleCompositionEnd}
+              onClick={() => { startTest(); try { inputRef.current?.focus(); } catch {} }}
+              className="absolute inset-0 w-full h-full opacity-0"
+            />
             <div className={`leading-normal text-3xl min-h-[50vh] md:text-4xl ${isIdle ? 'blur-lg' : ''}`}>
                 {isIdle ? passage.text : renderCharacters()}
             </div>
@@ -152,27 +170,6 @@ export default function TextContainer() {
                     </div>
                 </div>
             )}
-            {/* Hidden input positioned last so it sits above the text and reliably receives pointer events on mobile */}
-            <input
-              ref={inputRef}
-              type="text"
-              inputMode="text"
-              autoComplete="off"
-              autoCorrect="off"
-              autoCapitalize="off"
-              spellCheck={false}
-              aria-label="Typing input"
-              onKeyDown={handleKeyDown}
-              onInput={handleInput}
-              onPaste={handlePaste}
-              onDrop={handleDrop}
-              onCompositionStart={handleCompositionStart}
-              onCompositionEnd={handleCompositionEnd}
-              onFocus={() => { console.log('typing input focused'); }}
-              onBlur={() => { console.log('typing input blurred'); }}
-              onClick={() => { startTest(); try { inputRef.current?.focus(); } catch {} }}
-              className="absolute inset-0 w-full h-full opacity-0 z-50"
-            />
         </div>
     );
 }

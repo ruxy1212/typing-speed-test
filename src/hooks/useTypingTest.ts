@@ -218,7 +218,6 @@ export function useTypingTest() {
   // Handle key press
   const handleKeyPress = useCallback((key: string) => {
     if (testState === 'completed') return;
-    alert(key+' pressed');
     // Start test on first keypress if idle
     if (testState === 'idle') {
       startTest();
@@ -226,7 +225,7 @@ export function useTypingTest() {
     
     if (key === 'Backspace') {
       setTypedText(prev => prev.slice(0, -1));
-    } else if (key.length === 1) { alert(key);
+    } else if (key.length === 1) {
       const newTypedText = typedText + key;
       const newIndex = typedText.length;
       
