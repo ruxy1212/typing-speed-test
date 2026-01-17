@@ -2,19 +2,37 @@
 
 import RestartBtn from '@/assets/icon-restart.svg'
 import { useTypingTestContext } from '@/context/TypingTestContext'
+import { LucideEllipsisVertical, Share2, X } from 'lucide-react';
 
 export default function Footer() {
-  const { restart, testState } = useTypingTestContext();
+  const { restart, testState, toggleHeatMap, resultTab } = useTypingTestContext();
 
   return (
-    <div className="w-full">
+    <div className="w-full flex justify-center gap-5 md:gap-6">
       <button
         onClick={restart}
-        className={`mx-auto rounded-lg text-lg font-semibold md:text-xl px-4 py-2.5 items-center gap-2 cursor-pointer transition-opacity hover:opacity-80 ${testState === 'idle' ? 'hidden' : 'flex'} ${testState === 'running' ? 'bg-ts-neutral-800 text-ts-neutral-0' : 'bg-ts-neutral-0 text-ts-neutral-900'}`}
+        className={`rounded-lg text-lg font-semibold md:text-xl px-4 py-2.5 items-center gap-2 cursor-pointer transition-opacity hover:opacity-80 ${testState === 'idle' ? 'hidden' : 'flex'} ${testState === 'running' ? 'bg-ts-neutral-800 text-ts-neutral-0' : 'bg-ts-neutral-0 text-ts-neutral-900'}`}
       >
-        {testState === 'running' ? 'Restart Test' : 'Go Again'}
+        <span className="hidden md:inline">{testState === 'running' ? 'Restart Test' : 'Go Again'}</span>
         <RestartBtn className="[&_path]:fill-current" />
       </button>
+      {testState === 'completed' && (
+        <>
+          <button
+            onClick={restart}
+            className={`rounded-lg text-lg font-semibold md:text-xl px-4 py-2.5 items-center gap-2 cursor-pointer transition-opacity hover:opacity-80 flex bg-ts-neutral-0 text-ts-neutral-900`}
+          >
+            <span className="hidden md:inline">Share</span>
+            <Share2 className="[&_path]:fill-current" />
+          </button>
+          <button
+            onClick={toggleHeatMap}
+            className={`rounded-lg text-lg font-semibold md:text-xl px-4 py-2.5 items-center gap-2 cursor-pointer transition-opacity hover:opacity-80 flex ${resultTab === 'summary' ? 'bg-ts-neutral-0 text-ts-neutral-900' : 'text-ts-neutral-0 bg-ts-neutral-700'}`}
+          >
+            {resultTab === 'summary' ? <LucideEllipsisVertical className="[&_path]:fill-current" /> : <X className="[&_path]:fill-current" />}
+          </button>
+        </>
+      )}
     </div>
   )
 }

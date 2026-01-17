@@ -73,6 +73,7 @@ export function useTypingTest() {
   
   // Result
   const [result, setResult] = useState<TestResult | null>(null);
+  const [resultTab, setResultTab] = useState<'summary' | 'heatmap'>('summary');
 
   // Heatmap
   const [keyStats, setKeyStats] = useState<{ [key: string]: { count: number; errors: number } }>({});
@@ -272,6 +273,11 @@ export function useTypingTest() {
       }));
     }
   }, [testState, typedText, passageText, startTest]);
+
+  // Show more details
+  const toggleHeatMap = useCallback(() => {
+    setResultTab(prev => prev === 'summary' ? 'heatmap' : 'summary');
+  }, []);
   
   // Restart the test
   const restart = useCallback(() => {
@@ -347,6 +353,8 @@ export function useTypingTest() {
     
     // Result
     result,
+    resultTab,
+    toggleHeatMap,
 
     // Heatmap
     keyList,

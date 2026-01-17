@@ -5,8 +5,34 @@ import Star2 from "@/assets/pattern-star-2.svg";
 import Confetti from "@/assets/pattern-confetti.svg";
 import ResultCard from "./_fragments/result-card";
 import Heatmap from "./_fragments/heat-map";
+import { useTypingTestContext } from "@/context/TypingTestContext";
 
-export default function Result({ wpm, accuracy, characters, keyStats, keyList, verdict = 'default' }: { wpm: string; accuracy: string; characters: React.ReactNode; keyStats: { [key: string]: { count: number; errors: number } }; keyList: string[]; verdict?: 'new-game' | 'default' | 'high-score' }) {
+// accuracy={`${result.accuracy}%`}
+//           wpm={result.wpm.toString()}
+//           characters={RenderCharacters(result.correctChars, result.incorrectChars)}
+//           verdict={result.verdict}
+//           keyStats={keyStats}
+//           keyList={keyList}
+
+
+// { wpm, accuracy, characters, verdict = 'default' }: { wpm: string; accuracy: string; characters: React.ReactNode; keyStats: { [key: string]: { count: number; errors: number } }; keyList: string[]; verdict?: 'new-game' | 'default' | 'high-score' }
+
+const RenderCharacters = (correct: number, incorrect: number) => {
+  return (
+    <>
+      <span className="text-ts-green-500">{correct}</span>
+      <span className="text-ts-neutral-400">/</span>
+      <span className={incorrect > 0 ? 'text-ts-red-500' : 'text-ts-neutral-0' }>{incorrect}</span>
+    </>
+  )
+};
+
+export default function Result() {
+  const { result, keyStats, keyList, resultTab } = useTypingTestContext();
+  const verdict = result?.verdict || 'default';
+  const wpm = result ? result.wpm.toString() : '0';
+  const accuracy = result ? `${result.accuracy}%` : '0%';
+  const characters = result ? RenderCharacters(result.correctChars, result.incorrectChars) : RenderCharacters(0, 0);
   const title = {
     'new-game': {
       heading: 'Baseline Established!',
@@ -38,17 +64,22 @@ export default function Result({ wpm, accuracy, characters, keyStats, keyList, v
           {title[verdict].message}
         </p>
       </div>
-      <div className="w-full flex flex-col justify-center items-center gap-4 md:flex-row md:gap-5">
-        <ResultCard label="WPM" value={wpm} />
-        <ResultCard label="Accuracy" value={accuracy} color={parseFloat(accuracy) >= 50 ? 'text-ts-green-500' : 'text-ts-red-500'} />
-        <ResultCard label="Characters" value={characters} type="node" />
-      </div>
-      {/* <Heatmap stats={keyStats} keyList={keyList} /> */}
+      {resultTab === 'summary' ? (
+        <div className="w-full flex flex-col justify-center items-center gap-4 md:flex-row md:gap-5">
+          <ResultCard label="WPM" value={wpm} />
+          <ResultCard label="Accuracy" value={accuracy} color={parseFloat(accuracy) >= 50 ? 'text-ts-green-500' : 'text-ts-red-500'} />
+          <ResultCard label="Characters" value={characters} type="node" />
+        </div>
+      ) : (
+        <div className="w-full">
+          <Heatmap stats={keyStats} keyList={keyList} />
+        </div>
+      )}
 
       {verdict === 'high-score' ? (
         <Confetti className="fixed bottom-0 left-0 w-full -z-1" />
       ) : (
-        <div className="absolute top-0 left-0 w-full h-full">
+        <div className="absolute top-0 left-0 w-full h-full select-none pointer-events-none">
           <div className="relative h-full w-full">
             <Star2 className="absolute top-1/5 left-6" />
             <Star1 className="absolute -bottom-1/5 right-6" />

@@ -57,13 +57,13 @@ export default function Heatmap({ stats, keyList }: HeatmapProps) {
       const { count = 0, errors = 0 } = stats[key] || {};
       
       if (activeView === "frequency") {
-        const ratio = count / maxCount;
-        const intensity = Math.round(ratio * 100);
-        return `hsl(217, 91%, ${100 - intensity * 0.5}%)`;
+        const ratio = Math.min(count / maxCount, 1);
+        const intensity = (ratio * 50) + 25;
+        return `hsl(214, 100%, ${100 - intensity * 0.5}%)`;
       } else {
         const ratio = errors / maxError;
         const intensity = Math.round(ratio * 100);
-        return `hsl(0, ${ratio * 100}%, ${100 - intensity * 0.4}%)`;
+        return `hsl(354, ${ratio * 100}%, ${100 - intensity * 0.4}%)`;
       }
     };
     
@@ -75,8 +75,8 @@ export default function Heatmap({ stats, keyList }: HeatmapProps) {
         const hasData = activeView === "frequency" ? count > 0 : errors > 0;
         
         return `.hg-theme-default .hg-button.${colorClass} { 
-          background: ${hasData ? color : '#f3f4f6'} !important; 
-          color: ${hasData ? '#fff' : '#9ca3af'} !important;
+          background: ${hasData ? color : 'hsl(0, 0%, 15%)'} !important; 
+          color: ${hasData ? '#fff' : 'hsl(0, 0%, 100%)'} !important;
           font-weight: ${hasData ? '500' : '400'} !important;
         }`;
       })
@@ -84,84 +84,88 @@ export default function Heatmap({ stats, keyList }: HeatmapProps) {
   }, [keyList, stats, maxCount, maxError, activeView]);
 
   return (
-    <div className="w-full max-w-5xl mx-auto p-6">
+    <div className="w-full">
       <style>{customStyles}</style>
       {/* Tab Navigation */}
-      <div className="flex gap-2 mb-6 bg-gray-100 p-1 rounded-lg w-fit">
-        <button
-          onClick={() => setActiveView("frequency")}
-          className={`px-6 py-2.5 rounded-md font-medium transition-all ${
-            activeView === "frequency"
-              ? "bg-white text-blue-600 shadow-sm"
-              : "text-gray-600 hover:text-gray-900"
-          }`}
-        >
-          Most Used Keys
-        </button>
-        <button
-          onClick={() => setActiveView("errors")}
-          className={`px-6 py-2.5 rounded-md font-medium transition-all ${
-            activeView === "errors"
-              ? "bg-white text-red-600 shadow-sm"
-              : "text-gray-600 hover:text-gray-900"
-          }`}
-        >
-          Most Missed Keys
-        </button>
+      <div className="flex justify-center">
+        <div className="flex justify-center gap-2 mb-6 bg-ts-neutral-400 p-1 rounded-lg">
+          <button
+            onClick={() => setActiveView("frequency")}
+            className={`cursor-pointer px-4 md:px-6 py-2 md:py-2.5 rounded-md font-medium transition-all ${
+              activeView === "frequency"
+                ? "bg-ts-neutral-0 text-ts-blue-600 shadow-sm"
+                : "text-ts-neutral-700 hover:text-ts-neutral-900"
+            }`}
+          >
+            Most Used Keys
+          </button>
+          <button
+            onClick={() => setActiveView("errors")}
+            className={`cursor-pointer px-4 md:px-6 py-2 md:py-2.5 rounded-md font-medium transition-all ${
+              activeView === "errors"
+                ? "bg-ts-neutral-0 text-ts-red-500 shadow-sm"
+                : "text-ts-neutral-700 hover:text-ts-neutral-900"
+            }`}
+          >
+            Most Missed Keys
+          </button>
+        </div>
       </div>
+      
 
       {/* Keyboard Visualization */}
-      <div className="bg-[#899] rounded-xl shadow-sm border border-gray-200 p-6">
+      <div className="bg-ts-neutral-400 rounded-xl shadow-sm border border-ts-neutral-400 p-2">
         <Keyboard layout={layout.layout} layoutName="default" buttonTheme={buttonTheme} />
-        
-        {/* Expand/Collapse Button */}
+      </div>
+
+      {/* Expand/Collapse Button */}
+      <div>
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full mt-4 flex items-center justify-center gap-2 py-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-all group"
+          className="mt-4 cursor-pointer mx-auto flex items-center justify-center gap-2 px-5 py-2 text-ts-neutral-0 hover:text-ts-neutral-800 hover:bg-ts-neutral-0 rounded-lg transition-all duration-500 group"
         >
           <span className="text-sm font-medium">
-            {isExpanded ? "Hide" : "Show"} Detailed Stats
+            Show
+            {isExpanded ? "Less" : "More"}
           </span>
           <ChevronDown 
-            className={`w-4 h-4 transition-transform duration-300 ${
+            className={`w-4 h-4 transition-transform animate-bounce duration-300 ${
               isExpanded ? "rotate-180" : ""
             }`}
           />
         </button>
       </div>
-
-      {/* Stats Panel - Expandable */}
       <div 
-        className={`bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-300 ${
+        className={`bg-ts-neutral-700 rounded-xl shadow-sm border border-ts-neutral-0 overflow-hidden transition-all duration-300 ${
           isExpanded ? "mt-6 opacity-100 max-h-150" : "mt-0 opacity-0 max-h-0"
         }`}
       >
         <div className="p-6">
           {activeView === "frequency" ? (
             <>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="w-3 h-3 bg-blue-600 rounded-full"></span>
+              <h3 className="text-lg font-semibold text-ts-neutral-0 mb-4 flex items-center gap-2">
+                <span className="w-3 h-3 bg-ts-blue-600 rounded-full"></span>
                 Top 5 Most Used Keys
               </h3>
               {topFrequent.length > 0 ? (
                 <div className="space-y-3">
                   {topFrequent.map(([key, data]) => (
                     <div key={key} className="flex items-center gap-4">
-                      <div className="w-8 h-8 bg-gray-100 rounded flex items-center justify-center font-mono font-semibold text-gray-700">
+                      <div className="w-8 h-8 text-ts-neutral-0 rounded flex items-center justify-center font-mono font-semibold bg-ts-blue-400">
                         {key === " " ? "␣" : key}
                       </div>
                       <div className="flex-1">
                         <div className="flex justify-between items-center mb-1">
-                          <span className="text-sm font-medium text-gray-700">
+                          <span className="text-sm font-medium text-ts-neutral-0">
                             {data.count} presses
                           </span>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-ts-neutral-0/80">
                             {((data.count / maxCount) * 100).toFixed(0)}%
                           </span>
                         </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div className="w-full bg-ts-neutral-400 rounded-full h-2">
                           <div
-                            className="bg-blue-600 h-2 rounded-full transition-all"
+                            className="bg-ts-blue-600 h-2 rounded-full transition-all"
                             style={{ width: `${(data.count / maxCount) * 100}%` }}
                           ></div>
                         </div>
@@ -170,34 +174,34 @@ export default function Heatmap({ stats, keyList }: HeatmapProps) {
                   ))}
                 </div>
               ) : (
-                <p className="text-gray-500 text-sm">No typing data yet. Start typing to see your stats!</p>
+                <p className="text-ts-neutral-0/75 text-center text-sm">No typing data yet. Start typing to see your stats!</p>
               )}
             </>
           ) : (
             <>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="w-3 h-3 bg-red-600 rounded-full"></span>
+              <h3 className="text-lg font-semibold text-ts-neutral-0 mb-4 flex items-center gap-2">
+                <span className="w-3 h-3 bg-ts-red-500 rounded-full"></span>
                 Top 5 Most Missed Keys
               </h3>
               {topErrors.length > 0 ? (
                 <div className="space-y-3">
                   {topErrors.map(([key, data]) => (
                     <div key={key} className="flex items-center gap-4">
-                      <div className="w-8 h-8 bg-gray-100 rounded flex items-center justify-center font-mono font-semibold text-gray-700">
+                      <div className="w-8 h-8 bg-ts-red-500 rounded flex items-center justify-center font-mono font-semibold text-ts-neutral-0">
                         {key === " " ? "␣" : key}
                       </div>
                       <div className="flex-1">
                         <div className="flex justify-between items-center mb-1">
-                          <span className="text-sm font-medium text-gray-700">
+                          <span className="text-sm font-medium text-ts-neutral-0">
                             {data.errors} errors
                           </span>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-ts-neutral-0/80">
                             {((data.errors / maxError) * 100).toFixed(0)}%
                           </span>
                         </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div className="w-full bg-ts-neutral-400 rounded-full h-2">
                           <div
-                            className="bg-red-600 h-2 rounded-full transition-all"
+                            className="bg-ts-red-500 h-2 rounded-full transition-all"
                             style={{ width: `${(data.errors / maxError) * 100}%` }}
                           ></div>
                         </div>

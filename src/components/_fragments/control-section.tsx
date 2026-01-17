@@ -54,7 +54,10 @@ export default function ControlSection<T extends string>({
         <span className="text-sm">{label}:</span>
         <div className="flex gap-2">
           {options.map((option, index) => (
-            <div key={option.value} className="relative">
+            <div
+              key={option.value}
+              className="relative"
+            >
               <label
                 className={`
                     px-3 py-1.5 rounded border
