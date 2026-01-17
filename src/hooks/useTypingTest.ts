@@ -104,7 +104,7 @@ export function useTypingTest() {
   const [keyStats, setKeyStats] = useState<{ [key: string]: { count: number; errors: number } }>(getKeyStats);
 
   // Load sounds
-  const { playCorrect, playWrong } = useSounds();
+  const { playCorrect, playWrong, soundEnabled, toggleSound } = useSounds();
   
   // Timer ref
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -410,6 +410,10 @@ export function useTypingTest() {
     // Heatmap
     keyList,
     keyStats,
+
+    // Sound
+    soundEnabled,
+    toggleSound,
 
     // Timed config
     timedDuration,
