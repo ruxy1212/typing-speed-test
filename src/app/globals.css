@@ -43,3 +43,84 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: 0;
 }
+
+.react-simple-keyboard.simple-keyboard {
+  overflow: unset !important;
+}
+
+.hg-button {
+  position: relative !important;
+  overflow: visible !important;
+}
+
+.hg-button[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: pre;
+  background: hsl(0, 0%, 15%);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.4;
+  z-index: 100;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  pointer-events: none;
+  border: 1px solid hsl(0, 0%, 100%);
+}
+
+.hg-button.show-tooltip::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-left: 8px solid transparent !important;
+  border-right: 8px solid transparent !important;
+  z-index: 10000 !important;
+  display: block !important;
+}
+
+.hg-button[data-tooltip]:hover::before {
+  content: "";
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #1e1e1e;
+  z-index: 100;
+}
+
+.hg-button.show-tooltip::before {
+  bottom: 120%; /* Just below the tooltip box */
+  border-top: 8px solid #222222; /* Matches tooltip background */
+  border-bottom: 0;
+}
+
+.hg-row:nth-child(1) .hg-button[data-tooltip]:hover::after,
+.hg-row:nth-child(2) .hg-button[data-tooltip]:hover::after {
+  bottom: auto;   /* Reset the bottom position */
+  top: 105%;      /* Move it below the button */
+}
+
+/* Flip the arrow for the first two rows */
+.hg-row:nth-child(1) .hg-button[data-tooltip]:hover::before,
+.hg-row:nth-child(2) .hg-button[data-tooltip]:hover::before {
+  bottom: auto;
+  top: 100%;
+  border-top-color: transparent;
+  border-bottom-color: #ce0000; /* Point the arrow up */
+}
+
+.hg-row:nth-child(1) .hg-button.show-tooltip::before,
+.hg-row:nth-child(2) .hg-button.show-tooltip::before {
+  bottom: auto;
+  top: 120%; /* Just above the tooltip box */
+  border-bottom: 8px solid #222222;
+  border-top: 0;
+}

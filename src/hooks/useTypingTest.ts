@@ -24,6 +24,7 @@ interface TestResult {
 
 const DEFAULT_TIMED_MODE_DURATION = 60;
 const PERSONAL_BEST_KEY = 'typing-test-personal-best';
+const KEY_STATS_KEY = 'typing-test-key-stats';
 
 // Extract all single-character keys from the layout
 const allKeysArray = Object.values(layout.layout)
@@ -46,6 +47,19 @@ function getPersonalBest(): number | null {
 function savePersonalBest(wpm: number): void {
   if (typeof window === 'undefined') return;
   localStorage.setItem(PERSONAL_BEST_KEY, wpm.toString());
+}
+
+// Get key stats from localStorage
+function getKeyStats(): { [key: string]: { count: number; errors: number } } {
+  if (typeof window === 'undefined') return {};
+  const stored = localStorage.getItem(KEY_STATS_KEY);
+  return stored ? JSON.parse(stored) : {};
+}
+
+// Save key stats to localStorage
+function saveKeyStats(stats: { [key: string]: { count: number; errors: number } }): void {
+  if (typeof window === 'undefined') return;
+  localStorage.setItem(KEY_STATS_KEY, JSON.stringify(stats));
 }
 
 // Get a random passage from the specified difficulty
@@ -76,7 +90,7 @@ export function useTypingTest() {
   const [resultTab, setResultTab] = useState<'summary' | 'heatmap'>('summary');
 
   // Heatmap
-  const [keyStats, setKeyStats] = useState<{ [key: string]: { count: number; errors: number } }>({});
+  const [keyStats, setKeyStats] = useState<{ [key: string]: { count: number; errors: number } }>(getKeyStats);
 
   
   // Timer ref
@@ -91,10 +105,14 @@ export function useTypingTest() {
 
   keyList.forEach((key) => {
     if (!keyStats[key]) {
-      setKeyStats((prev) => ({
-        ...prev,
-        [key]: { count: 0, errors: 0 }
-      }))
+      setKeyStats((prev) => {
+        const updated = {
+          ...prev,
+          [key]: { count: 0, errors: 0 }
+        };
+        saveKeyStats(updated);
+        return updated;
+      });
     }
   });
 
@@ -264,13 +282,17 @@ export function useTypingTest() {
       }
       
       setTypedText(newTypedText);
-      setKeyStats((prev) => ({
-        ...prev,
-        [keyValue]: {
-          count: prev[keyValue]?.count + 1,
-          errors: prev[keyValue]?.errors + (isError ? 1 : 0),
-        },
-      }));
+      setKeyStats((prev) => {
+        const updated = {
+          ...prev,
+          [keyValue]: {
+            count: (prev[keyValue]?.count || 0) + 1,
+            errors: (prev[keyValue]?.errors || 0) + (isError ? 1 : 0),
+          },
+        };
+        saveKeyStats(updated);
+        return updated;
+      });
     }
   }, [testState, typedText, passageText, startTest]);
 
@@ -288,6 +310,7 @@ export function useTypingTest() {
     setErrorIndices(new Set());
     setResult(null);
     setPassage(getRandomPassage(difficulty));
+    setResultTab('summary');
   }, [stopTimer, difficulty]);
   
   // Handle difficulty change

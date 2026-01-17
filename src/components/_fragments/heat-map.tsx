@@ -19,26 +19,68 @@ interface HeatmapProps {
 export default function Heatmap({ stats, keyList }: HeatmapProps) {
   const [activeView, setActiveView] = useState<"frequency" | "errors">("frequency");
   const [isExpanded, setIsExpanded] = useState(false);
+  const [layoutName, setLayoutName] = useState("default");
 
-  const counts = Object.values(stats).map((s) => s.count);
-  const errors = Object.values(stats).map((s) => s.errors);
+  const filteredStats = useMemo(() => {
+    return Object.fromEntries(
+      Object.entries(stats).filter(([key]) => key !== " " && key !== "{space}")
+    );
+  }, [stats]);
+
+  const buttonAttributes = useMemo(() => {
+    const excludedKeys = [" ", "{space}", "{enter}", "{bksp}", "{tab}", "{lock}", "{shift}", "{control}", "{alt}", ".com"];
+    return keyList
+    .filter((key) => !excludedKeys.includes(key.toLowerCase()))
+    .map((key) => {
+      const { count = 0, errors = 0 } = stats[key] || {};
+      const tooltipText = `Count: ${count}\nErrors: ${errors}`;
+      
+      return {
+        attribute: "data-tooltip",
+        value: tooltipText,
+        buttons: key,
+      };
+    });
+  }, [keyList, stats]);
+
+  const handleKeyPress = (button: string) => {
+    if (button === "{shift}" || button === "{lock}") {
+      // Toggle between default and shift layouts
+      setLayoutName(layoutName === "default" ? "shift" : "default");
+    }
+  };
+  // const filteredStats = useMemo(() => {
+  //   return Object.entries(stats).reduce((acc, [key, value]) => {
+  //     if (key === " " || key === "{space}") return acc;
+  //     const normalizedKey = key.toLowerCase();
+  //     if (!acc[normalizedKey]) {
+  //       acc[normalizedKey] = { count: 0, errors: 0 };
+  //     }
+  //     acc[normalizedKey].count += value.count;
+  //     acc[normalizedKey].errors += value.errors;
+  //     return acc;
+  //   }, {} as KeyStats);
+  // }, [stats]);
+
+  const counts = Object.values(filteredStats).map((s) => s.count);
+  const errors = Object.values(filteredStats).map((s) => s.errors);
   const maxCount = counts.length ? Math.max(...counts) : 1;
   const maxError = errors.length ? Math.max(...errors) : 1;
 
   // Get top keys for each category
   const topFrequent = useMemo(() => {
-    return Object.entries(stats)
+    return Object.entries(filteredStats)
       .sort((a, b) => b[1].count - a[1].count)
       .slice(0, 5)
       .filter(([, s]) => s.count > 0);
-  }, [stats]);
+  }, [filteredStats]);
 
   const topErrors = useMemo(() => {
-    return Object.entries(stats)
+    return Object.entries(filteredStats)
       .sort((a, b) => b[1].errors - a[1].errors)
       .slice(0, 5)
       .filter(([, s]) => s.errors > 0);
-  }, [stats]);
+  }, [filteredStats]);
 
   // Generate buttonTheme array with custom classes for each key
   const buttonTheme = useMemo(() => {
@@ -54,7 +96,7 @@ export default function Heatmap({ stats, keyList }: HeatmapProps) {
   // Generate dynamic CSS for each key based on active view
   const customStyles = useMemo(() => {
     const getKeyColor = (key: string) => {
-      const { count = 0, errors = 0 } = stats[key] || {};
+      const { count = 0, errors = 0 } = filteredStats[key] || {};
       
       if (activeView === "frequency") {
         const ratio = Math.min(count / maxCount, 1);
@@ -71,17 +113,17 @@ export default function Heatmap({ stats, keyList }: HeatmapProps) {
       .map((key) => {
         const colorClass = `key-${key.replace(/[^a-zA-Z0-9]/g, "_")}`;
         const color = getKeyColor(key);
-        const { count = 0, errors = 0 } = stats[key] || {};
+        const { count = 0, errors = 0 } = filteredStats[key] || {};
         const hasData = activeView === "frequency" ? count > 0 : errors > 0;
         
         return `.hg-theme-default .hg-button.${colorClass} { 
-          background: ${hasData ? color : 'hsl(0, 0%, 15%)'} !important; 
+          background: ${key === ' ' || key === '{space}' ? 'hsl(214, 25%, 25%)' : hasData ? color : 'hsl(0, 0%, 15%)'} !important; 
           color: ${hasData ? '#fff' : 'hsl(0, 0%, 100%)'} !important;
           font-weight: ${hasData ? '500' : '400'} !important;
         }`;
       })
       .join("\n");
-  }, [keyList, stats, maxCount, maxError, activeView]);
+  }, [keyList, filteredStats, maxCount, maxError, activeView]);
 
   return (
     <div className="w-full">
@@ -111,11 +153,15 @@ export default function Heatmap({ stats, keyList }: HeatmapProps) {
           </button>
         </div>
       </div>
-      
 
       {/* Keyboard Visualization */}
       <div className="bg-ts-neutral-400 rounded-xl shadow-sm border border-ts-neutral-400 p-2">
-        <Keyboard layout={layout.layout} layoutName="default" buttonTheme={buttonTheme} />
+        <Keyboard 
+          layout={layout.layout} 
+          layoutName={layoutName} 
+          buttonTheme={buttonTheme} 
+          onKeyPress={handleKeyPress} 
+          buttonAttributes={buttonAttributes} />
       </div>
 
       {/* Expand/Collapse Button */}
@@ -210,7 +256,7 @@ export default function Heatmap({ stats, keyList }: HeatmapProps) {
                   ))}
                 </div>
               ) : (
-                <p className="text-gray-500 text-sm">No errors recorded yet. Great job!</p>
+                <p className="text-ts-neutral-0/75 text-center text-sm">No errors recorded yet. Great job!</p>
               )}
             </>
           )}
