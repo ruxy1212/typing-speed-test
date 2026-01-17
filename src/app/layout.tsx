@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Toaster } from 'sonner'
 import { Sora } from "next/font/google";
 import "./globals.css";
 
@@ -24,6 +25,7 @@ export default function RootLayout({
         className={`${sora.variable} antialiased min-h-screen bg-ts-neutral-900`}
       >
         {children}
+        <Toaster richColors />
       </body>
     </html>
   );

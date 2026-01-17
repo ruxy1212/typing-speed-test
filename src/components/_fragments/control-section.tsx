@@ -30,6 +30,7 @@ interface ControlSectionProps<T extends string> {
   onSubOptionSelect?: (parentValue: T, seconds: number) => void;
   currentTimedDuration?: number;
   disabled?: boolean;
+  setControlOpen: (open: boolean) => void;
 }
 
 export default function ControlSection<T extends string>({
@@ -41,7 +42,8 @@ export default function ControlSection<T extends string>({
   onChange,
   onSubOptionSelect,
   currentTimedDuration,
-  disabled
+  disabled,
+  setControlOpen,
 }: ControlSectionProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
   const [openSubIndex, setOpenSubIndex] = useState<number | null>(null);
@@ -124,7 +126,7 @@ export default function ControlSection<T extends string>({
       <div className="md:hidden relative grow">
         <button
           type="button"
-          onClick={() => { if (disabled) return; setIsOpen(!isOpen); }}
+          onClick={() => { if (disabled) return; setControlOpen(!isOpen); setIsOpen(!isOpen); }}
           disabled={disabled}
           className={`w-full px-3 py-2 bg-ts-neutral-800 border border-ts-neutral-500 rounded text-ts-neutral-0 text-left flex justify-between items-center ${disabled ? 'opacity-60 cursor-not-allowed' : ''}`}
         >
@@ -169,8 +171,9 @@ export default function ControlSection<T extends string>({
                         name={`${name}-mobile`}
                         value={inputValue}
                         checked={
-                          // checked if option is parent mode and matches value
-                          isMobileSub ? (value === (option as MobileSubOption<T>).parentValue) : (value === (option as { value: T }).value)
+                          isMobileSub 
+                            ? (value === (option as MobileSubOption<T>).parentValue && currentTimedDuration === (option as MobileSubOption<T>).seconds)
+                            : (value === (option as { value: T }).value)
                         }
                         onChange={() => { }}
                         className="appearance-none w-4 h-4 border-2 border-ts-neutral-400 rounded-full checked:border-ts-blue-400 checked:border-[6px]"

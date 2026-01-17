@@ -2,6 +2,7 @@
 
 import { ClipboardEvent, DragEvent, FormEvent, KeyboardEvent, useEffect, useRef, useCallback } from 'react';
 import { useTypingTestContext } from '@/context/TypingTestContext';
+import { toast } from 'sonner';
 
 export default function TextContainer() {
   const {
@@ -53,7 +54,7 @@ export default function TextContainer() {
   // Focus the input when test starts or on mount so keyboard target is the input
   useEffect(() => {
     if (inputRef.current && (isTyping || isIdle)) {
-      try { inputRef.current.focus(); } catch { /* ignore */ }
+      try { inputRef.current.focus(); } catch { toast.warning('Failed to focus input') }
     }
   }, [isTyping, isIdle]);
 
@@ -93,17 +94,17 @@ export default function TextContainer() {
     if (inputRef.current) {
       startTest();
       scrollToStart();
-      try { inputRef.current.focus(); } catch { /* ignore */ }
+      try { inputRef.current.focus(); } catch { toast.warning('Failed to focus input') }
     } else if (containerRef.current) {
       startTest();
       scrollToStart();
-      try { containerRef.current.focus(); } catch { /* ignore */ }
+      try { containerRef.current.focus(); } catch { toast.warning('Failed to focus input') }
     }
   };
 
   const handlePaste = (e: ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault();
-    // Show UI that paste is disallowed
+    toast.error('Pasting is not allowed during the test.');
   };
 
   const handleDrop = (e: DragEvent<HTMLInputElement>) => {
@@ -165,7 +166,7 @@ export default function TextContainer() {
         onDrop={handleDrop}
         onCompositionStart={handleCompositionStart}
         onCompositionEnd={handleCompositionEnd}
-        onClick={() => { startTest(); scrollToStart(); try { inputRef.current?.focus(); } catch { } }}
+        onClick={() => { startTest(); scrollToStart(); try { inputRef.current?.focus(); } catch { toast.warning('Failed to start test') } }}
         className="absolute inset-0 w-full h-full opacity-0"
       />
       <div className={`leading-normal text-3xl min-h-[50vh] md:text-4xl ${isIdle ? 'blur-lg' : ''}`}>

@@ -48,6 +48,7 @@ export default function Menu({
   testState
 }: MenuProps) {
   const [categoryOpen, setCategoryOpen] = useState(false);
+  const [controlOpen, setControlOpen] = useState(false);
   
   // Dynamic difficulty options based on category
   const difficultyOptions: { value: Difficulty; label: string }[] = [
@@ -71,8 +72,8 @@ export default function Menu({
     { value: 'passage' as Mode, label: 'Passage' },
   ];
   return (
-    <div className="relative z-1 pt-60 -mb-60">
-    <div className="overflow-x-auto tiny-scrollbar w-full -mt-60 pb-3 pt-60 rotate-180">
+    <div className={`pt-75 -mb-75 ${controlOpen || categoryOpen ? 'relative z-1' : ''}`}>
+    <div className="overflow-x-auto tiny-scrollbar w-full -mt-75 pb-3 pt-75 rotate-180">
       {/* <div className="overflow-x-auto tiny-scrollbar w-full"> */}
         <div className="inline-flex justify-between items-center flex-wrap lg:flex-nowrap gap-4 pb-4 border-b border-ts-neutral-700 rotate-180">
           <div className="flex gap-4 justify-center items-center w-full lg:w-auto md:justify-start">
@@ -122,6 +123,7 @@ export default function Menu({
                 value={difficulty}
                 onChange={onDifficultyChange}
                 disabled={testState === 'running'}
+                setControlOpen={setControlOpen}
               />
               {/* Desktop: Category icon after buttons */}
               <div className="relative hidden md:flex items-center">
@@ -170,6 +172,7 @@ export default function Menu({
               }}
               currentTimedDuration={timedDuration}
               disabled={testState === 'running'}
+              setControlOpen={setControlOpen}
             />
           </div>
         </div>

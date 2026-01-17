@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import passageData from '@/app/data/data.json';
 import layout from "simple-keyboard-layouts/build/layouts/english";
+import { useSounds } from './useSounds';
 
 export type Category = 'general' | 'quotes' | 'code' | 'lyrics';
 export type Difficulty = 'easy' | 'medium' | 'hard';
@@ -102,6 +103,8 @@ export function useTypingTest() {
   // Heatmap
   const [keyStats, setKeyStats] = useState<{ [key: string]: { count: number; errors: number } }>(getKeyStats);
 
+  // Load sounds
+  const { playCorrect, playWrong } = useSounds();
   
   // Timer ref
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -277,10 +280,10 @@ export function useTypingTest() {
       startTest();
     }
     console.log('pressed')
-    if (key === 'Backspace') { console.log('backspaced;;;;')
+    if (key === 'Backspace') {
       const remainingTypedText = typedText.slice(0, -1);
       setTypedText(remainingTypedText);
-    } else if (key.length === 1) { console.log('keyed;;;;');
+    } else if (key.length === 1) {
       const newTypedText = typedText + key;
       const newIndex = typedText.length;
       const currentKey = passageText[newIndex];
@@ -289,7 +292,10 @@ export function useTypingTest() {
       
       // Check if this character is an error
       if (isError) {
+        playWrong();
         setErrorIndices(prev => new Set(prev).add(newIndex));
+      } else {
+        playCorrect();
       }
       
       setTypedText(newTypedText);
@@ -305,7 +311,7 @@ export function useTypingTest() {
         return updated;
       });
     }
-  }, [testState, typedText, passageText, startTest]);
+  }, [testState, typedText, passageText, startTest, playCorrect, playWrong]);
 
   // Show more details
   const toggleHeatMap = useCallback(() => {

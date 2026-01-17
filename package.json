@@ -15,7 +15,8 @@
     "react-dom": "19.2.3",
     "react-simple-keyboard": "^3.8.141",
     "simple-keyboard": "^3.8.93",
-    "simple-keyboard-layouts": "^3.4.147"
+    "simple-keyboard-layouts": "^3.4.147",
+    "sonner": "^2.0.7"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",

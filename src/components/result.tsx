@@ -7,16 +7,6 @@ import ResultCard from "./_fragments/result-card";
 import Heatmap from "./_fragments/heat-map";
 import { useTypingTestContext } from "@/context/TypingTestContext";
 
-// accuracy={`${result.accuracy}%`}
-//           wpm={result.wpm.toString()}
-//           characters={RenderCharacters(result.correctChars, result.incorrectChars)}
-//           verdict={result.verdict}
-//           keyStats={keyStats}
-//           keyList={keyList}
-
-
-// { wpm, accuracy, characters, verdict = 'default' }: { wpm: string; accuracy: string; characters: React.ReactNode; keyStats: { [key: string]: { count: number; errors: number } }; keyList: string[]; verdict?: 'new-game' | 'default' | 'high-score' }
-
 const RenderCharacters = (correct: number, incorrect: number) => {
   return (
     <>
