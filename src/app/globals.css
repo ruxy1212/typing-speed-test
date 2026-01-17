@@ -64,10 +64,6 @@ body {
   /* scrollbar-color: rgba(206, 0, 148, 0.753) transparent; */
 }
 
-.react-simple-keyboard.simple-keyboard {
-  overflow: unset !important;
-}
-
 .hg-button {
   position: relative !important;
   overflow: visible !important;

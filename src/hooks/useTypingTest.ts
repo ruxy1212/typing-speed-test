@@ -276,10 +276,11 @@ export function useTypingTest() {
     if (testState === 'idle') {
       startTest();
     }
-    
-    if (key === 'Backspace') {
-      setTypedText(prev => prev.slice(0, -1));
-    } else if (key.length === 1) {
+    console.log('pressed')
+    if (key === 'Backspace') { console.log('backspaced;;;;')
+      const remainingTypedText = typedText.slice(0, -1);
+      setTypedText(remainingTypedText);
+    } else if (key.length === 1) { console.log('keyed;;;;');
       const newTypedText = typedText + key;
       const newIndex = typedText.length;
       const currentKey = passageText[newIndex];

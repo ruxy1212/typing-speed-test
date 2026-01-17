@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ChevronDown } from "lucide-react"; //Code2Icon, QuoteIcon, Music2Icon
+import { ChevronDown } from "lucide-react";
 import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import layout from "simple-keyboard-layouts/build/layouts/english";
@@ -92,14 +92,22 @@ export default function Heatmap({ stats, keyList }: HeatmapProps) {
         return `hsl(214, 100%, ${100 - intensity * 0.5}%)`;
       } else {
         const ratio = errors / maxError;
-        const intensity = Math.round(ratio * 100);
-        return `hsl(354, ${ratio * 100}%, ${100 - intensity * 0.4}%)`;
+        if(ratio == 0 && maxCount) return 'hsl(354, 0%, 100%)';
+        if(key === 'm') console.log(key, ratio, errors, maxError);
+        if(key === ',') console.log(key, ratio, errors, maxError);
+
+        const saturation = 30 + (ratio * 70);
+        const lightness = 80 - (ratio * 20);
+        return `hsl(354, ${saturation}%, ${lightness}%)`;
       }
     };
-    
+    // 30.654205607476637 - 30 = ratio * 70
+    // 0.654205607476637 = ratio * 70
     return keyList
       .map((key) => {
-        const colorClass = `key-${key.replace(/[^a-zA-Z0-9]/g, "_")}`;
+        const colorClass = `key-${key.split('').map(char => 
+          /[a-zA-Z0-9]/.test(char) ? char : char.charCodeAt(0)
+        ).join('')}`;
         const color = getKeyColor(key);
         const { count = 0, errors = 0 } = filteredStats[key] || {};
         const hasData = activeView === "frequency" ? count > 0 : errors > 0;
