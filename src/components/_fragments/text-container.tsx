@@ -1,6 +1,6 @@
 'use client';
 
-import { ClipboardEvent, DragEvent, FormEvent, KeyboardEvent, useEffect, useRef } from 'react';
+import { ClipboardEvent, DragEvent, FormEvent, KeyboardEvent, useEffect, useRef, useCallback } from 'react';
 import { useTypingTestContext } from '@/context/TypingTestContext';
 
 export default function TextContainer() {
@@ -14,10 +14,31 @@ export default function TextContainer() {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const currentCharRef = useRef<HTMLSpanElement>(null);
   const isTyping = testState === 'running';
   const isIdle = testState === 'idle';
   const isAllowedChar = (ch: string) => /^[\x20-\x7E]$/.test(ch);
   const isComposingRef = useRef(false);
+
+  // Scroll to top of container when starting
+  const scrollToStart = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
+  // Auto-scroll
+  useEffect(() => {
+    if (!isTyping || !currentCharRef.current) return;
+    
+    const el = currentCharRef.current;
+    const rect = el.getBoundingClientRect();
+    const buffer = 250;
+    const viewportHeight = window.innerHeight;
+    
+    if (rect.bottom > viewportHeight - buffer) {
+      const scrollAmount = rect.bottom - viewportHeight + buffer;
+      window.scrollBy({ top: scrollAmount, behavior: 'smooth' });
+    }
+  });
 
   const handleCompositionStart = () => { isComposingRef.current = true; };
 
@@ -71,9 +92,11 @@ export default function TextContainer() {
   const handleContainerClick = () => {
     if (inputRef.current) {
       startTest();
+      scrollToStart();
       try { inputRef.current.focus(); } catch { /* ignore */ }
     } else if (containerRef.current) {
       startTest();
+      scrollToStart();
       try { containerRef.current.focus(); } catch { /* ignore */ }
     }
   };
@@ -109,8 +132,10 @@ export default function TextContainer() {
           break;
       }
 
+      const isCurrent = status === 'current';
+
       return (
-        <span key={index} className={className}>
+        <span key={index} ref={isCurrent ? currentCharRef : null} className={className}>
           {char}
         </span>
       );
@@ -140,7 +165,7 @@ export default function TextContainer() {
         onDrop={handleDrop}
         onCompositionStart={handleCompositionStart}
         onCompositionEnd={handleCompositionEnd}
-        onClick={() => { startTest(); try { inputRef.current?.focus(); } catch { } }}
+        onClick={() => { startTest(); scrollToStart(); try { inputRef.current?.focus(); } catch { } }}
         className="absolute inset-0 w-full h-full opacity-0"
       />
       <div className={`leading-normal text-3xl min-h-[50vh] md:text-4xl ${isIdle ? 'blur-lg' : ''}`}>
@@ -153,6 +178,7 @@ export default function TextContainer() {
               onClick={(e) => {
                 e.stopPropagation();
                 startTest();
+                scrollToStart();
                 if (inputRef.current) {
                   inputRef.current.focus();
                 } else if (containerRef.current) {
