@@ -71,9 +71,10 @@ export default function Menu({
     { value: 'passage' as Mode, label: 'Passage' },
   ];
   return (
-    <div className="w-full -mb-60 pb-60">
-      <div className="overflow-x-auto tiny-scrollbar w-full">
-        <div className="inline-flex justify-between items-center flex-wrap lg:flex-nowrap gap-4 pb-4 border-b border-ts-neutral-700">
+    <div className="relative z-1 pt-60 -mb-60">
+    <div className="overflow-x-auto tiny-scrollbar w-full -mt-60 pb-3 pt-60 rotate-180">
+      {/* <div className="overflow-x-auto tiny-scrollbar w-full"> */}
+        <div className="inline-flex justify-between items-center flex-wrap lg:flex-nowrap gap-4 pb-4 border-b border-ts-neutral-700 rotate-180">
           <div className="flex gap-4 justify-center items-center w-full lg:w-auto md:justify-start">
             <StatSection label="WPM" value={wpm} />
             <Divider />
@@ -90,7 +91,7 @@ export default function Menu({
                   type="button"
                   onClick={() => !testState.includes('running') && setCategoryOpen(!categoryOpen)}
                   disabled={testState === 'running'}
-                  className={`p-2 rounded border border-ts-neutral-500 text-ts-neutral-0 ${testState === 'running' ? 'opacity-60 cursor-not-allowed' : 'hover:border-ts-blue-400 hover:text-ts-blue-400'}`}
+                  className={`p-2 rounded border border-ts-neutral-500 text-ts-blue-400 ${testState === 'running' ? 'opacity-60 cursor-not-allowed' : 'hover:border-ts-blue-400 hover:text-ts-neutral-0'}`}
                   aria-label="Select category"
                 >
                   <CategoryIcon className="w-5 h-5" />
@@ -172,7 +173,8 @@ export default function Menu({
             />
           </div>
         </div>
-      </div>
+      {/* </div> */}
+    </div>
     </div>
   );
 }

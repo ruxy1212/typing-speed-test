@@ -73,7 +73,9 @@ export default function Heatmap({ stats, keyList }: HeatmapProps) {
   // Generate buttonTheme array with custom classes for each key
   const buttonTheme = useMemo(() => {
     return keyList.map((key) => {
-      const colorClass = `key-${key.replace(/[^a-zA-Z0-9]/g, "_")}`;
+      const colorClass = `key-${key.split('').map(char => 
+          /[a-zA-Z0-9]/.test(char) ? char : char.charCodeAt(0)
+        ).join('')}`;
       return {
         class: colorClass,
         buttons: key,
