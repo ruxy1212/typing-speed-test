@@ -4,10 +4,19 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import passageData from '@/app/data/data.json';
 import layout from "simple-keyboard-layouts/build/layouts/english";
 
+export type Category = 'general' | 'quotes' | 'code' | 'lyrics';
 export type Difficulty = 'easy' | 'medium' | 'hard';
 export type Mode = 'timed' | 'passage';
 export type TestState = 'idle' | 'running' | 'completed';
 export type Verdict = 'new-game' | 'default' | 'high-score';
+
+// Difficulty labels per category
+export const DIFFICULTY_LABELS: Record<Category, Record<Difficulty, string>> = {
+  general: { easy: 'Easy', medium: 'Medium', hard: 'Hard' },
+  quotes: { easy: 'Short', medium: 'Medium', hard: 'Long' },
+  code: { easy: 'Basic', medium: 'Intermediate', hard: 'Advanced' },
+  lyrics: { easy: 'Simple', medium: 'Melodic', hard: 'Complex' },
+};
 
 interface Passage {
   id: string;
@@ -62,22 +71,23 @@ function saveKeyStats(stats: { [key: string]: { count: number; errors: number } 
   localStorage.setItem(KEY_STATS_KEY, JSON.stringify(stats));
 }
 
-// Get a random passage from the specified difficulty
-function getRandomPassage(difficulty: Difficulty): Passage {
-  const passages = passageData[difficulty] as Passage[];
+// Get a random passage from the specified category and difficulty
+function getRandomPassage(category: Category, difficulty: Difficulty): Passage {
+  const passages = passageData[category][difficulty] as Passage[];
   const randomIndex = Math.floor(Math.random() * passages.length);
   return passages[randomIndex];
 }
 
 export function useTypingTest() {
   // Settings
+  const [category, setCategory] = useState<Category>('general');
   const [difficulty, setDifficulty] = useState<Difficulty>('easy');
   const [mode, setMode] = useState<Mode>('timed');
   const [timedDuration, setTimedDuration] = useState<number>(DEFAULT_TIMED_MODE_DURATION);
   
   // Test state
   const [testState, setTestState] = useState<TestState>('idle');
-  const [passage, setPassage] = useState<Passage>(passageData['easy'][0]);
+  const [passage, setPassage] = useState<Passage>(passageData['general']['easy'][0]);
   const [typedText, setTypedText] = useState<string>('');
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
   const [personalBest, setPersonalBest] = useState<number | null>(null);
@@ -100,7 +110,7 @@ export function useTypingTest() {
   // Load personal best on mount
   useEffect(() => {
     setPersonalBest(getPersonalBest());
-    setPassage(getRandomPassage('easy'));
+    setPassage(getRandomPassage('general', 'easy'));
   }, []);
 
   keyList.forEach((key) => {
@@ -309,17 +319,25 @@ export function useTypingTest() {
     setTimeElapsed(0);
     setErrorIndices(new Set());
     setResult(null);
-    setPassage(getRandomPassage(difficulty));
+    setPassage(getRandomPassage(category, difficulty));
     setResultTab('summary');
-  }, [stopTimer, difficulty]);
+  }, [stopTimer, category, difficulty]);
   
   // Handle difficulty change
   const handleDifficultyChange = useCallback((newDifficulty: Difficulty) => {
     setDifficulty(newDifficulty);
     if (testState === 'idle') {
-      setPassage(getRandomPassage(newDifficulty));
+      setPassage(getRandomPassage(category, newDifficulty));
     }
-  }, [testState]);
+  }, [testState, category]);
+
+  // Handle category change
+  const handleCategoryChange = useCallback((newCategory: Category) => {
+    setCategory(newCategory);
+    if (testState === 'idle') {
+      setPassage(getRandomPassage(newCategory, difficulty));
+    }
+  }, [testState, difficulty]);
   
   // Handle mode change
   const handleModeChange = useCallback((newMode: Mode) => {
@@ -347,10 +365,13 @@ export function useTypingTest() {
   
   return {
     // Settings
+    category,
     difficulty,
     mode,
+    setCategory: handleCategoryChange,
     setDifficulty: handleDifficultyChange,
     setMode: handleModeChange,
+    difficultyLabels: DIFFICULTY_LABELS[category],
     
     // Test state
     testState,

@@ -44,6 +44,26 @@ body {
   scrollbar-width: 0;
 }
 
+.tiny-scrollbar::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+.tiny-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tiny-scrollbar::-webkit-scrollbar-thumb {
+  background-color: hsl(214, 100%, 55%);
+  border-radius: 6px;
+}
+
+/* For Firefox */
+.tiny-scrollbar {
+  scrollbar-width: 3px;
+  /* scrollbar-color: rgba(206, 0, 148, 0.753) transparent; */
+}
+
 .react-simple-keyboard.simple-keyboard {
   overflow: unset !important;
 }

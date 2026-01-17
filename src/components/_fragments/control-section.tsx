@@ -121,7 +121,7 @@ export default function ControlSection<T extends string>({
       </div>
 
       {/* Mobile View - Combobox/Dropdown */}
-      <div className="md:hidden relative">
+      <div className="md:hidden relative grow">
         <button
           type="button"
           onClick={() => { if (disabled) return; setIsOpen(!isOpen); }}
