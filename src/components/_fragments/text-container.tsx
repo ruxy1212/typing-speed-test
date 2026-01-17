@@ -123,7 +123,7 @@ export default function TextContainer() {
       tabIndex={0}
       onClick={handleContainerClick}
       onKeyDown={handleKeyDown}
-      className="relative text-ts-neutral-400 pb-4 border-b border-ts-neutral-700 outline-none cursor-text"
+      className="relative text-ts-neutral-400 pt-8 pb-4 border-b border-ts-neutral-700 outline-none cursor-text"
     >
       <input
         ref={inputRef}

@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from 'react';
 import passageData from '@/app/data/data.json';
+import layout from "simple-keyboard-layouts/build/layouts/english";
 
 export type Difficulty = 'easy' | 'medium' | 'hard';
 export type Mode = 'timed' | 'passage';
@@ -23,6 +24,16 @@ interface TestResult {
 
 const DEFAULT_TIMED_MODE_DURATION = 60;
 const PERSONAL_BEST_KEY = 'typing-test-personal-best';
+
+// Extract all single-character keys from the layout
+const allKeysArray = Object.values(layout.layout)
+  .flat()
+  .join(" ")
+  .split(/\s+/)
+  .filter(key => key.trim() !== "")
+
+// Use a Set to remove duplicates (like functional keys found in both layers)
+const keyList = Array.from(new Set(allKeysArray));
 
 // Get personal best from localStorage
 function getPersonalBest(): number | null {
@@ -62,6 +73,10 @@ export function useTypingTest() {
   
   // Result
   const [result, setResult] = useState<TestResult | null>(null);
+
+  // Heatmap
+  const [keyStats, setKeyStats] = useState<{ [key: string]: { count: number; errors: number } }>({});
+
   
   // Timer ref
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -72,6 +87,15 @@ export function useTypingTest() {
     setPersonalBest(getPersonalBest());
     setPassage(getRandomPassage('easy'));
   }, []);
+
+  keyList.forEach((key) => {
+    if (!keyStats[key]) {
+      setKeyStats((prev) => ({
+        ...prev,
+        [key]: { count: 0, errors: 0 }
+      }))
+    }
+  });
 
   // Calculate current stats
   const currentCharIndex = typedText.length;
@@ -229,12 +253,23 @@ export function useTypingTest() {
     } else if (key.length === 1) {
       const newTypedText = typedText + key;
       const newIndex = typedText.length;
+      const currentKey = passageText[newIndex];
+      const keyValue = currentKey === ' ' ? '{space}' : currentKey === 'Backspace' ? '{bksp}' : key; 
+      const isError = key !== currentKey;
       
       // Check if this character is an error
-      if (key !== passageText[newIndex]) {
+      if (isError) {
         setErrorIndices(prev => new Set(prev).add(newIndex));
       }
+      
       setTypedText(newTypedText);
+      setKeyStats((prev) => ({
+        ...prev,
+        [keyValue]: {
+          count: prev[keyValue]?.count + 1,
+          errors: prev[keyValue]?.errors + (isError ? 1 : 0),
+        },
+      }));
     }
   }, [testState, typedText, passageText, startTest]);
   
@@ -312,7 +347,11 @@ export function useTypingTest() {
     
     // Result
     result,
-    
+
+    // Heatmap
+    keyList,
+    keyStats,
+
     // Timed config
     timedDuration,
     setTimedDuration,

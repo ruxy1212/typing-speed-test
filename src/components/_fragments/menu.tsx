@@ -50,8 +50,8 @@ export default function Menu({
     { value: 'passage' as Mode, label: 'Passage' },
   ];
   return (
-    <div className="overflow-x-auto overflow-y-visible no-scrollbar -mb-60 pb-60">
-      <div className="flex justify-between items-center flex-wrap lg:flex-nowrap gap-4 pb-4 border-b border-ts-neutral-700">
+    <div className="overflow-x-auto no-scrollbar w-full -mb-60 pb-60">
+      <div className="flex justify-between items-center flex-wrap lg:flex-nowrap min-w-max gap-4 pb-4 border-b border-ts-neutral-700">
         <div className="flex gap-4 justify-center items-center w-full lg:w-auto md:justify-start">
           <StatSection label="WPM" value={wpm} />
           <Divider />

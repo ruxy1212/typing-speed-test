@@ -4,8 +4,9 @@ import Star1 from "@/assets/pattern-star-1.svg";
 import Star2 from "@/assets/pattern-star-2.svg";
 import Confetti from "@/assets/pattern-confetti.svg";
 import ResultCard from "./_fragments/result-card";
+import Heatmap from "./_fragments/heat-map";
 
-export default function Result({ wpm, accuracy, characters, verdict = 'default' }: { wpm: string; accuracy: string; characters: React.ReactNode; verdict?: 'new-game' | 'default' | 'high-score' }) {
+export default function Result({ wpm, accuracy, characters, keyStats, keyList, verdict = 'default' }: { wpm: string; accuracy: string; characters: React.ReactNode; keyStats: { [key: string]: { count: number; errors: number } }; keyList: string[]; verdict?: 'new-game' | 'default' | 'high-score' }) {
   const title = {
     'new-game': {
       heading: 'Baseline Established!',
@@ -21,7 +22,7 @@ export default function Result({ wpm, accuracy, characters, verdict = 'default' 
     }
   }
   return (
-    <div className="relative flex flex-col justify-center items-center max-w-344 mx-auto gap-6 md:gap-8">
+    <div className="relative flex flex-col justify-center items-center w-full max-w-344 mx-auto gap-6 md:gap-8">
       {verdict === 'high-score' ? (
         <IconHighScore className="" />
       ) : (
@@ -42,6 +43,8 @@ export default function Result({ wpm, accuracy, characters, verdict = 'default' 
         <ResultCard label="Accuracy" value={accuracy} color={parseFloat(accuracy) >= 50 ? 'text-ts-green-500' : 'text-ts-red-500'} />
         <ResultCard label="Characters" value={characters} type="node" />
       </div>
+      {/* <Heatmap stats={keyStats} keyList={keyList} /> */}
+
       {verdict === 'high-score' ? (
         <Confetti className="fixed bottom-0 left-0 w-full -z-1" />
       ) : (

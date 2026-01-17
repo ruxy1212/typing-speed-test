@@ -17,7 +17,7 @@ const RenderCharacters = (correct: number, incorrect: number) => {
 }
 
 function HomeContent() {
-  const { testState, result } = useTypingTestContext();
+  const { testState, result, keyStats, keyList } = useTypingTestContext();
   const showResult = testState === 'completed' && result !== null;
   
   return (
@@ -29,6 +29,8 @@ function HomeContent() {
           wpm={result.wpm.toString()}
           characters={RenderCharacters(result.correctChars, result.incorrectChars)}
           verdict={result.verdict}
+          keyStats={keyStats}
+          keyList={keyList}
         />
       ) : (
         <Main />

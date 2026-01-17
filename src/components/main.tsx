@@ -21,7 +21,7 @@ export default function Main() {
   } = useTypingTestContext();
 
   return (
-    <main className="flex flex-col max-w-344 mx-auto gap-8">
+    <main className="flex flex-col max-w-344 w-full self-center gap-0">
       <Menu
         difficulty={difficulty}
         mode={mode}
