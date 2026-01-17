@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react"; //Code2Icon, QuoteIcon, Music2Icon
 import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import layout from "simple-keyboard-layouts/build/layouts/english";
@@ -49,18 +49,6 @@ export default function Heatmap({ stats, keyList }: HeatmapProps) {
       setLayoutName(layoutName === "default" ? "shift" : "default");
     }
   };
-  // const filteredStats = useMemo(() => {
-  //   return Object.entries(stats).reduce((acc, [key, value]) => {
-  //     if (key === " " || key === "{space}") return acc;
-  //     const normalizedKey = key.toLowerCase();
-  //     if (!acc[normalizedKey]) {
-  //       acc[normalizedKey] = { count: 0, errors: 0 };
-  //     }
-  //     acc[normalizedKey].count += value.count;
-  //     acc[normalizedKey].errors += value.errors;
-  //     return acc;
-  //   }, {} as KeyStats);
-  // }, [stats]);
 
   const counts = Object.values(filteredStats).map((s) => s.count);
   const errors = Object.values(filteredStats).map((s) => s.errors);

@@ -1,128 +1,514 @@
 {
-  "easy": [
-    {
-      "id": "easy-1",
-      "text": "The sun rose over the quiet town. Birds sang in the trees as people woke up and started their day. It was going to be a warm and sunny morning."
-    },
-    {
-      "id": "easy-2",
-      "text": "She walked to the store to buy some bread and milk. The shop was busy but she found what she needed quickly. On her way home, she saw a friend and waved."
-    },
-    {
-      "id": "easy-3",
-      "text": "The dog ran across the park chasing a ball. He was fast and loved to play. After a while, he got tired and lay down in the cool shade of a big oak tree."
-    },
-    {
-      "id": "easy-4",
-      "text": "I like to read books before I go to sleep. It helps me relax after a long day. My favorite stories are about adventure and travel to far away places."
-    },
-    {
-      "id": "easy-5",
-      "text": "The kitchen smelled of fresh coffee and toast. Mom was making breakfast while dad read the news. It was a normal morning in their small but cozy home."
-    },
-    {
-      "id": "easy-6",
-      "text": "We went to the beach last summer. The water was blue and the sand was warm. We built a big sand castle and looked for shells along the shore."
-    },
-    {
-      "id": "easy-7",
-      "text": "The cat sat on the window sill watching the rain. Drops fell down the glass one by one. She seemed happy to be inside where it was dry and warm."
-    },
-    {
-      "id": "easy-8",
-      "text": "My best friend lives next door to me. We play games together after school. Sometimes we ride our bikes around the block or sit and talk for hours."
-    },
-    {
-      "id": "easy-9",
-      "text": "Spring is my favorite time of year. Flowers start to bloom and the days get longer. I love to see the trees turn green again after the cold winter months."
-    },
-    {
-      "id": "easy-10",
-      "text": "The music played softly in the room. She closed her eyes and let the sounds wash over her. It was a simple song but it made her feel at peace."
-    }
-  ],
-  "medium": [
-    {
-      "id": "medium-1",
-      "text": "Learning a new skill takes patience and consistent practice. Whether you're studying a language, picking up an instrument, or mastering a sport, the key is to show up every day. Small improvements compound over time, and before you know it, you'll have made remarkable progress."
-    },
-    {
-      "id": "medium-2",
-      "text": "The old lighthouse had stood on the cliff for over a century, guiding sailors safely through treacherous waters. Its beam cut through the fog each night, a reassuring presence for those navigating the rocky coastline. Many storms had tested its structure, but it remained steadfast."
-    },
-    {
-      "id": "medium-3",
-      "text": "Coffee culture has evolved dramatically in recent decades. What was once a simple morning ritual has become an art form, with baristas crafting intricate latte designs and roasters sourcing beans from remote mountain villages. The humble cup of coffee now tells a global story."
-    },
-    {
-      "id": "medium-4",
-      "text": "Urban gardens are transforming city landscapes around the world. Residents are converting rooftops, balconies, and abandoned lots into thriving green spaces. These initiatives not only provide fresh produce but also create communities, reduce stress, and help combat the urban heat island effect."
-    },
-    {
-      "id": "medium-5",
-      "text": "The documentary explored how technology shapes our daily habits. From the moment we wake to an alarm on our phones to the podcasts we fall asleep to, digital tools have woven themselves into the fabric of modern life. The question is: are we in control?"
-    },
-    {
-      "id": "medium-6",
-      "text": "Traveling by train offers a unique perspective on the countryside. Unlike flying, which reduces landscapes to abstract patterns, rail journeys let you witness the gradual transitions between regions. You see farms give way to forests, and small towns emerge from rolling hills."
-    },
-    {
-      "id": "medium-7",
-      "text": "The chef believed that great cooking starts with quality ingredients. She visited local farmers each week, selecting vegetables at their peak ripeness. Her menu changed with the seasons, reflecting what the land offered. Diners appreciated the freshness they could taste in every bite."
-    },
-    {
-      "id": "medium-8",
-      "text": "Libraries have reinvented themselves for the digital age. Beyond lending books, they now offer coworking spaces, 3D printers, recording studios, and coding workshops. These community hubs have become places where people of all ages come to learn, create, and connect with others."
-    },
-    {
-      "id": "medium-9",
-      "text": "The architect designed buildings that worked with nature rather than against it. Large windows captured natural light, reducing the need for electricity. Green roofs absorbed rainwater and provided insulation. Her philosophy was simple: sustainable design should be beautiful, functional, and accessible to everyone."
-    },
-    {
-      "id": "medium-10",
-      "text": "Night markets come alive after sunset in cities across Asia. Vendors set up stalls selling everything from grilled skewers to handmade crafts. The air fills with enticing aromas and the buzz of conversation. Locals and tourists alike wander through, sampling street food and hunting for bargains."
-    }
-  ],
-  "hard": [
-    {
-      "id": "hard-1",
-      "text": "The philosopher's argument hinged on a seemingly paradoxical assertion: that absolute freedom, pursued without constraint, inevitably undermines itself. \"Consider,\" she wrote, \"how the libertarian ideal—when taken to its logical extreme—produces conditions in which the powerful dominate the weak, thereby eliminating freedom for the majority.\" Her critics dismissed this as sophistry; her supporters hailed it as profound."
-    },
-    {
-      "id": "hard-2",
-      "text": "Quantum entanglement—Einstein's \"spooky action at a distance\"—continues to perplex physicists and philosophers alike. When two particles become entangled, measuring one instantaneously affects the other, regardless of the distance separating them. This phenomenon doesn't violate relativity (no information travels faster than light), yet it challenges our intuitions about locality, causality, and the nature of reality itself."
-    },
-    {
-      "id": "hard-3",
-      "text": "The Renaissance polymath's correspondence reveals a mind of extraordinary breadth: in a single week's letters, he discussed astronomical observations, critiqued a colleague's architectural drawings, proposed improvements to the city's sewage system, and composed a sonnet for a patron's daughter. \"Specialization,\" he remarked wryly, \"is for insects.\" His contemporaries found him exhausting; posterity finds him inspirational."
-    },
-    {
-      "id": "hard-4",
-      "text": "Algorithmic trading has fundamentally restructured financial markets. High-frequency systems execute thousands of transactions per second, exploiting minute price discrepancies across exchanges. Critics argue this creates systemic fragility—the 2010 \"Flash Crash\" saw the Dow Jones plummet 1,000 points in minutes before recovering. Proponents counter that algorithms provide liquidity and reduce spreads, ultimately benefiting retail investors."
-    },
-    {
-      "id": "hard-5",
-      "text": "The biographer faced an ethical dilemma: her subject's private journals—recently discovered in an attic—contained revelations that would overturn his carefully cultivated public image. Should she publish them? \"Biography,\" she mused, \"exists in tension between truth-telling and respect for the dead.\" After months of deliberation, she chose disclosure, reasoning that sanitized history serves no one."
-    },
-    {
-      "id": "hard-6",
-      "text": "Microplastics have infiltrated virtually every ecosystem on Earth, from the Mariana Trench to Arctic ice cores. These polymer fragments—smaller than 5mm in diameter—originate from degrading consumer products, synthetic textiles, and industrial processes. Researchers have detected them in human blood, placental tissue, and breast milk; their long-term health implications remain disturbingly unclear. The ubiquity of plastic pollution represents an unprecedented experiment on planetary biology."
-    },
-    {
-      "id": "hard-7",
-      "text": "The conductor's interpretation of Mahler's Ninth Symphony emphasized its prophetic qualities—the premonition of catastrophe, the aching nostalgia for a world about to vanish. \"Mahler composed this knowing he was dying,\" she explained in the program notes, \"but he also intuited, somehow, that European civilization itself stood at the precipice.\" The orchestra's performance—hushed, trembling, transcendent—left the audience in stunned silence."
-    },
-    {
-      "id": "hard-8",
-      "text": "Constitutional scholars continue debating the \"counter-majoritarian difficulty\": how can judicial review—whereby unelected judges overturn legislation passed by democratic representatives—be reconciled with popular sovereignty? Some argue courts protect minority rights against tyrannical majorities; others contend this reasoning masks ideological preferences in neutral-sounding jurisprudence. The tension, perhaps, is irresolvable; democratic systems must balance competing values rather than optimize for any single principle."
-    },
-    {
-      "id": "hard-9",
-      "text": "The novelist's prose style—elliptical, fragmented, punctuated by abrupt temporal shifts—reflected her thematic preoccupations: memory's unreliability, identity's fluidity, the impossibility of objective narration. \"Every story,\" she declared in an interview, \"is simultaneously true and false; it reveals by concealing, illuminates by casting shadows.\" Critics accused her of obscurantism; she responded that clarity itself can be a form of deception."
-    },
-    {
-      "id": "hard-10",
-      "text": "The archaeological expedition unearthed artifacts that complicated prevailing theories about Bronze Age trade networks. Obsidian from Anatolia, lapis lazuli from Afghanistan, and amber from the Baltic—all discovered in a single Mycenaean tomb—suggested commercial connections far more extensive than previously hypothesized. \"We've underestimated ancient peoples' navigational capabilities and their appetite for luxury goods,\" the lead researcher observed. \"Globalization isn't as modern as we assume.\""
-    }
-  ]
+  "general": {
+    "easy": [
+      {
+        "id": "easy-1",
+        "text": "The sun rose over the quiet town. Birds sang in the trees as people woke up and started their day. It was going to be a warm and sunny morning."
+      },
+      {
+        "id": "easy-2",
+        "text": "She walked to the store to buy some bread and milk. The shop was busy but she found what she needed quickly. On her way home, she saw a friend and waved."
+      },
+      {
+        "id": "easy-3",
+        "text": "The dog ran across the park chasing a ball. He was fast and loved to play. After a while, he got tired and lay down in the cool shade of a big oak tree."
+      },
+      {
+        "id": "easy-4",
+        "text": "I like to read books before I go to sleep. It helps me relax after a long day. My favorite stories are about adventure and travel to far away places."
+      },
+      {
+        "id": "easy-5",
+        "text": "The kitchen smelled of fresh coffee and toast. Mom was making breakfast while dad read the news. It was a normal morning in their small but cozy home."
+      },
+      {
+        "id": "easy-6",
+        "text": "We went to the beach last summer. The water was blue and the sand was warm. We built a big sand castle and looked for shells along the shore."
+      },
+      {
+        "id": "easy-7",
+        "text": "The cat sat on the window sill watching the rain. Drops fell down the glass one by one. She seemed happy to be inside where it was dry and warm."
+      },
+      {
+        "id": "easy-8",
+        "text": "My best friend lives next door to me. We play games together after school. Sometimes we ride our bikes around the block or sit and talk for hours."
+      },
+      {
+        "id": "easy-9",
+        "text": "Spring is my favorite time of year. Flowers start to bloom and the days get longer. I love to see the trees turn green again after the cold winter months."
+      },
+      {
+        "id": "easy-10",
+        "text": "The music played softly in the room. She closed her eyes and let the sounds wash over her. It was a simple song but it made her feel at peace."
+      }
+    ],
+    "medium": [
+      {
+        "id": "medium-1",
+        "text": "Learning a new skill takes patience and consistent practice. Whether you're studying a language, picking up an instrument, or mastering a sport, the key is to show up every day. Small improvements compound over time, and before you know it, you'll have made remarkable progress."
+      },
+      {
+        "id": "medium-2",
+        "text": "The old lighthouse had stood on the cliff for over a century, guiding sailors safely through treacherous waters. Its beam cut through the fog each night, a reassuring presence for those navigating the rocky coastline. Many storms had tested its structure, but it remained steadfast."
+      },
+      {
+        "id": "medium-3",
+        "text": "Coffee culture has evolved dramatically in recent decades. What was once a simple morning ritual has become an art form, with baristas crafting intricate latte designs and roasters sourcing beans from remote mountain villages. The humble cup of coffee now tells a global story."
+      },
+      {
+        "id": "medium-4",
+        "text": "Urban gardens are transforming city landscapes around the world. Residents are converting rooftops, balconies, and abandoned lots into thriving green spaces. These initiatives not only provide fresh produce but also create communities, reduce stress, and help combat the urban heat island effect."
+      },
+      {
+        "id": "medium-5",
+        "text": "The documentary explored how technology shapes our daily habits. From the moment we wake to an alarm on our phones to the podcasts we fall asleep to, digital tools have woven themselves into the fabric of modern life. The question is: are we in control?"
+      },
+      {
+        "id": "medium-6",
+        "text": "Traveling by train offers a unique perspective on the countryside. Unlike flying, which reduces landscapes to abstract patterns, rail journeys let you witness the gradual transitions between regions. You see farms give way to forests, and small towns emerge from rolling hills."
+      },
+      {
+        "id": "medium-7",
+        "text": "The chef believed that great cooking starts with quality ingredients. She visited local farmers each week, selecting vegetables at their peak ripeness. Her menu changed with the seasons, reflecting what the land offered. Diners appreciated the freshness they could taste in every bite."
+      },
+      {
+        "id": "medium-8",
+        "text": "Libraries have reinvented themselves for the digital age. Beyond lending books, they now offer coworking spaces, 3D printers, recording studios, and coding workshops. These community hubs have become places where people of all ages come to learn, create, and connect with others."
+      },
+      {
+        "id": "medium-9",
+        "text": "The architect designed buildings that worked with nature rather than against it. Large windows captured natural light, reducing the need for electricity. Green roofs absorbed rainwater and provided insulation. Her philosophy was simple: sustainable design should be beautiful, functional, and accessible to everyone."
+      },
+      {
+        "id": "medium-10",
+        "text": "Night markets come alive after sunset in cities across Asia. Vendors set up stalls selling everything from grilled skewers to handmade crafts. The air fills with enticing aromas and the buzz of conversation. Locals and tourists alike wander through, sampling street food and hunting for bargains."
+      }
+    ],
+    "hard": [
+      {
+        "id": "hard-1",
+        "text": "The philosopher's argument hinged on a seemingly paradoxical assertion: that absolute freedom, pursued without constraint, inevitably undermines itself. \"Consider,\" she wrote, \"how the libertarian ideal—when taken to its logical extreme—produces conditions in which the powerful dominate the weak, thereby eliminating freedom for the majority.\" Her critics dismissed this as sophistry; her supporters hailed it as profound."
+      },
+      {
+        "id": "hard-2",
+        "text": "Quantum entanglement—Einstein's \"spooky action at a distance\"—continues to perplex physicists and philosophers alike. When two particles become entangled, measuring one instantaneously affects the other, regardless of the distance separating them. This phenomenon doesn't violate relativity (no information travels faster than light), yet it challenges our intuitions about locality, causality, and the nature of reality itself."
+      },
+      {
+        "id": "hard-3",
+        "text": "The Renaissance polymath's correspondence reveals a mind of extraordinary breadth: in a single week's letters, he discussed astronomical observations, critiqued a colleague's architectural drawings, proposed improvements to the city's sewage system, and composed a sonnet for a patron's daughter. \"Specialization,\" he remarked wryly, \"is for insects.\" His contemporaries found him exhausting; posterity finds him inspirational."
+      },
+      {
+        "id": "hard-4",
+        "text": "Algorithmic trading has fundamentally restructured financial markets. High-frequency systems execute thousands of transactions per second, exploiting minute price discrepancies across exchanges. Critics argue this creates systemic fragility—the 2010 \"Flash Crash\" saw the Dow Jones plummet 1,000 points in minutes before recovering. Proponents counter that algorithms provide liquidity and reduce spreads, ultimately benefiting retail investors."
+      },
+      {
+        "id": "hard-5",
+        "text": "The biographer faced an ethical dilemma: her subject's private journals—recently discovered in an attic—contained revelations that would overturn his carefully cultivated public image. Should she publish them? \"Biography,\" she mused, \"exists in tension between truth-telling and respect for the dead.\" After months of deliberation, she chose disclosure, reasoning that sanitized history serves no one."
+      },
+      {
+        "id": "hard-6",
+        "text": "Microplastics have infiltrated virtually every ecosystem on Earth, from the Mariana Trench to Arctic ice cores. These polymer fragments—smaller than 5mm in diameter—originate from degrading consumer products, synthetic textiles, and industrial processes. Researchers have detected them in human blood, placental tissue, and breast milk; their long-term health implications remain disturbingly unclear. The ubiquity of plastic pollution represents an unprecedented experiment on planetary biology."
+      },
+      {
+        "id": "hard-7",
+        "text": "The conductor's interpretation of Mahler's Ninth Symphony emphasized its prophetic qualities—the premonition of catastrophe, the aching nostalgia for a world about to vanish. \"Mahler composed this knowing he was dying,\" she explained in the program notes, \"but he also intuited, somehow, that European civilization itself stood at the precipice.\" The orchestra's performance—hushed, trembling, transcendent—left the audience in stunned silence."
+      },
+      {
+        "id": "hard-8",
+        "text": "Constitutional scholars continue debating the \"counter-majoritarian difficulty\": how can judicial review—whereby unelected judges overturn legislation passed by democratic representatives—be reconciled with popular sovereignty? Some argue courts protect minority rights against tyrannical majorities; others contend this reasoning masks ideological preferences in neutral-sounding jurisprudence. The tension, perhaps, is irresolvable; democratic systems must balance competing values rather than optimize for any single principle."
+      },
+      {
+        "id": "hard-9",
+        "text": "The novelist's prose style—elliptical, fragmented, punctuated by abrupt temporal shifts—reflected her thematic preoccupations: memory's unreliability, identity's fluidity, the impossibility of objective narration. \"Every story,\" she declared in an interview, \"is simultaneously true and false; it reveals by concealing, illuminates by casting shadows.\" Critics accused her of obscurantism; she responded that clarity itself can be a form of deception."
+      },
+      {
+        "id": "hard-10",
+        "text": "The archaeological expedition unearthed artifacts that complicated prevailing theories about Bronze Age trade networks. Obsidian from Anatolia, lapis lazuli from Afghanistan, and amber from the Baltic—all discovered in a single Mycenaean tomb—suggested commercial connections far more extensive than previously hypothesized. \"We've underestimated ancient peoples' navigational capabilities and their appetite for luxury goods,\" the lead researcher observed. \"Globalization isn't as modern as we assume.\""
+      }
+    ]
+  },
+  "quotes": {
+    "easy": [
+      {
+        "id": "quote-easy-1",
+        "text": "Be the change you wish to see in the world. This means starting with yourself and making small improvements every day. Soon, others will notice and follow your example."
+      },
+      {
+        "id": "quote-easy-2",
+        "text": "The only thing we have to fear is fear itself. When we face our worries head on, they often lose their power. Courage comes from taking that first step."
+      },
+      {
+        "id": "quote-easy-3",
+        "text": "In the middle of difficulty lies opportunity. Challenges can teach us new things and help us grow. Look for the positive side in tough times."
+      },
+      {
+        "id": "quote-easy-4",
+        "text": "Stay hungry, stay foolish. Keep learning and trying new things no matter your age. Curiosity keeps life exciting and full of wonder."
+      },
+      {
+        "id": "quote-easy-5",
+        "text": "The best way to predict the future is to create it. Take action today to shape what tomorrow brings. Your choices matter more than you think."
+      },
+      {
+        "id": "quote-easy-6",
+        "text": "A journey of a thousand miles begins with a single step. Don't be overwhelmed by big goals. Start small and keep moving forward one day at a time."
+      },
+      {
+        "id": "quote-easy-7",
+        "text": "You miss 100% of the shots you don't take. Trying is better than wondering what if. Even if you fail, you'll learn something valuable."
+      },
+      {
+        "id": "quote-easy-8",
+        "text": "The early bird catches the worm. Getting a head start can make all the difference. Plan your day and use your time wisely."
+      },
+      {
+        "id": "quote-easy-9",
+        "text": "Practice makes perfect. Keep working on your skills regularly. Over time, you'll get better and feel more confident."
+      },
+      {
+        "id": "quote-easy-10",
+        "text": "Where there's a will, there's a way. If you really want something, you'll find a solution. Determination overcomes obstacles."
+      }
+    ],
+    "medium": [
+      {
+        "id": "quote-medium-1",
+        "text": "Success is not final, failure is not fatal: it is the courage to continue that counts. Many great achievements come after setbacks. What matters is getting back up and trying again with renewed energy. Persistence turns obstacles into stepping stones for growth."
+      },
+      {
+        "id": "quote-medium-2",
+        "text": "The greatest glory in living lies not in never falling, but in rising every time we fall. Life throws challenges at everyone. The true test is how we respond to adversity. Each recovery builds character and resilience for future trials."
+      },
+      {
+        "id": "quote-medium-3",
+        "text": "It is during our darkest moments that we must focus to see the light. Hope can be hard to find in tough times. But by staying positive and looking for solutions, we can find our way through. Light always follows darkness if we persevere."
+      },
+      {
+        "id": "quote-medium-4",
+        "text": "Life is what happens when you're busy making other plans. We often get caught up in future goals. Remember to enjoy the present moments. Unexpected events can bring joy or lessons that shape us in surprising ways."
+      },
+      {
+        "id": "quote-medium-5",
+        "text": "The only impossible journey is the one you never begin. Starting is often the hardest part. Once you take that first step, momentum builds. Believe in yourself and your ability to overcome challenges along the path."
+      },
+      {
+        "id": "quote-medium-6",
+        "text": "Do not judge each day by the harvest you reap but by the seeds that you plant. Focus on your efforts rather than immediate results. Consistent actions today lead to rewards tomorrow. Patience and dedication are key to long-term success."
+      },
+      {
+        "id": "quote-medium-7",
+        "text": "The mind is everything. What you think you become. Our thoughts shape our reality. Positive thinking leads to positive outcomes. Train your mind to see opportunities and you'll attract better experiences in life."
+      },
+      {
+        "id": "quote-medium-8",
+        "text": "Happiness is not something ready made. It comes from your own actions. We create our own joy through choices and attitudes. Small daily habits of gratitude and kindness can transform our overall well-being."
+      },
+      {
+        "id": "quote-medium-9",
+        "text": "If you want to lift yourself up, lift up someone else. Helping others benefits everyone involved. Acts of service create connections and purpose. In giving, we often receive more than we expect."
+      },
+      {
+        "id": "quote-medium-10",
+        "text": "The best preparation for tomorrow is doing your best today. Focus on the present task at hand. Quality effort now builds a strong foundation. Tomorrow's success depends on today's commitment and excellence."
+      }
+    ],
+    "hard": [
+      {
+        "id": "quote-hard-1",
+        "text": "I have learned over the years that when one's mind is made up, this diminishes fear; knowing what must be done does away with fear. Decision-making clarifies purpose and direction. With clarity comes confidence to act despite uncertainties. This mental shift transforms potential paralysis into productive energy, allowing us to tackle challenges that once seemed insurmountable."
+      },
+      {
+        "id": "quote-hard-2",
+        "text": "The question isn't who is going to let me; it's who is going to stop me. The answer, of course, is no one but yourself. True empowerment comes from within. External permissions are illusions; internal barriers are the real obstacles. Break free from self-doubt and societal expectations to pursue your ambitions with unyielding determination."
+      },
+      {
+        "id": "quote-hard-3",
+        "text": "We are what we repeatedly do. Excellence, then, is not an act, but a habit. Our character is formed by our daily choices. Consistent behaviors shape our identity over time. To achieve greatness, cultivate routines that align with your highest values. Small, repeated actions compound into profound personal transformation."
+      },
+      {
+        "id": "quote-hard-4",
+        "text": "Twenty years from now you will be more disappointed by the things you didn't do than by the ones you did do. So throw off the bowlines, sail away from safe harbor. Catch the trade winds in your sails. Explore. Dream. Discover. Regret often stems from missed opportunities rather than failed attempts. Embrace risk as the price of a fulfilling life."
+      },
+      {
+        "id": "quote-hard-5",
+        "text": "The only person you are destined to become is the person you decide to be. Every moment is a fresh beginning, every day a new chance. Destiny is not predetermined; it's crafted through intentional decisions. Reinvent yourself as needed. Adapt, grow, and choose paths that reflect your evolving aspirations and values."
+      },
+      {
+        "id": "quote-hard-6",
+        "text": "It is not the critic who counts; not the man who points out how the strong man stumbles, or where the doer of deeds could have done them better. The credit belongs to the man who is actually in the arena, whose face is marred by dust and sweat and blood. True achievement comes from participation, not observation. Critics fade; creators endure."
+      },
+      {
+        "id": "quote-hard-7",
+        "text": "Man's mind, once stretched by a new idea, never regains its original dimensions. Intellectual growth is irreversible. Exposure to novel concepts expands our worldview permanently. Seek out diverse perspectives to challenge assumptions. This continuous expansion fosters innovation, empathy, and a deeper understanding of the complex world around us."
+      },
+      {
+        "id": "quote-hard-8",
+        "text": "The arc of the moral universe is long, but it bends toward justice. Progress may seem slow and uneven. Setbacks occur, but persistent efforts drive positive change. History shows that ethical advancements prevail over time. Contribute to this bend through advocacy, compassion, and unwavering commitment to equity."
+      },
+      {
+        "id": "quote-hard-9",
+        "text": "Education is the most powerful weapon which you can use to change the world. Knowledge empowers individuals and societies. It fosters critical thinking, innovation, and social mobility. Invest in learning to address global challenges. An educated populace is the foundation of progress, peace, and prosperity for all."
+      },
+      {
+        "id": "quote-hard-10",
+        "text": "Imagination is more important than knowledge. For knowledge is limited, whereas imagination embraces the entire world, stimulating progress, giving birth to evolution. Facts are finite; creativity is boundless. Harness imagination to push boundaries and solve problems. It drives scientific breakthroughs and artistic masterpieces alike."
+      }
+    ]
+  },
+  "code": {
+    "easy": [
+      {
+        "id": "code-easy-1",
+        "text": "const message = 'Hello, World!';\nconsole.log(message);\n// This prints a greeting to the console\n// Useful for testing basic output"
+      },
+      {
+        "id": "code-easy-2",
+        "text": "let count = 0;\ncount++;\nconsole.log(count);\n// Increments a variable and displays it\n// Demonstrates basic arithmetic"
+      },
+      {
+        "id": "code-easy-3",
+        "text": "const sum = (a, b) => {\n  return a + b;\n};\nconsole.log(sum(5, 3));\n// Simple function to add two numbers"
+      },
+      {
+        "id": "code-easy-4",
+        "text": "const isValid = true;\nif (isValid) {\n  console.log('True');\n} else {\n  console.log('False');\n}\n// Basic conditional statement"
+      },
+      {
+        "id": "code-easy-5",
+        "text": "const items = [1, 2, 3];\nconst doubled = items.map(x => x * 2);\nconsole.log(doubled);\n// Maps over an array to transform values"
+      },
+      {
+        "id": "code-easy-6",
+        "text": "let name = 'Alice';\nlet greeting = `Hello, ${name}!`;\nconsole.log(greeting);\n// Uses template literals for string interpolation"
+      },
+      {
+        "id": "code-easy-7",
+        "text": "const numbers = [4, 2, 7];\nnumbers.sort((a, b) => a - b);\nconsole.log(numbers);\n// Sorts an array in ascending order"
+      },
+      {
+        "id": "code-easy-8",
+        "text": "let score = 85;\nif (score >= 90) {\n  console.log('A');\n} else if (score >= 80) {\n  console.log('B');\n} else {\n  console.log('C');\n}\n// Multi-condition grade checker"
+      },
+      {
+        "id": "code-easy-9",
+        "text": "const fruits = ['apple', 'banana'];\nfruits.push('orange');\nconsole.log(fruits);\n// Adds an element to the end of an array"
+      },
+      {
+        "id": "code-easy-10",
+        "text": "let i = 0;\nwhile (i < 3) {\n  console.log(i);\n  i++;\n}\n// Simple loop to count up"
+      }
+    ],
+    "medium": [
+      {
+        "id": "code-medium-1",
+        "text": "function factorial(n) {\n  if (n <= 1) {\n    return 1;\n  }\n  return n * factorial(n - 1);\n}\nconsole.log(factorial(5));\n// Recursive function for factorial calculation\n// Handles base case and recursive call"
+      },
+      {
+        "id": "code-medium-2",
+        "text": "const users = [\n  { name: 'Alice', age: 25 },\n  { name: 'Bob', age: 17 }\n];\nconst filtered = users.filter(user => user.age >= 18)\n  .map(user => user.name);\nconsole.log(filtered);\n// Chains array methods for data processing"
+      },
+      {
+        "id": "code-medium-3",
+        "text": "async function fetchData(url) {\n  try {\n    const response = await fetch(url);\n    if (!response.ok) {\n      throw new Error('Network response was not ok');\n    }\n    return await response.json();\n  } catch (error) {\n    console.error(error);\n  }\n}\n// Asynchronous function with error handling"
+      },
+      {
+        "id": "code-medium-4",
+        "text": "import { useState, useEffect } from 'react';\nfunction Component() {\n  const [state, setState] = useState(null);\n  useEffect(() => {\n    // loadData function would go here\n    console.log('Data loaded');\n  }, []);\n  return <div>{state}</div>;\n}\n// Basic React hook usage"
+      },
+      {
+        "id": "code-medium-5",
+        "text": "let data = '{ \"name\": \"John\" }';\ntry {\n  const result = JSON.parse(data);\n  console.log(result.name);\n} catch (error) {\n  console.error('Invalid JSON:', error);\n}\n// JSON parsing with try-catch block"
+      },
+      {
+        "id": "code-medium-6",
+        "text": "function findMax(arr) {\n  if (arr.length === 0) return null;\n  let max = arr[0];\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] > max) max = arr[i];\n  }\n  return max;\n}\nconsole.log(findMax([3, 1, 4, 1, 5]));\n// Finds maximum value in array"
+      },
+      {
+        "id": "code-medium-7",
+        "text": "const obj = { a: 1, b: 2 };\nconst entries = Object.entries(obj);\nconst newObj = Object.fromEntries(entries.map(([k, v]) => [k, v * 2]));\nconsole.log(newObj);\n// Transforms object values"
+      },
+      {
+        "id": "code-medium-8",
+        "text": "function isPalindrome(str) {\n  const cleaned = str.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();\n  return cleaned === cleaned.split('').reverse().join('');\n}\nconsole.log(isPalindrome('A man a plan a canal Panama'));\n// Checks for palindrome ignoring case and punctuation"
+      },
+      {
+        "id": "code-medium-9",
+        "text": "const promise = new Promise((resolve, reject) => {\n  setTimeout(() => resolve('Done'), 1000);\n});\npromise.then(result => console.log(result));\n// Basic promise usage with timeout"
+      },
+      {
+        "id": "code-medium-10",
+        "text": "function mergeArrays(arr1, arr2) {\n  return [...new Set([...arr1, ...arr2])].sort();\n}\nconsole.log(mergeArrays([1, 3, 5], [2, 4, 6]));\n// Merges and sorts unique elements from two arrays"
+      }
+    ],
+    "hard": [
+      {
+        "id": "code-hard-1",
+        "text": "function debounce(fn, delay) {\n  let timeoutId;\n  return function(...args) {\n    if (timeoutId) {\n      clearTimeout(timeoutId);\n    }\n    timeoutId = setTimeout(() => {\n      fn(...args);\n      timeoutId = null;\n    }, delay);\n  };\n}\n// Debounce function to limit execution rate\n// Useful for event handlers like scroll or resize"
+      },
+      {
+        "id": "code-hard-2",
+        "text": "function deepClone(obj) {\n  if (obj === null || typeof obj !== 'object') {\n    return obj;\n  }\n  if (Array.isArray(obj)) {\n    return obj.map(deepClone);\n  }\n  return Object.fromEntries(\n    Object.entries(obj).map(([k, v]) => [k, deepClone(v)])\n  );\n}\n// Deep clones objects and arrays recursively"
+      },
+      {
+        "id": "code-hard-3",
+        "text": "type Result<T, E> = { success: true; value: T } | { success: false; error: E };\nfunction tryCatch<T>(fn: () => T): Result<T, Error> {\n  try {\n    return { success: true, value: fn() };\n  } catch (e) {\n    return { success: false, error: e as Error };\n  }\n}\n// Type-safe try-catch wrapper (TypeScript)"
+      },
+      {
+        "id": "code-hard-4",
+        "text": "function memoize<T extends (...args: unknown[]) => unknown>(fn: T) {\n  const cache = new Map<string, ReturnType<T>>();\n  return ((...args: Parameters<T>): ReturnType<T> => {\n    const key = JSON.stringify(args);\n    if (cache.has(key)) {\n      return cache.get(key)!;\n    }\n    const result = fn(...args);\n    cache.set(key, result);\n    return result;\n  }) as T;\n}\n// Memoization function with type safety"
+      },
+      {
+        "id": "code-hard-5",
+        "text": "function* fibonacci() {\n  let [a, b] = [0, 1];\n  while (true) {\n    yield a;\n    [a, b] = [b, a + b];\n  }\n}\nconst gen = fibonacci();\nconsole.log(gen.next().value); // 0\nconsole.log(gen.next().value); // 1\n// Generator for infinite Fibonacci sequence"
+      },
+      {
+        "id": "code-hard-6",
+        "text": "class LRUCache {\n  private capacity: number;\n  private cache: Map<number, number>;\n  constructor(capacity: number) {\n    this.capacity = capacity;\n    this.cache = new Map();\n  }\n  get(key: number): number {\n    if (!this.cache.has(key)) return -1;\n    const val = this.cache.get(key)!;\n    this.cache.delete(key);\n    this.cache.set(key, val);\n    return val;\n  }\n  put(key: number, value: number): void {\n    if (this.cache.has(key)) {\n      this.cache.delete(key);\n    }\n    this.cache.set(key, value);\n    if (this.cache.size > this.capacity) {\n      this.cache.delete(this.cache.keys().next().value);\n    }\n  }\n}\n// Least Recently Used cache implementation"
+      },
+      {
+        "id": "code-hard-7",
+        "text": "function quicksort(arr: number[]): number[] {\n  if (arr.length <= 1) return arr;\n  const pivot = arr[Math.floor(arr.length / 2)];\n  const left = arr.filter(x => x < pivot);\n  const middle = arr.filter(x => x === pivot);\n  const right = arr.filter(x => x > pivot);\n  return [...quicksort(left), ...middle, ...quicksort(right)];\n}\nconsole.log(quicksort([3, 6, 8, 10, 1, 2, 1]));\n// Recursive quicksort algorithm"
+      },
+      {
+        "id": "code-hard-8",
+        "text": "function binarySearch(arr: number[], target: number): number {\n  let left = 0;\n  let right = arr.length - 1;\n  while (left <= right) {\n    const mid = Math.floor((left + right) / 2);\n    if (arr[mid] === target) return mid;\n    if (arr[mid] < target) left = mid + 1;\n    else right = mid - 1;\n  }\n  return -1;\n}\nconsole.log(binarySearch([1, 2, 3, 4, 5], 3));\n// Binary search on sorted array"
+      },
+      {
+        "id": "code-hard-9",
+        "text": "function curry(fn: Function) {\n  return function curried(...args: any[]) {\n    if (args.length >= fn.length) {\n      return fn(...args);\n    }\n    return (...nextArgs: any[]) => curried(...args, ...nextArgs);\n  };\n}\nconst add = (a: number, b: number, c: number) => a + b + c;\nconst curriedAdd = curry(add);\nconsole.log(curriedAdd(1)(2)(3));\n// Function currying implementation"
+      },
+      {
+        "id": "code-hard-10",
+        "text": "class EventEmitter {\n  private events: { [key: string]: Function[] } = {};\n  on(event: string, listener: Function) {\n    if (!this.events[event]) this.events[event] = [];\n    this.events[event].push(listener);\n  }\n  emit(event: string, ...args: any[]) {\n    if (this.events[event]) {\n      this.events[event].forEach(listener => listener(...args));\n    }\n  }\n  off(event: string, listener: Function) {\n    if (this.events[event]) {\n      this.events[event] = this.events[event].filter(l => l !== listener);\n    }\n  }\n}\n// Simple event emitter class"
+      }
+    ]
+  },
+  "lyrics": {
+    "easy": [
+      {
+        "id": "lyrics-easy-1",
+        "text": "It might seem crazy what I'm 'bout to say\nSunshine, she's here, you can take a break\nI'm a hot air balloon that could go to space\nWith the air, like I don't care, baby, by the way, huh\n(Because I'm happy)\nClap along if you feel like a room without a roof\n(Because I'm happy)\nClap along if you feel like happiness is the truth"
+      },
+      {
+        "id": "lyrics-easy-2",
+        "text": "I got this feelin' inside my bones\nIt goes electric, wavey when I turn it on\nAll through my city, all through my home\nWe're flyin' up, no ceilin', when we in our zone\nI got that sunshine in my pocket, got that good soul in my feet\nI feel that hot blood in my body when it drops (Ooh)\nI can't take my eyes up off it, movin' so phenomenally\nRoom on lock, the way we rock it, so don't stop"
+      },
+      {
+        "id": "lyrics-easy-3",
+        "text": "This hit, that ice cold\nMichelle Pfeiffer, that white gold\nThis one for them hood girls\nThem good girls, straight masterpieces\nStylin', wilin', livin' it up in the city\nGot Chucks on with Saint Laurent\nGotta kiss myself, I'm so pretty\nI'm too hot (Hot damn)"
+      },
+      {
+        "id": "lyrics-easy-4",
+        "text": "I stay out too late\nGot nothing in my brain\nThat’s what people say, mmm-mmm\nThat’s what people say, mmm-mmm\nI go on too many dates\nBut I can’t make them stay\nAt least that’s what people say, mmm-mmm\nThat’s what people say, mmm-mmm"
+      },
+      {
+        "id": "lyrics-easy-5",
+        "text": "Somebody once told me the world is gonna roll me\nI ain't the sharpest tool in the shed\nShe was looking kind of dumb with her finger and her thumb\nIn the shape of an \"L\" on her forehead\nWell, the years start comin' and they don't stop comin'\nFed to the rules and I hit the ground runnin'\nDidn't make sense not to live for fun\nYour brain gets smart but your head gets dumb"
+      },
+      {
+        "id": "lyrics-easy-6",
+        "text": "Hey, Jude, don't make it bad\nTake a sad song and make it better\nRemember to let her into your heart\nThen you can start to make it better\nHey, Jude, don't be afraid\nYou were made to go out and get her\nThe minute you let her under your skin\nThen you begin to make it better"
+      },
+      {
+        "id": "lyrics-easy-7",
+        "text": "The snow glows white on the mountain tonight\nNot a footprint to be seen\nA kingdom of isolation\nAnd it looks like I'm the Queen\nThe wind is howling like this\nSwirling storm inside\nCouldn't keep it in, heaven knows I tried"
+      },
+      {
+        "id": "lyrics-easy-8",
+        "text": "I used to bite my tongue and hold my breath\nScared to rock the boat and make a mess\nSo I sat quietly, agreed politely\nI guess that I forgot I had a choice\nI let you push me past the breaking point\nI stood for nothing, so I fell for everything\nYou held me down, but I got up (Hey)\nAlready brushing off the dust"
+      },
+      {
+        "id": "lyrics-easy-9",
+        "text": "Lately, I've been, I've been losin' sleep\nDreamin' about the things that we could be\nBut baby, I've been, I've been prayin' hard\nSaid no more countin' dollars, we'll be countin' stars\nYeah, we'll be countin' stars\nI see this life, like a swinging vine\nSwing my heart across the line\nAnd in my face is flashing signs"
+      },
+      {
+        "id": "lyrics-easy-10",
+        "text": "I used to rule the world\nSeas would rise when I gave the word\nNow in the morning, I sleep alone\nSweep the streets I used to own\nI used to roll the dice\nFeel the fear in my enemies' eyes\nListen as the crowd would sing\n\"Now the old king is dead, long live the king\""
+      }
+    ],
+    "medium": [
+      {
+        "id": "lyrics-medium-1",
+        "text": "A club isn't the best place to find a lover\nSo the bar is where I go (Mm)\nMe and my friends at the table doin' shots\nDrinkin' fast and then we talk slow (Mm)\nAnd you come over and start up a conversation with just me\nAnd trust me, I'll give it a chance now (Mm)\nTake my hand, stop, put Van the Man on the jukebox\nAnd then we start to dance, and now I'm singin' like\nGirl, you know I want your love\nYour love was handmade for somebody like me\nWell, come on now, follow my lead\nI may be crazy, don't mind me\nSay, \"Boy, let's not talk too much\"\nGrab on my waist and put that body on me\nWell, come on now, follow my lead\nCome, come on now, follow my lead, mm"
+      },
+      {
+        "id": "lyrics-medium-2",
+        "text": "White shirt now red, my bloody nose\nSleepin', you're on your tippy toes\nCreepin' around like no one knows\nThink you're so criminal\nBruises on both my knees for you\nDon't say thank you or please\nI do what I want when I'm wanting to\nMy soul? So cynical\nSo you're a tough guy\nLike it really rough guy\nJust can't get enough guy\nChest always so puffed guy\nI'm that bad type\nMake your mama sad type\nMake your girlfriend mad type\nMight seduce your dad type"
+      },
+      {
+        "id": "lyrics-medium-3",
+        "text": "There's a fire starting in my heart\nReaching a fever pitch and it's bringing me out the dark\nFinally, I can see you crystal clear\nGo ahead and sell me out and I'll lay your shit bare\nSee how I'll leave with every piece of you\nDon't underestimate the things that I will do\nThere's a fire starting in my heart\nReaching a fever pitch and it's bringing me out the dark\nThe scars of your love remind me of us\nThey keep me thinkin' that we almost had it all\nThe scars of your love, they leave me breathless\nI can't help feeling\nWe could've had it all (You're gonna wish you never had met me)\nRolling in the deep (Tears are gonna fall, rolling in the deep)\nYou had my heart inside of your hand (You're gonna wish you never had met me)\nAnd you played it to the beat (Tears are gonna fall, rolling in the deep)"
+      },
+      {
+        "id": "lyrics-medium-4",
+        "text": "I heard that you're settled down\nThat you found a girl and you're married now\nI heard that your dreams came true\nGuess she gave you things I didn't give to you\nOld friend, why are you so shy?\nAin't like you to hold back or hide from the light\nI hate to turn up out of the blue, uninvited\nBut I couldn't stay away, I couldn't fight it\nI had hoped you'd see my face\nAnd that you'd be reminded that for me, it isn't over\nNever mind, I'll find someone like you\nI wish nothing but the best for you, too\nDon't forget me, I beg\nI remember you said\nSometimes it lasts in love, but sometimes it hurts instead\nSometimes it lasts in love, but sometimes it hurts instead"
+      },
+      {
+        "id": "lyrics-medium-5",
+        "text": "When your legs don't work like they used to before\nAnd I can't sweep you off of your feet\nWill your mouth still remember the taste of my love?\nWill your eyes still smile from your cheeks?\nAnd darling, I will be loving you till we're seventy\nAnd baby, my heart could still fall as hard at twenty-three\nAnd I'm thinking 'bout how\nPeople fall in love in mysterious ways\nMaybe just the touch of a hand\nWell me, I fall in love with you every single day\nAnd I just wanna tell you I am\nSo honey, now, take me into your loving arms\nKiss me under the light of a thousand stars\nPlace your head on my beating heart, I'm thinking out loud\nAnd maybe we found love right where we are"
+      },
+      {
+        "id": "lyrics-medium-6",
+        "text": "Remember those walls I built?\nWell, baby, they're tumblin' down\nAnd they didn't even put up a fight\nThey didn't even make a sound\nI found a way to let you in\nBut I never really had a doubt\nStandin' in the light of your halo\nI got my angel now\nIt's like I've been awakened\nEvery rule, I had you breakin'\nIt's the risk that I'm takin'\nI ain't ever gonna shut you out\nEverywhere I'm lookin' now\nI'm surrounded by your embrace\nBaby, I can see your halo\nYou know you're my savin' grace"
+      },
+      {
+        "id": "lyrics-medium-7",
+        "text": "Do you ever feel like a plastic bag\nDrifting through the wind, wanting to start again?\nDo you ever feel, feel so paper-thin\nLike a house of cards, one blow from caving in?\nDo you ever feel already buried deep?\nSix feet under screams, but no one seems to hear a thing\nDo you know that there's still a chance for you?\n'Cause there's a spark in you\nYou just gotta ignite the light\nAnd let it shine\nJust own the night\nLike the Fourth of July\n'Cause baby, you're a firework\nCome on show 'em what you're worth\nMake 'em go, \"Aah, aah, aah\"\nAs you shoot across the sky"
+      },
+      {
+        "id": "lyrics-medium-8",
+        "text": "'Cause I, I, I'm in the stars tonight\nSo watch me bring the fire and set the night alight\nShoes on, get up in the morn'\nCup of milk, let's rock and roll\nKing Kong, kick the drum\nRolling on like a Rolling Stone\nSing-song when I'm walkin' home\nJump up to the top, LeBron\nDing-dong, call me on my phone\nIce tea and a game of ping pong\nThis is gettin' heavy, can you hear the bass boom? I'm ready (Woo-hoo)\nLife is sweet as honey, yeah, this beat cha-ching like money, huh\nDisco overload, I'm into that, I'm good to go\nI'm diamond, you know I glow up\nHey, so let's go"
+      },
+      {
+        "id": "lyrics-medium-9",
+        "text": "If you wanna run away with me\nI know a galaxy and I can take you for a ride\nI had a premonition that we fell into a rhythm\nWhere the music don't stop for life\nGlitter in the sky, glitter in my eyes\nShining just the way I like\nIf you feel like you need a little bit of company\nYou met me at the perfect time\nYou want me, I want you, baby\nMy sugarboo, I'm levitating\nThe milky way, we're renegading\n(Yeah, yeah, yeah, yeah, yeah)\nI got you, moonlight, you're my starlight\nI need you, all night\nCome on, dance with me\n(I'm levitating)"
+      },
+      {
+        "id": "lyrics-medium-10",
+        "text": "I've been tryna call\nI've been on my own for long enough\nMaybe you can show me how to love, maybe\nI'm going through withdrawals\nYou don't even have to do too much\nYou can turn me on with just a touch, baby\nI look around and\nSin City's cold and empty (Oh)\nNo one's around to judge me (Oh)\nI can't see clearly when you're gone\nI said, ooh, I'm blinded by the lights\nNo, I can't sleep until I feel your touch\nI said, ooh, I'm drowning in the night\nOh, when I'm like this, you're the one I trust\nHey, hey, hey"
+      }
+    ],
+    "hard": [
+      {
+        "id": "lyrics-hard-1",
+        "text": "Look, if you had one shot or one opportunity\nTo seize everything you ever wanted in one moment\nWould you capture it or just let it slip?\nYo\nHis palms are sweaty, knees weak, arms are heavy\nThere's vomit on his sweater already, mom's spaghetti\nHe's nervous, but on the surface, he looks calm and ready\nTo drop bombs, but he keeps on forgetting\nWhat he wrote down, the whole crowd goes so loud\nHe opens his mouth, but the words won't come out\nHe's chokin', how? Everybody's jokin' now\nThe clock's run out, time's up, over, blaow\nSnap back to reality, ope, there goes gravity\nOpe, there goes Rabbit, he choked, he's so mad\nBut he won't give up that easy, no, he won't have it\nHe knows his whole back's to these ropes, it don't matter\nHe's dope, he knows that, but he's broke, he's so stagnant\nHe knows when he goes back to this mobile home, that's when it's\nBack to the lab again, yo, this old rhapsody\nBetter go capture this moment and hope it don't pass him"
+      },
+      {
+        "id": "lyrics-hard-2",
+        "text": "Is this the real life?\nIs this just fantasy?\nCaught in a landslide, no escape from reality\nOpen your eyes, look up to the skies and see\nI'm just a poor boy, I need no sympathy (Ooh, poor boy)\nBecause I'm easy come, easy go, little high, little low\nAny way the wind blows (Ooh, the wind blows)\nDoesn't really matter to me, to me\nMama, just killed a man\nPut a gun against his head, pulled my trigger, now he's dead\nMama, life had just begun\nBut now I've gone and thrown it all away\nMama, ooh, didn't mean to make you cry\nIf I'm not back again this time tomorrow\nCarry on, carry on as if nothing really matters\nToo late, my time has come\nSends shivers down my spine, body's aching all the time\nGoodbye, everybody, I've got to go\nGotta leave you all behind and face the truth\nMama, ooh (Any way the wind blows)"
+      },
+      {
+        "id": "lyrics-hard-3",
+        "text": "There's a lady who's sure all that glitters is gold\nAnd she's buying a stairway to Heaven\nWhen she gets there she knows, if the stores are all closed\nWith a word she can get what she came for\nOoh, ooh, and she's buying a stairway to Heaven\nThere's a sign on the wall, but she wants to be sure\n'Cause you know sometimes words have two meanings\nIn a tree by the brook, there's a songbird who sings\nSometimes all of our thoughts are misgiven\nOoh, makes me wonder\nOoh, makes me wonder\nThere's a feeling I get when I look to the west\nAnd my spirit is crying for leaving\nIn my thoughts I have seen rings of smoke through the trees\nAnd the voices of those who stand looking\nOoh, it makes me wonder\nOoh, really makes me wonder\nAnd it's whispered that soon if we all call the tune\nThen the piper will lead us to reason\nAnd a new day will dawn for those who stand long"
+      },
+      {
+        "id": "lyrics-hard-4",
+        "text": "On a dark desert highway\nCool wind in my hair\nWarm smell of colitas\nRising up through the air\nUp ahead in the distance\nI saw a shimmering light\nMy head grew heavy and my sight grew dim\nI had to stop for the night\nThere she stood in the doorway\nI heard the mission bell\nAnd I was thinkin' to myself\n\"This could be Heaven or this could be Hell\"\nThen she lit up a candle\nAnd she showed me the way\nThere were voices down the corridor\nI thought I heard them say\n\"Welcome to the Hotel California\nSuch a lovely place (Such a lovely place)\nSuch a lovely face\nPlenty of room at the Hotel California"
+      },
+      {
+        "id": "lyrics-hard-5",
+        "text": "Now I've heard there was a secret chord\nThat David played and it pleased the Lord\nBut you don't really care for music, do ya?\nIt goes like this, the fourth, the fifth\nThe minor fall, the major lift\nThe baffled king composing \"Hallelujah\"\nHallelujah, Hallelujah\nHallelujah, Hallelujah\nYour faith was strong, but you needed proof\nYou saw her bathing on the roof\nHer beauty and the moonlight overthrew ya\nShe tied you to a kitchen chair\nShe broke your throne and she cut your hair\nAnd from your lips she drew the Hallelujah\nHallelujah, Hallelujah\nHallelujah, Hallelujah\nYou say I took the name in vain\nI don't even know the name\nBut if I did, well, really, what's it to ya?\nThere's a blaze of light in every word"
+      },
+      {
+        "id": "lyrics-hard-6",
+        "text": "Hello, darkness, my old friend\nI've come to talk with you again\nBecause a vision softly creeping\nLeft its seeds while I was sleeping\nAnd the vision that was planted in my brain\nStill remains\nWithin the sound of silence\nIn restless dreams, I walked alone\nNarrow streets of cobblestone\n'Neath the halo of a street lamp\nI turned my collar to the cold and damp\nWhen my eyes were stabbed by the flash of a neon light\nThat split the night\nAnd touched the sound of silence\nAnd in the naked light, I saw\nTen thousand people, maybe more\nPeople talking without speaking\nPeople hearing without listening\nPeople writing songs that voices never shared"
+      },
+      {
+        "id": "lyrics-hard-7",
+        "text": "Once upon a time you dressed so fine\nYou threw the bums a dime in your prime, didn't you?\nPeople'd call, say, \"Beware doll, you're bound to fall\"\nYou thought they were all kiddin' you\nYou used to laugh about\nEverybody that was hangin' out\nNow you don't talk so loud\nNow you don't seem so proud\nAbout having to be scrounging for your next meal\nHow does it feel?\nHow does it feel\nTo be without a home\nLike a complete unknown\nLike a rolling stone?\nYou've gone to the finest school all right, Miss Lonely\nBut you know you only used to get juiced in it\nAnd nobody's ever taught you how to live out on the street\nAnd now you're gonna have to get used to it\nYou said you'd never compromise\nWith the mystery tramp, but now you realize"
+      },
+      {
+        "id": "lyrics-hard-8",
+        "text": "A long, long time ago\nI can still remember how that music\nUsed to make me smile\nAnd I knew if I had my chance\nThat I could make those people dance\nAnd maybe they'd be happy for a while\nBut February made me shiver\nWith every paper I'd deliver\nBad news on the doorstep\nI couldn't take one more step\nI can't remember if I cried\nWhen I read about his widowed bride\nBut something touched me deep inside\nThe day the music died\nSo, bye-bye, Miss American Pie\nDrove my Chevy to the levee, but the levee was dry\nAnd them good ol' boys were drinkin' whiskey and rye\nSingin', \"This'll be the day that I die\nThis'll be the day that I die\"\nDid you write the book of love?"
+      },
+      {
+        "id": "lyrics-hard-9",
+        "text": "Imagine there's no heaven\nIt's easy if you try\nNo hell below us\nAbove us, only sky\nImagine all the people\nLiving for today\nImagine there's no countries\nIt isn't hard to do\nNothing to kill or die for\nAnd no religion too\nImagine all the people\nLiving life in peace\nYou may say I'm a dreamer\nBut I'm not the only one\nI hope someday you'll join us\nAnd the world will be as one\nImagine no possessions\nI wonder if you can\nNo need for greed or hunger\nA brotherhood of man"
+      },
+      {
+        "id": "lyrics-hard-10",
+        "text": "It's close to midnight\nAnd something evil's lurking in the dark\nUnder the moonlight\nYou see a sight that almost stops your heart\nYou try to scream\nBut terror takes the sound before you make it\nYou start to freeze\nAs horror looks you right between the eyes\nYou're paralyzed\n'Cause this is thriller, thriller night\nAnd no one's gonna save you\nFrom the beast about to strike\nYou know it's thriller, thriller night\nYou're fighting for your life inside a killer\nThriller tonight, yeah\nOoh\nYou hear the door slam\nAnd realize there's nowhere left to run\nYou feel the cold hand\nAnd wonder if you'll ever see the sun"
+      }
+    ]
+  }
 }
