@@ -1,14 +1,12 @@
 import { motion, AnimatePresence, LayoutGroup } from "motion/react";
 import IconCompleted from "@/assets/icon-completed.svg";
 import IconHighScore from "@/assets/icon-new-pb.svg";
-import Star1 from "@/assets/pattern-star-1.svg";
-import Star2 from "@/assets/pattern-star-2.svg";
-import Confetti from "@/assets/pattern-confetti.svg";
 import ResultCard from "./_fragments/result-card";
 import Heatmap from "./_fragments/heat-map";
 import { useTypingTestContext } from "@/context/TypingTestContext";
 import Link from "next/link";
 import { fadeScaleVariants } from "./_fragments/animated-presence";
+import Celebrate from "./_fragments/celebrate";
 
 const RenderCharacters = (correct: number, incorrect: number) => {
   return (
@@ -99,16 +97,7 @@ export default function Result() {
           )}
         </AnimatePresence>
 
-        {verdict === 'high-score' ? (
-          <Confetti className="fixed bottom-0 left-0 w-full -z-1" />
-        ) : (
-          <div className="absolute top-0 left-0 w-full h-full select-none pointer-events-none">
-            <div className="relative h-full w-full">
-              <Star2 className="absolute top-1/5 left-6" />
-              <Star1 className="absolute -bottom-1/5 right-6" />
-            </div>
-          </div>
-        )}
+        <Celebrate verdict={verdict} />
       </motion.div>
     </LayoutGroup>
   )
