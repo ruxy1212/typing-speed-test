@@ -2,21 +2,7 @@
 
 import { useRef, useCallback, useState, useEffect } from 'react';
 import { toast } from 'sonner';
-
-const SOUND_STORAGE_KEY = 'typing-test-sound-enabled';
-
-// Get sound preference from localStorage
-function getSoundPreference(): boolean {
-  if (typeof window === 'undefined') return true;
-  const stored = localStorage.getItem(SOUND_STORAGE_KEY);
-  return stored !== null ? stored === 'true' : true; // Default to enabled
-}
-
-// Save sound preference to localStorage
-function saveSoundPreference(enabled: boolean): void {
-  if (typeof window === 'undefined') return;
-  localStorage.setItem(SOUND_STORAGE_KEY, String(enabled));
-}
+import { getSoundPreference, saveSoundPreference } from '@/lib/storage';
 
 export function useSounds() {
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);

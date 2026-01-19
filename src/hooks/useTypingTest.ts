@@ -5,6 +5,17 @@ import passageData from '@/app/data/data.json';
 import layout from "simple-keyboard-layouts/build/layouts/english";
 import { useSounds } from './useSounds';
 import { toast } from 'sonner';
+import {
+  getProfileId,
+  getUsername,
+  saveUsername,
+  getPersonalBest,
+  savePersonalBest,
+  getKeyStats,
+  saveKeyStats,
+} from '@/lib/storage';
+
+export { saveUsername };
 
 export type Category = 'general' | 'quotes' | 'code' | 'lyrics';
 export type Difficulty = 'easy' | 'medium' | 'hard';
@@ -42,10 +53,6 @@ interface UploadBody {
 }
 
 const DEFAULT_TIMED_MODE_DURATION = 60;
-const PROFILE_ID_KEY = 'typing-test-profile-id';
-const USERNAME_KEY = 'typing-test-username';
-const PERSONAL_BEST_KEY = 'typing-test-personal-best';
-const KEY_STATS_KEY = 'typing-test-key-stats';
 
 // Extract all single-character keys from the layout
 const allKeysArray = Object.values(layout.layout)
@@ -56,57 +63,6 @@ const allKeysArray = Object.values(layout.layout)
 
 // Use a Set to remove duplicates (like functional keys found in both layers)
 const keyList = Array.from(new Set(allKeysArray));
-
-// Get Profile ID
-function getProfileId(): string {
-  let profileId = localStorage.getItem(PROFILE_ID_KEY);
-  if (!profileId) {
-    profileId = crypto.randomUUID ? crypto.randomUUID() : 'fallback-uuid';
-    localStorage.setItem(PROFILE_ID_KEY, profileId);
-  }
-  return profileId;
-}
-
-// Get Username
-function getUsername(): string {
-  let username = localStorage.getItem(USERNAME_KEY);
-  if (!username) {
-    username = getProfileId();
-    localStorage.setItem(USERNAME_KEY, username);
-  }
-  return username;
-}
-
-// Save Username
-export function saveUsername(username: string): void {
-  localStorage.setItem(USERNAME_KEY, username);
-}
-
-// Get personal best from localStorage
-function getPersonalBest(): number | null {
-  if (typeof window === 'undefined') return null;
-  const stored = localStorage.getItem(PERSONAL_BEST_KEY);
-  return stored ? parseInt(stored, 10) : null;
-}
-
-// Save personal best to localStorage
-function savePersonalBest(wpm: number): void {
-  if (typeof window === 'undefined') return;
-  localStorage.setItem(PERSONAL_BEST_KEY, wpm.toString());
-}
-
-// Get key stats from localStorage
-function getKeyStats(): { [key: string]: { count: number; errors: number } } {
-  if (typeof window === 'undefined') return {};
-  const stored = localStorage.getItem(KEY_STATS_KEY);
-  return stored ? JSON.parse(stored) : {};
-}
-
-// Save key stats to localStorage
-function saveKeyStats(stats: { [key: string]: { count: number; errors: number } }): void {
-  if (typeof window === 'undefined') return;
-  localStorage.setItem(KEY_STATS_KEY, JSON.stringify(stats));
-}
 
 // Get a random passage from the specified category and difficulty
 function getRandomPassage(category: Category, difficulty: Difficulty): Passage {
@@ -280,7 +236,10 @@ export function useTypingTest() {
     if (reason === 'whole') {
       if (verdict !== 'default') playCheer();
       else playCheerSoft();
-    } else playBoo();
+    } else {
+      if (verdict === 'default') playBoo();
+      else playCheerSoft();
+    }
 
     // Submit to leaderboard
     const profileId = getProfileId();
