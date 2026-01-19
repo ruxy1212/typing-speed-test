@@ -89,6 +89,7 @@ export default function ControlSection<T extends string>({
                     onClick={(ev) => { ev.stopPropagation(); if (disabled) return; setOpenSubIndex(openSubIndex === index ? null : index); setControlOpen(openSubIndex !== index) }}
                     className="text-ts-neutral-400 hover:text-ts-neutral-200"
                     aria-expanded={openSubIndex === index}
+                    aria-label="Open submenu"
                   >
                     <svg className={`w-4 h-4 transition-transform ${openSubIndex === index ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />

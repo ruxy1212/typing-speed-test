@@ -176,6 +176,7 @@ export default function TextContainer() {
         <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-[clamp(20vh,50%,30vh)]">
           <div className="flex flex-col justify-center items-center gap-4 whitespace-nowrap md:gap-5">
             <button
+              type="button"
               onClick={(e) => {
                 e.stopPropagation();
                 startTest();

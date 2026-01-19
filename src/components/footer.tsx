@@ -14,6 +14,7 @@ export default function Footer() {
     <div className="w-full flex justify-center gap-5 md:gap-6">
       <button
         onClick={restart}
+        type="button"
         className={`rounded-lg text-lg font-semibold md:text-xl px-4 py-2.5 items-center gap-2 cursor-pointer transition-opacity focus:ring-2 focus:ring-ts-blue-400 focus:ring-offset-2 focus:ring-offset-ts-neutral-900 hover:opacity-80 ${testState === 'idle' ? 'hidden' : 'flex'} ${testState === 'running' ? 'bg-ts-neutral-800 text-ts-neutral-0' : 'bg-ts-neutral-0 text-ts-neutral-900'}`}
       >
         <span className="hidden md:inline">{testState === 'running' ? 'Restart Test' : 'Go Again'}</span>
@@ -22,6 +23,7 @@ export default function Footer() {
       {testState === 'completed' && (
         <>
           <button
+            type="button"
             onClick={() => setIsShareModalOpen(true)}
             className={`rounded-lg text-lg font-semibold md:text-xl px-4 py-2.5 items-center gap-2 cursor-pointer transition-opacity hover:opacity-80 flex bg-ts-neutral-0 text-ts-neutral-900 focus:ring-2 focus:ring-ts-blue-400 focus:ring-offset-2 focus:ring-offset-ts-neutral-900`}
           >
@@ -29,6 +31,7 @@ export default function Footer() {
             <Share2 className="[&_path]:fill-current" />
           </button>
           <button
+            type="button"
             onClick={toggleHeatMap}
             className={`rounded-lg text-lg font-semibold md:text-xl px-4 py-2.5 items-center gap-2 cursor-pointer focus:ring-2 focus:ring-ts-blue-400 focus:ring-offset-2 focus:ring-offset-ts-neutral-900 transition-opacity hover:opacity-80 flex ${resultTab === 'summary' ? 'bg-ts-neutral-0 text-ts-neutral-900' : 'text-ts-neutral-0 bg-ts-neutral-700'}`}
           >
