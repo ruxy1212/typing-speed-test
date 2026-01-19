@@ -1,5 +1,6 @@
 'use client';
 
+import Link from "next/link";
 import LogoLarge from "@/assets/logo-large.svg"
 import LogoSmall from "@/assets/logo-small.svg"
 import TrophyIcon from "@/assets/icon-personal-best.svg"
@@ -11,10 +12,10 @@ export default function Header() {
 
   return (
     <header className="w-full max-w-344 mx-auto flex justify-between items-center">
-      <div>
+      <Link href="/">
         <LogoLarge className="hidden md:block h-10" />
         <LogoSmall className="block md:hidden h-8" />
-      </div>
+      </Link>
       <div className="flex gap-4 items-center justify-center">
         <div className="flex gap-2.5 items-center">
           <TrophyIcon className="h-4 md:h-4.5" />

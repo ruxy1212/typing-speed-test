@@ -6,6 +6,7 @@ import Confetti from "@/assets/pattern-confetti.svg";
 import ResultCard from "./_fragments/result-card";
 import Heatmap from "./_fragments/heat-map";
 import { useTypingTestContext } from "@/context/TypingTestContext";
+import Link from "next/link";
 
 const RenderCharacters = (correct: number, incorrect: number) => {
   return (
@@ -55,11 +56,18 @@ export default function Result() {
         </p>
       </div>
       {resultTab === 'summary' ? (
-        <div className="w-full flex flex-col justify-center items-center gap-4 md:flex-row md:gap-5">
-          <ResultCard label="WPM" value={wpm} />
-          <ResultCard label="Accuracy" value={accuracy} color={parseFloat(accuracy) >= 50 ? 'text-ts-green-500' : 'text-ts-red-500'} />
-          <ResultCard label="Characters" value={characters} type="node" />
-        </div>
+        <>
+          <div className="w-full flex flex-col justify-center items-center gap-4 md:flex-row md:gap-5">
+            <ResultCard label="WPM" value={wpm} />
+            <ResultCard label="Accuracy" value={accuracy} color={parseFloat(accuracy) >= 50 ? 'text-ts-green-500' : 'text-ts-red-500'} />
+            <ResultCard label="Characters" value={characters} type="node" />
+          </div>
+          <div>
+            <Link href="/leaderboard" className="text-ts-blue-400 underline hover:text-ts-blue-600 hover:no-underline transition-all duration-500">
+              View Leaderboard
+            </Link>
+          </div>
+        </>
       ) : (
         <div className="w-full">
           <Heatmap stats={keyStats} keyList={keyList} />
