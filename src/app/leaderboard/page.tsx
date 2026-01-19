@@ -1,10 +1,17 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { db } from '../../lib/firebase';  // Adjust path
+import { useState, useEffect, useMemo } from 'react';
+import { db } from '../../lib/firebase';
 import { collection, query, orderBy, limit, onSnapshot, QuerySnapshot, DocumentData } from 'firebase/firestore';
+import { toast } from 'sonner';
+import { Loader2, Trophy } from 'lucide-react';
+import { getProfileId } from '@/lib/storage';
+import Link from 'next/link';
+import LogoLarge from '@/assets/logo-large.svg';
+import LogoSmall from '@/assets/logo-small.svg';
+import Header from '@/components/header';
+import { TypingTestProvider } from '@/context/TypingTestContext';
 
-// Interface for leaderboard entry
 interface LeaderboardEntry {
   profileId: string;
   username: string;
@@ -17,59 +24,158 @@ interface LeaderboardEntry {
 export default function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  
+  const currentProfileId = useMemo(() => {
+    if (typeof window === 'undefined') return '';
+    return getProfileId();
+  }, []);
 
   useEffect(() => {
     const q = query(
       collection(db, 'leaderboard'),
       orderBy('rankScore', 'desc'),
-      limit(50)  // Top 50, adjust as needed
+      limit(50)
     );
 
-    const unsubscribe = onSnapshot(q, (snapshot: QuerySnapshot<DocumentData>) => {
-      const data: LeaderboardEntry[] = snapshot.docs.map((doc) => ({
-        profileId: doc.id,
-        ...doc.data(),
-      }) as LeaderboardEntry);
-      setLeaderboard(data);
-      setLoading(false);
-    }, (error) => {
-      console.error('Error:', error);
-    });
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot: QuerySnapshot<DocumentData>) => {
+        const data: LeaderboardEntry[] = snapshot.docs.map((doc) => ({
+          profileId: doc.id,
+          ...doc.data(),
+        }) as LeaderboardEntry);
+        setLeaderboard(data);
+        setLoading(false);
+      },
+      (error) => {
+        console.error('Error fetching leaderboard:', error);
+        toast.error('Failed to load leaderboard. Please try again later.');
+        setLoading(false);
+      }
+    );
 
-    return () => unsubscribe();  // Cleanup
+    return () => unsubscribe();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-
   return (
-    <div>
-      <h1>Typing Speed Leaderboard</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Username</th>
-            <th>PB WPM</th>
-            <th>Total Keystrokes</th>
-            <th>Total Errors</th>
-            <th>Accuracy</th>
-            <th>Rank Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          {leaderboard.map((player, index) => (
-            <tr key={player.profileId}>
-              <td>{index + 1}</td>
-              <td>{player.username}</td>
-              <td>{player.personalBestWpm}</td>
-              <td>{player.totalKeystrokes.toLocaleString()}</td>
-              <td>{player.totalErrors.toLocaleString()}</td>
-              <td>{(((player.totalKeystrokes - player.totalErrors) / player.totalKeystrokes) * 100).toFixed(1)}%</td>
-              <td>{player.rankScore.toFixed(0)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <TypingTestProvider>
+      <div className="p-4 flex flex-col gap-8 md:p-8 md:gap-10 xl:gap-14 min-h-screen">
+        <Header />
+        {/* Main Content */}
+        <main className="w-full max-w-344 mx-auto flex-1">
+          <div className="bg-ts-neutral-800 rounded-lg p-4 md:p-6">
+            <h1 className="text-ts-neutral-0 text-xl md:text-2xl font-bold mb-6 flex items-center gap-3">
+              <Trophy className="h-6 w-6 text-ts-yellow-400" />
+              Leaderboard
+            </h1>
+
+            {loading ? (
+              <div className="flex flex-col items-center justify-center py-20 gap-4">
+                <Loader2 className="h-10 w-10 text-ts-blue-600 animate-spin" />
+                <p className="text-ts-neutral-400 text-lg">Loading leaderboard...</p>
+              </div>
+            ) : leaderboard.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-20 gap-4">
+                <Trophy className="h-12 w-12 text-ts-neutral-500" />
+                <p className="text-ts-neutral-400 text-lg">No entries yet. Be the first!</p>
+              </div>
+            ) : (
+              <div className="overflow-auto max-h-[80vh] tiny-scrollbar">
+                <table className="w-full border-collapse min-w-150">
+                  <thead className="sticky top-0 bg-ts-neutral-800 z-10">
+                    <tr className="border-b border-ts-neutral-700">
+                      <th className="text-ts-neutral-400 text-sm font-semibold text-left py-3 px-3 whitespace-nowrap">
+                        Rank
+                      </th>
+                      <th className="text-ts-neutral-400 text-sm font-semibold text-left py-3 px-3 whitespace-nowrap max-w-37.5">
+                        Username
+                      </th>
+                      <th className="text-ts-neutral-400 text-sm font-semibold text-right py-3 px-3 whitespace-nowrap">
+                        PB WPM
+                      </th>
+                      <th className="text-ts-neutral-400 text-sm font-semibold text-right py-3 px-3 whitespace-nowrap">
+                        Keystrokes
+                      </th>
+                      <th className="text-ts-neutral-400 text-sm font-semibold text-right py-3 px-3 whitespace-nowrap">
+                        Errors
+                      </th>
+                      <th className="text-ts-neutral-400 text-sm font-semibold text-right py-3 px-3 whitespace-nowrap">
+                        Accuracy
+                      </th>
+                      <th className="text-ts-neutral-400 text-sm font-semibold text-right py-3 px-3 whitespace-nowrap">
+                        Score
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {leaderboard.map((player, index) => {
+                      const isCurrentUser = player.profileId === currentProfileId;
+                      const accuracy = player.totalKeystrokes > 0
+                        ? ((player.totalKeystrokes - player.totalErrors) / player.totalKeystrokes) * 100
+                        : 0;
+
+                      return (
+                        <tr
+                          key={player.profileId}
+                          className={`border-b border-ts-neutral-700 last:border-b-0 transition-colors hover:bg-ts-neutral-700/50 ${
+                            isCurrentUser ? 'bg-ts-blue-600/40' : ''
+                          }`}
+                        >
+                          <td className="text-ts-neutral-0 text-sm py-3 px-3 whitespace-nowrap">
+                            <span className={`font-semibold ${
+                              index === 0 ? 'text-ts-yellow-400' :
+                              index === 1 ? 'text-ts-neutral-400' :
+                              index === 2 ? 'text-orange-400' :
+                              'text-ts-neutral-0'
+                            }`}>
+                              #{index + 1}
+                            </span>
+                          </td>
+                          <td className="text-ts-neutral-0 text-sm py-3 px-3 whitespace-nowrap max-w-37.5 truncate" title={player.username}>
+                            {player.username}
+                            {isCurrentUser && (
+                              <span className="ml-2 text-xs text-ts-blue-400">(You)</span>
+                            )}
+                          </td>
+                          <td className="text-ts-neutral-0 text-sm py-3 px-3 text-right whitespace-nowrap font-semibold">
+                            {player.personalBestWpm}
+                          </td>
+                          <td className="text-ts-neutral-400 text-sm py-3 px-3 text-right whitespace-nowrap">
+                            {player.totalKeystrokes.toLocaleString()}
+                          </td>
+                          <td className="text-ts-red-500 text-sm py-3 px-3 text-right whitespace-nowrap">
+                            {player.totalErrors.toLocaleString()}
+                          </td>
+                          <td className={`text-sm py-3 px-3 text-right whitespace-nowrap ${
+                            accuracy >= 95 ? 'text-ts-green-500' :
+                            accuracy >= 90 ? 'text-ts-yellow-400' :
+                            'text-ts-neutral-400'
+                          }`}>
+                            {accuracy.toFixed(1)}%
+                          </td>
+                          <td className="text-ts-blue-400 text-sm py-3 px-3 text-right whitespace-nowrap font-semibold">
+                            {player.rankScore.toFixed(0)}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+
+          {/* Back to Home Link */}
+          <div className="mt-6 text-center">
+            <Link
+              href="/"
+              className="text-ts-blue-400 hover:text-ts-blue-600 transition-colors text-sm font-medium"
+            >
+              ← Back to Typing Test
+            </Link>
+          </div>
+        </main>
+      </div>
+    </TypingTestProvider>
   );
 }
