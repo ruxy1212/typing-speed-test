@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
@@ -179,11 +180,15 @@ export default function Heatmap({ stats, keyList }: HeatmapProps) {
           />
         </button>
       </div>
-      <div 
-        className={`bg-ts-neutral-700 rounded-xl shadow-sm border border-ts-neutral-0 overflow-hidden transition-all duration-300 ${
-          isExpanded ? "mt-6 opacity-100 max-h-150" : "mt-0 opacity-0 max-h-0"
-        }`}
-      >
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div 
+            initial={{ height: 0, opacity: 0, marginTop: 0 }}
+            animate={{ height: "auto", opacity: 1, marginTop: 24 }}
+            exit={{ height: 0, opacity: 0, marginTop: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="bg-ts-neutral-700 rounded-xl shadow-sm border border-ts-neutral-0 overflow-hidden"
+          >
         <div className="p-6">
           {activeView === "frequency" ? (
             <>
@@ -259,7 +264,9 @@ export default function Heatmap({ stats, keyList }: HeatmapProps) {
             </>
           )}
         </div>
-      </div>
+      </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
