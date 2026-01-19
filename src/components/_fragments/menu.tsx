@@ -75,7 +75,7 @@ export default function Menu({
     <div className={`pt-75 -mb-75 ${controlOpen || categoryOpen ? 'relative z-1' : ''}`}>
     <div className="overflow-x-auto tiny-scrollbar w-full -mt-75 pb-3 pt-75 rotate-180">
       {/* <div className="overflow-x-auto tiny-scrollbar w-full"> */}
-        <div className="inline-flex justify-between items-center flex-wrap lg:flex-nowrap gap-4 pb-4 border-b border-ts-neutral-700 rotate-180">
+        <div className="inline-flex min-w-full justify-between items-center flex-wrap lg:flex-nowrap gap-4 lg:gap-8 pb-4 border-b border-ts-neutral-700 rotate-180">
           <div className="flex gap-4 justify-center items-center w-full lg:w-auto md:justify-start">
             <StatSection label="WPM" value={wpm} />
             <Divider />

@@ -104,7 +104,7 @@ export function useTypingTest() {
   const [keyStats, setKeyStats] = useState<{ [key: string]: { count: number; errors: number } }>(getKeyStats);
 
   // Load sounds
-  const { playCorrect, playWrong, soundEnabled, toggleSound } = useSounds();
+  const { playCorrect, playWrong, soundEnabled, toggleSound, playCheer, playBoo, playCheerSoft } = useSounds();
   
   // Timer ref
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -208,7 +208,7 @@ export function useTypingTest() {
   }, []);
   
   // Complete the test
-  const completeTest = useCallback(() => {
+  const completeTest = useCallback((reason?: 'elapsed' | 'whole') => {
     stopTimer();
     setTestState('completed');
     
@@ -230,6 +230,12 @@ export function useTypingTest() {
       savePersonalBest(finalWPM);
       setPersonalBest(finalWPM);
     }
+
+    // Play cheer sound based on performance
+    if (reason === 'whole') {
+      if (verdict !== 'default') playCheer();
+      else playCheerSoft();
+    } else playBoo();
     
     setResult({
       wpm: finalWPM,
@@ -238,7 +244,7 @@ export function useTypingTest() {
       incorrectChars,
       verdict,
     });
-  }, [stopTimer, calculateWPM, calculateAccuracy, correctChars, incorrectChars, timeElapsed, errorIndices.size]);
+  }, [playCheer, playBoo, playCheerSoft, stopTimer, calculateWPM, calculateAccuracy, correctChars, incorrectChars, timeElapsed, errorIndices.size]);
   
   // Check for test completion
   useEffect(() => {
@@ -248,7 +254,7 @@ export function useTypingTest() {
     // Check if passage is completed
     if (typedText.length >= passageText.length) {
       timerId = window.setTimeout(() => {
-        completeTest();
+        completeTest('whole');
       }, 0);
     }
     
@@ -279,7 +285,7 @@ export function useTypingTest() {
     if (testState === 'idle') {
       startTest();
     }
-    console.log('pressed')
+    
     if (key === 'Backspace') {
       const remainingTypedText = typedText.slice(0, -1);
       setTypedText(remainingTypedText);
