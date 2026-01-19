@@ -12,7 +12,7 @@ export default function Header() {
 
   return (
     <header className="w-full max-w-344 mx-auto flex justify-between items-center">
-      <Link href="/">
+      <Link href="/" aria-label="Go to homepage">
         <LogoLarge className="hidden md:block h-10" />
         <LogoSmall className="block md:hidden h-8" />
       </Link>

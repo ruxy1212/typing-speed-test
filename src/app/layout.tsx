@@ -24,6 +24,7 @@ export default function RootLayout({
       <body
         className={`${sora.variable} antialiased min-h-screen bg-ts-neutral-900`}
       >
+        <h1 className="sr-only">Typing Speed Test by Frontendmentor 30 Days Hackathon</h1>
         {children}
         <Toaster richColors position="top-right" />
       </body>
