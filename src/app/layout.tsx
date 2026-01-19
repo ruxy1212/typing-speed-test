@@ -25,7 +25,7 @@ export default function RootLayout({
         className={`${sora.variable} antialiased min-h-screen bg-ts-neutral-900`}
       >
         {children}
-        <Toaster richColors />
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );
