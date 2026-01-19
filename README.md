@@ -1,6 +1,6 @@
 # Frontend Mentor - Typing Speed Test solution
 
-This is a solution to the [Typing Speed Test challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/typing-speed-test). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is a solution to the [Typing Speed Test challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/typing-speed-test). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Table of contents
 
@@ -16,96 +16,103 @@ This is a solution to the [Typing Speed Test challenge on Frontend Mentor](https
 - [Author](#author)
 - [Acknowledgments](#acknowledgments)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
-
 ## Overview
 
 ### The challenge
 
-Users should be able to:
+Users can:
 
-- View the optimal layout for the interface depending on their device's screen size
-- See hover and focus states for all interactive elements on the page
+- **Choose from multiple test modes**: Timed mode (15s, 30s, 60s, 120s) or Passage mode
+- **Select content categories**: General, Quotes, Code snippets, or Lyrics
+- **Adjust difficulty levels**: Easy/Medium/Hard (or Short/Medium/Long for quotes, Basic/Intermediate/Advanced for code)
+- **Get real-time typing feedback**: 
+  - Live WPM (Words Per Minute) calculation
+  - Instant accuracy tracking
+  - Visual feedback for correct/incorrect characters
+  - Character-by-character highlighting with color-coded states
+- **See insightful heatmap on most used and missed keys**:
+  - Keystroke heatmap showing which keys you pressed most
+  - Keystroke heatmap showing which keys you missed most
+  - Key statistics breakdown
+- **See comprehensive results display**:
+  - Final WPM and accuracy scores
+  - Character statistics (correct vs incorrect)
+  - Personal best tracking with local storage
+  - High score celebrations with animations
+- **Leaderboard system**: 
+  - Submit scores to global Firebase leaderboard
+  - View top performers
+  - Track your personal best
+- **Share results**: Generate and share result images via dynamic OG image generation
+- **Sound effects**: Optional audio feedback for typing interactions
 
 ### Screenshot
 
 ![](./screenshot.jpg)
 
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
-
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [https://www.frontendmentor.io/solutions/typing-speed-test-using-nextjs-firebase-framer-motion-and-tailwindcss-4xv4PiVNsJ](https://www.frontendmentor.io/solutions/typing-speed-test-using-nextjs-firebase-framer-motion-and-tailwindcss-4xv4PiVNsJ)
+- Live Site URL: [https://typing-speed-test1212.vercel.app/](https://typing-speed-test1212.vercel.app/)
 
 ## My process
 
 ### Built with
 
-- Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
-- Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+- **Next.js 16** - React framework with App Router
+- **React 19** - UI library with client components and custom hooks
+- **TypeScript** - Static typing and type safety
+- **Tailwind CSS v4** - Utility-first CSS framework via PostCSS
+- **Firebase & Firebase Admin SDK** - Backend for leaderboard persistence
+- **Vercel OG (`@vercel/og`)** - Dynamic result image generation
+- **Motion** - Animation library for smooth transitions and effects
+- **react-simple-keyboard** - Heatmap keyboard component
+- **React Context API** - Global state management
+- **Lucide React** - Icon library
+- **Sonner** - Toast notifications
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+- The core strength of this project is the centralized typing state management. By using a custom `useTypingTest` hook and exposing it through `TypingTestContext`, all timing, accuracy, and WPM logic stays in one place, making the UI responsive and consistent across components.
 
-To see how you can add code snippets, see below:
+- Real-time metrics calculation – Managing live WPM and accuracy calculations without performance degradation, ensuring the display updates smoothly as the user types character-by-character.
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
-```
+- Keyboard event handling and text input – Implementing precise character-by-character tracking with proper event handling, including managing the difference between what the user types and what they should type.
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+- Local storage strategy for persistent data – Using localStorage to track user profiles, personal bests, and keystroke statistics across sessions, with proper data serialization and retrieval.
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+- Working with data-driven content – Structuring passage data by category and difficulty levels, then dynamically selecting and serving content based on user preferences.
+
+- Sound effects and audio API – Integrating audio feedback into a typing interface without creating performance issues or overwhelming the user experience.
+
+- Data visualization (heatmap generation) – Representing keystroke frequency data visually to give users insights into their typing patterns.
+
+- Leaderboard ranking logic – Implementing score comparison and ranking algorithms to identify personal bests and high score achievements.
+
+- Dynamic image generation with Vercel OG – Creating shareable result cards programmatically based on test outcomes.
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+Future improvements could include:
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+- More rigorous accessibility testing with mobile devices, keyboard-only navigation and screen readers
+- More configurable options for test modes and difficulty customization
+- Performance profiling to ensure smooth interactions on lower-end devices
+- Speed optimization when playing in hard modes.
 
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+- [Firebase Documentation](https://firebase.google.com/docs) - For leaderboard implementation
+- [Next.js Documentation](https://nextjs.org/docs) - For App Router and API routes
+- [React Context API](https://react.dev/reference/react/useContext) - For state management patterns
+- [Motion Documentation](https://motion.dev/) - For animation implementation
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
+- Website - [Russell Oje](https://ruxy.tech)
+- Frontend Mentor - [@ruxy1212](https://www.frontendmentor.io/profile/ruxy1212)
+- Twitter - [@russell_oje](https://www.twitter.com/russell_oje)
 
 ## Acknowledgments
 
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+This project was built as a Frontend Mentor challenge, helping to improve coding skills through building realistic projects.
