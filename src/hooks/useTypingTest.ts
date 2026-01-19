@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback, useEffect, useRef } from 'react';
-import passageData from '@/app/data/data.json';
+import passageData from '@/data/data.json';
 import layout from "simple-keyboard-layouts/build/layouts/english";
 import { useSounds } from './useSounds';
 import { toast } from 'sonner';
