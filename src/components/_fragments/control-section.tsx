@@ -63,7 +63,7 @@ export default function ControlSection<T extends string>({
               <label
                 className={`
                     px-3 py-1.5 rounded border
-                    transition-colors text-sm font-medium flex items-center gap-2
+                    transition-colors text-sm font-medium flex items-center gap-2 focus-within:ring-2 focus-within:ring-ts-blue-400 focus-within:ring-offset-2 focus-within:ring-offset-ts-neutral-900
                     ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}
                     ${value === option.value
                     ? 'border-ts-blue-400 text-ts-blue-400'
@@ -86,7 +86,7 @@ export default function ControlSection<T extends string>({
                 {option.subOptions && (
                   <button
                     type="button"
-                    onClick={(ev) => { ev.stopPropagation(); if (disabled) return; setOpenSubIndex(openSubIndex === index ? null : index); }}
+                    onClick={(ev) => { ev.stopPropagation(); if (disabled) return; setOpenSubIndex(openSubIndex === index ? null : index); setControlOpen(openSubIndex !== index) }}
                     className="text-ts-neutral-400 hover:text-ts-neutral-200"
                     aria-expanded={openSubIndex === index}
                   >
@@ -106,9 +106,9 @@ export default function ControlSection<T extends string>({
                       type="button"
                       onClick={() => {
                         onSubOptionSelect?.(option.value as T, sub.seconds ?? (sub.value ? Number(sub.value) : 0));
-                        // ensure parent option is selected as mode
                         onChange(option.value as T);
                         setOpenSubIndex(null);
+                        setControlOpen(false);
                       }}
                       className={`w-full text-left px-3 py-2 text-sm ${currentTimedDuration === sub.seconds ? 'bg-ts-neutral-700 text-ts-blue-400' : 'hover:bg-ts-neutral-700'}`}
                     >
@@ -128,7 +128,7 @@ export default function ControlSection<T extends string>({
           type="button"
           onClick={() => { if (disabled) return; setControlOpen(!isOpen); setIsOpen(!isOpen); }}
           disabled={disabled}
-          className={`w-full px-3 py-2 bg-ts-neutral-800 border border-ts-neutral-500 rounded text-ts-neutral-0 text-left flex justify-between items-center ${disabled ? 'opacity-60 cursor-not-allowed' : ''}`}
+          className={`w-full px-3 py-2 bg-ts-neutral-800 border border-ts-neutral-500 rounded text-ts-neutral-0 text-left flex justify-center items-center gap-2 ${disabled ? 'opacity-60 cursor-not-allowed' : ''}`}
         >
           <span>{selectedOption?.label}</span>
           <svg

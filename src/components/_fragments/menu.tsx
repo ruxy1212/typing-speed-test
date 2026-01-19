@@ -71,6 +71,7 @@ export default function Menu({
     ...TIMED_DURATIONS.map(s => ({ parentValue: 'timed' as Mode, seconds: s, label: `Timed ${s}s` })),
     { value: 'passage' as Mode, label: 'Passage' },
   ];
+  console.log({ categoryOpen, controlOpen });
   return (
     <div className={`pt-75 -mb-75 ${controlOpen || categoryOpen ? 'relative z-1' : ''}`}>
     <div className="overflow-x-auto tiny-scrollbar w-full -mt-75 pb-3 pt-75 rotate-180">

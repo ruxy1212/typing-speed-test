@@ -186,7 +186,7 @@ export default function TextContainer() {
                   containerRef.current.focus();
                 }
               }}
-              className="text-center bg-ts-blue-600 text-ts-neutral-0 text-xl rounded-lg cursor-pointer px-4 py-2 md:px-6 md:py-4 transition-colors hover:bg-ts-blue-400"
+              className="text-center bg-ts-blue-600 text-ts-neutral-0 text-xl rounded-lg cursor-pointer px-4 py-2 md:px-6 md:py-4 transition-colors hover:bg-ts-blue-400 focus:ring-2 focus:ring-ts-blue-400 focus:ring-offset-2 focus:ring-offset-ts-neutral-900"
             >
               Start Typing Test
             </button>

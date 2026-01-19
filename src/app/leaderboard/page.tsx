@@ -4,8 +4,8 @@ import { useState, useEffect, useMemo } from 'react';
 import { db } from '../../lib/firebase';
 import { collection, query, orderBy, limit, onSnapshot, QuerySnapshot, DocumentData, doc, getDoc } from 'firebase/firestore';
 import { toast } from 'sonner';
-import { Loader2, Trophy } from 'lucide-react';
-import { getProfileId } from '@/lib/storage';
+import { Loader2, Trophy, Pencil, Check, X } from 'lucide-react';
+import { getProfileId, getUsername, saveUsername } from '@/lib/storage';
 import Link from 'next/link';
 import Header from '@/components/header';
 import { TypingTestProvider } from '@/context/TypingTestContext';
@@ -24,6 +24,8 @@ export default function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [currentUserEntry, setCurrentUserEntry] = useState<LeaderboardEntry | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedUsername, setEditedUsername] = useState('');
   
   const currentProfileId = useMemo(() => {
     if (typeof window === 'undefined') return '';
@@ -87,6 +89,25 @@ export default function Leaderboard() {
     return () => unsubscribe();
   }, [currentProfileId]);
 
+  const handleEditStart = (username: string) => {
+    setEditedUsername(username);
+    setIsEditing(true);
+  };
+
+  const handleEditSave = () => {
+    const trimmed = editedUsername.trim();
+    if (trimmed && trimmed.length <= 20) {
+      saveUsername(trimmed);
+      toast.success('Username saved! It will update on the leaderboard after your next game.');
+    }
+    setIsEditing(false);
+  };
+
+  const handleEditCancel = () => {
+    setIsEditing(false);
+    setEditedUsername('');
+  };
+
   return (
     <TypingTestProvider>
       <div className="p-4 flex flex-col gap-8 md:p-8 md:gap-10 xl:gap-14 min-h-screen">
@@ -111,7 +132,7 @@ export default function Leaderboard() {
               </div>
             ) : (
               <div className="overflow-auto max-h-[80vh] tiny-scrollbar">
-                <table className="w-full border-collapse min-w-150">
+                <table className="cursor-default w-full border-collapse min-w-150">
                   <thead className="sticky top-0 bg-ts-neutral-800 z-10">
                     <tr className="border-b border-ts-neutral-700">
                       <th className="text-ts-neutral-400 text-sm font-semibold text-left py-3 px-3 whitespace-nowrap">
@@ -148,7 +169,7 @@ export default function Leaderboard() {
                         <tr
                           key={player.profileId}
                           className={`border-b border-ts-neutral-700 last:border-b-0 transition-colors hover:bg-ts-neutral-700/50 ${
-                            isCurrentUser ? 'bg-ts-blue-600/40' : ''
+                            isCurrentUser ? 'bg-ts-blue-600/25' : ''
                           }`}
                         >
                           <td className="text-ts-neutral-0 text-sm py-3 px-3 whitespace-nowrap">
@@ -162,9 +183,40 @@ export default function Leaderboard() {
                             </span>
                           </td>
                           <td className="text-ts-neutral-0 text-sm py-3 px-3 whitespace-nowrap max-w-37.5 truncate" title={player.username}>
-                            {player.username}
-                            {isCurrentUser && (
-                              <span className="ml-2 text-xs text-ts-blue-400">(You)</span>
+                            {isCurrentUser && isEditing ? (
+                              <div className="flex items-center gap-1">
+                                <input
+                                  type="text"
+                                  value={editedUsername}
+                                  onChange={(e) => setEditedUsername(e.target.value)}
+                                  maxLength={20}
+                                  className="bg-ts-neutral-700 text-ts-neutral-0 text-sm px-2 py-0.5 rounded w-24 outline-none focus:ring-1 focus:ring-ts-blue-400"
+                                  autoFocus
+                                  onKeyDown={(e) => {
+                                    if (e.key === 'Enter') handleEditSave();
+                                    if (e.key === 'Escape') handleEditCancel();
+                                  }}
+                                />
+                                <button onClick={handleEditSave} className="cursor-pointer p-0.5 hover:text-ts-green-500 text-ts-neutral-400">
+                                  <Check className="h-4 w-4" />
+                                </button>
+                                <button onClick={handleEditCancel} className="cursor-pointer p-0.5 hover:text-ts-red-500 text-ts-neutral-400">
+                                  <X className="h-4 w-4" />
+                                </button>
+                              </div>
+                            ) : (
+                              <span
+                                className={isCurrentUser ? 'cursor-pointer group' : ''}
+                                onClick={() => isCurrentUser && handleEditStart(isCurrentUser ? getUsername() : player.username)}
+                              >
+                                {isCurrentUser ? getUsername() : player.username}
+                                {isCurrentUser && (
+                                  <>
+                                    <Pencil className="inline-block ml-1 h-3 w-3 text-ts-neutral-500 group-hover:text-ts-blue-400" />
+                                    <span className="ml-1 text-xs text-ts-blue-400">(You)</span>
+                                  </>
+                                )}
+                              </span>
                             )}
                           </td>
                           <td className="text-ts-neutral-0 text-sm py-3 px-3 text-right whitespace-nowrap font-semibold">
@@ -208,7 +260,7 @@ export default function Leaderboard() {
                             </td>
                           </tr>
                           <tr
-                            className="border-b border-ts-neutral-700 last:border-b-0 transition-colors hover:bg-ts-neutral-700/50 bg-ts-blue-600/40"
+                            className="border-b border-ts-neutral-700 last:border-b-0 transition-colors hover:bg-ts-neutral-700/50 bg-ts-blue-600/25"
                           >
                             <td className="text-ts-neutral-0 text-sm py-3 px-3 whitespace-nowrap">
                               <span className="font-semibold text-ts-neutral-0">
@@ -216,8 +268,37 @@ export default function Leaderboard() {
                               </span>
                             </td>
                             <td className="text-ts-neutral-0 text-sm py-3 px-3 whitespace-nowrap max-w-37.5 truncate" title={currentUserEntry.username}>
-                              {currentUserEntry.username}
-                              <span className="ml-2 text-xs text-ts-blue-400">(You)</span>
+                              {isEditing ? (
+                                <div className="flex items-center gap-1">
+                                  <input
+                                    type="text"
+                                    value={editedUsername}
+                                    onChange={(e) => setEditedUsername(e.target.value)}
+                                    maxLength={20}
+                                    className="bg-ts-neutral-700 text-ts-neutral-0 text-sm px-2 py-0.5 rounded w-24 outline-none focus:ring-1 focus:ring-ts-blue-400"
+                                    autoFocus
+                                    onKeyDown={(e) => {
+                                      if (e.key === 'Enter') handleEditSave();
+                                      if (e.key === 'Escape') handleEditCancel();
+                                    }}
+                                  />
+                                  <button onClick={handleEditSave} className="cursor-pointer p-0.5 hover:text-ts-green-500 text-ts-neutral-400">
+                                    <Check className="h-4 w-4" />
+                                  </button>
+                                  <button onClick={handleEditCancel} className="cursor-pointer p-0.5 hover:text-ts-red-500 text-ts-neutral-400">
+                                    <X className="h-4 w-4" />
+                                  </button>
+                                </div>
+                              ) : (
+                                <span
+                                  className="cursor-pointer group"
+                                  onClick={() => handleEditStart(getUsername())}
+                                >
+                                  {getUsername()}
+                                  <Pencil className="inline-block ml-1 h-3 w-3 text-ts-neutral-500 group-hover:text-ts-blue-400" />
+                                  <span className="ml-1 text-xs text-ts-blue-400">(You)</span>
+                                </span>
+                              )}
                             </td>
                             <td className="text-ts-neutral-0 text-sm py-3 px-3 text-right whitespace-nowrap font-semibold">
                               {currentUserEntry.personalBestWpm}
