@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import passageData from '@/app/data/data.json';
 import layout from "simple-keyboard-layouts/build/layouts/english";
 import { useSounds } from './useSounds';
+import { toast } from 'sonner';
 
 export type Category = 'general' | 'quotes' | 'code' | 'lyrics';
 export type Difficulty = 'easy' | 'medium' | 'hard';
@@ -32,7 +33,17 @@ interface TestResult {
   verdict: Verdict;
 }
 
+interface UploadBody {
+  profileId: string;
+  username: string;
+  personalBestWpm: number;
+  totalKeystrokes: number;
+  totalErrors: number;
+}
+
 const DEFAULT_TIMED_MODE_DURATION = 60;
+const PROFILE_ID_KEY = 'typing-test-profile-id';
+const USERNAME_KEY = 'typing-test-username';
 const PERSONAL_BEST_KEY = 'typing-test-personal-best';
 const KEY_STATS_KEY = 'typing-test-key-stats';
 
@@ -45,6 +56,31 @@ const allKeysArray = Object.values(layout.layout)
 
 // Use a Set to remove duplicates (like functional keys found in both layers)
 const keyList = Array.from(new Set(allKeysArray));
+
+// Get Profile ID
+function getProfileId(): string {
+  let profileId = localStorage.getItem(PROFILE_ID_KEY);
+  if (!profileId) {
+    profileId = crypto.randomUUID ? crypto.randomUUID() : 'fallback-uuid';
+    localStorage.setItem(PROFILE_ID_KEY, profileId);
+  }
+  return profileId;
+}
+
+// Get Username
+function getUsername(): string {
+  let username = localStorage.getItem(USERNAME_KEY);
+  if (!username) {
+    username = getProfileId();
+    localStorage.setItem(USERNAME_KEY, username);
+  }
+  return username;
+}
+
+// Save Username
+export function saveUsername(username: string): void {
+  localStorage.setItem(USERNAME_KEY, username);
+}
 
 // Get personal best from localStorage
 function getPersonalBest(): number | null {
@@ -77,6 +113,15 @@ function getRandomPassage(category: Category, difficulty: Difficulty): Passage {
   const passages = passageData[category][difficulty] as Passage[];
   const randomIndex = Math.floor(Math.random() * passages.length);
   return passages[randomIndex];
+}
+
+async function submitToLeaderboard(body: UploadBody) {
+  await fetch('/api/upload', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  toast.success('Score submitted to leaderboard!');
 }
 
 export function useTypingTest() {
@@ -236,6 +281,17 @@ export function useTypingTest() {
       if (verdict !== 'default') playCheer();
       else playCheerSoft();
     } else playBoo();
+
+    // Submit to leaderboard
+    const profileId = getProfileId();
+    const uploadBody: UploadBody = {
+      profileId,
+      username: getUsername(),
+      personalBestWpm: currentPersonalBest ? Math.max(finalWPM, currentPersonalBest) : finalWPM,
+      totalKeystrokes: Object.values(keyStats).reduce((sum, key) => sum + key.count, 0),
+      totalErrors: Object.values(keyStats).reduce((sum, key) => sum + key.errors, 0),
+    };
+    submitToLeaderboard(uploadBody);
     
     setResult({
       wpm: finalWPM,
@@ -244,7 +300,7 @@ export function useTypingTest() {
       incorrectChars,
       verdict,
     });
-  }, [playCheer, playBoo, playCheerSoft, stopTimer, calculateWPM, calculateAccuracy, correctChars, incorrectChars, timeElapsed, errorIndices.size]);
+  }, [keyStats, playCheer, playBoo, playCheerSoft, stopTimer, calculateWPM, calculateAccuracy, correctChars, incorrectChars, timeElapsed, errorIndices.size]);
   
   // Check for test completion
   useEffect(() => {

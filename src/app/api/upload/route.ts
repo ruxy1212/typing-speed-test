@@ -35,7 +35,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const { profileId, username, personalBestWpm, totalKeystrokes, totalErrors } = body;
     
     if (!profileId || !username || personalBestWpm < 0 || totalKeystrokes < 0 || totalErrors < 0) {
-      return NextResponse.json({ error: 'Invalid data' }, { status: 400 });
+      return NextResponse.json({ error: 'Invalid payload' }, { status: 400 });
     }
 
     const rankScore = computeRankScore(personalBestWpm, totalKeystrokes, totalErrors);

@@ -28,7 +28,7 @@ export default function Header() {
         </div>
         <button
           onClick={toggleSound}
-          className={`p-2 rounded-full transition-colors duration-200 border hover:text-ts-blue-400 hover:bg-ts-neutral-800 ${soundEnabled ? 'text-ts-blue-600 border-ts-blue-400' : 'text-ts-neutral-400 border-ts-neutral-400'}`}
+          className={`cursor-pointer p-2 rounded-full transition-colors duration-200 border hover:text-ts-blue-400 hover:bg-ts-neutral-800 ${soundEnabled ? 'text-ts-blue-600 border-ts-blue-400' : 'text-ts-neutral-400 border-ts-neutral-400'}`}
           aria-label={soundEnabled ? "Mute sounds" : "Unmute sounds"}
           title={soundEnabled ? "Mute sounds" : "Unmute sounds"}
         >
