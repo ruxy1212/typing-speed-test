@@ -7,8 +7,6 @@ import { toast } from 'sonner';
 import { Loader2, Trophy } from 'lucide-react';
 import { getProfileId } from '@/lib/storage';
 import Link from 'next/link';
-import LogoLarge from '@/assets/logo-large.svg';
-import LogoSmall from '@/assets/logo-small.svg';
 import Header from '@/components/header';
 import { TypingTestProvider } from '@/context/TypingTestContext';
 
