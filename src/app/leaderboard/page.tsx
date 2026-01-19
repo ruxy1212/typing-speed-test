@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { db } from '../../lib/firebase';
-import { collection, query, orderBy, limit, onSnapshot, QuerySnapshot, DocumentData } from 'firebase/firestore';
+import { collection, query, orderBy, limit, onSnapshot, QuerySnapshot, DocumentData, doc, getDoc } from 'firebase/firestore';
 import { toast } from 'sonner';
 import { Loader2, Trophy } from 'lucide-react';
 import { getProfileId } from '@/lib/storage';
@@ -17,10 +17,12 @@ interface LeaderboardEntry {
   totalKeystrokes: number;
   totalErrors: number;
   rankScore: number;
+  rank?: number;
 }
 
 export default function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
+  const [currentUserEntry, setCurrentUserEntry] = useState<LeaderboardEntry | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   
   const currentProfileId = useMemo(() => {
@@ -37,12 +39,42 @@ export default function Leaderboard() {
 
     const unsubscribe = onSnapshot(
       q,
-      (snapshot: QuerySnapshot<DocumentData>) => {
-        const data: LeaderboardEntry[] = snapshot.docs.map((doc) => ({
+      async (snapshot: QuerySnapshot<DocumentData>) => {
+        const data: LeaderboardEntry[] = snapshot.docs.map((doc, index) => ({
           profileId: doc.id,
+          rank: index + 1,
           ...doc.data(),
         }) as LeaderboardEntry);
         setLeaderboard(data);
+
+        // Check if current user is in top 50
+        const currentUserInTop50 = data.some(entry => entry.profileId === currentProfileId);
+        
+        if (!currentUserInTop50 && currentProfileId) {
+          // Fetch current user's record separately
+          try {
+            const userDocRef = doc(db, 'leaderboard', currentProfileId);
+            const userDocSnap = await getDoc(userDocRef);
+            
+            if (userDocSnap.exists()) {
+              const userData = userDocSnap.data() as Omit<LeaderboardEntry, 'profileId' | 'rank'>;
+              
+              setCurrentUserEntry({
+                profileId: currentProfileId,
+                ...userData,
+                rank: undefined, // Will be displayed as "50+"
+              });
+            } else {
+              setCurrentUserEntry(null);
+            }
+          } catch (error) {
+            console.error('Error fetching current user data:', error);
+            setCurrentUserEntry(null);
+          }
+        } else {
+          setCurrentUserEntry(null);
+        }
+
         setLoading(false);
       },
       (error) => {
@@ -53,7 +85,7 @@ export default function Leaderboard() {
     );
 
     return () => unsubscribe();
-  }, []);
+  }, [currentProfileId]);
 
   return (
     <TypingTestProvider>
@@ -157,6 +189,59 @@ export default function Leaderboard() {
                         </tr>
                       );
                     })}
+                    {/* Current user's entry if not in top 50 */}
+                    {currentUserEntry && (() => {
+                      const accuracy = currentUserEntry.totalKeystrokes > 0
+                        ? ((currentUserEntry.totalKeystrokes - currentUserEntry.totalErrors) / currentUserEntry.totalKeystrokes) * 100
+                        : 0;
+
+                      return (
+                        <>
+                          {/* Separator row */}
+                          <tr className="border-b border-ts-neutral-600">
+                            <td colSpan={7} className="py-2 px-3">
+                              <div className="flex items-center gap-2 text-ts-neutral-500 text-xs">
+                                <span className="flex-1 border-t border-dashed border-ts-neutral-600"></span>
+                                <span>...</span>
+                                <span className="flex-1 border-t border-dashed border-ts-neutral-600"></span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr
+                            className="border-b border-ts-neutral-700 last:border-b-0 transition-colors hover:bg-ts-neutral-700/50 bg-ts-blue-600/40"
+                          >
+                            <td className="text-ts-neutral-0 text-sm py-3 px-3 whitespace-nowrap">
+                              <span className="font-semibold text-ts-neutral-0">
+                                #50+
+                              </span>
+                            </td>
+                            <td className="text-ts-neutral-0 text-sm py-3 px-3 whitespace-nowrap max-w-37.5 truncate" title={currentUserEntry.username}>
+                              {currentUserEntry.username}
+                              <span className="ml-2 text-xs text-ts-blue-400">(You)</span>
+                            </td>
+                            <td className="text-ts-neutral-0 text-sm py-3 px-3 text-right whitespace-nowrap font-semibold">
+                              {currentUserEntry.personalBestWpm}
+                            </td>
+                            <td className="text-ts-neutral-400 text-sm py-3 px-3 text-right whitespace-nowrap">
+                              {currentUserEntry.totalKeystrokes.toLocaleString()}
+                            </td>
+                            <td className="text-ts-red-500 text-sm py-3 px-3 text-right whitespace-nowrap">
+                              {currentUserEntry.totalErrors.toLocaleString()}
+                            </td>
+                            <td className={`text-sm py-3 px-3 text-right whitespace-nowrap ${
+                              accuracy >= 95 ? 'text-ts-green-500' :
+                              accuracy >= 90 ? 'text-ts-yellow-400' :
+                              'text-ts-neutral-400'
+                            }`}>
+                              {accuracy.toFixed(1)}%
+                            </td>
+                            <td className="text-ts-blue-400 text-sm py-3 px-3 text-right whitespace-nowrap font-semibold">
+                              {currentUserEntry.rankScore.toFixed(0)}
+                            </td>
+                          </tr>
+                        </>
+                      );
+                    })()}
                   </tbody>
                 </table>
               </div>
