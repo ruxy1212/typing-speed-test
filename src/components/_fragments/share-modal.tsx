@@ -5,6 +5,7 @@ import { X, Download } from 'lucide-react';
 import { BsFacebook, BsWhatsapp, BsInstagram, BsTwitterX } from 'react-icons/bs';
 import Image from 'next/image';
 import { toast } from 'sonner';
+import { motion } from 'motion/react';
 
 interface ShareModalProps {
   isOpen: boolean;
@@ -142,7 +143,12 @@ export default function ShareModal({ isOpen, onClose, wpm, accuracy, correct, in
         onClick={onClose}
       />
       
-      <div className="relative bg-neutral-800 rounded-2xl p-6 max-w-2xl w-full border border-neutral-700 shadow-2xl max-h-[90vh] overflow-y-auto tiny-scrollbar">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
+        className="relative bg-neutral-800 rounded-2xl p-6 max-w-2xl w-full border border-neutral-700 shadow-2xl max-h-[90vh] overflow-y-auto tiny-scrollbar"
+      >
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-10 text-neutral-400 hover:text-white transition-colors bg-neutral-900/80 rounded-full p-2 cursor-pointer"
@@ -150,7 +156,7 @@ export default function ShareModal({ isOpen, onClose, wpm, accuracy, correct, in
           <X size={20} />
         </button>
 
-        <h2 className="text-2xl font-bold text-white mb-4 text-center pr-8">Share Your Results</h2>
+        <h2 className="text-2xl font-semibold text-white mb-4 text-center pr-8">Share Your Results</h2>
         
         {/* Image Preview */}
         <div className="mb-6 rounded-lg overflow-hidden bg-neutral-900 border border-neutral-700">
@@ -199,7 +205,7 @@ export default function ShareModal({ isOpen, onClose, wpm, accuracy, correct, in
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
