@@ -48,7 +48,23 @@ Users can:
 
 ### Screenshot
 
-![](./screenshot.jpg)
+<img width="2560" height="1288" alt="screencapture-typing-speed-test1212-vercel-app-2026-01-20-13_52_41" src="https://github.com/user-attachments/assets/0331af2e-f7be-40e5-b69e-ec05d9ef214c" />
+
+___
+
+<img width="2560" height="1264" alt="screencapture-typing-speed-test1212-vercel-app-2026-01-20-13_56_34" src="https://github.com/user-attachments/assets/060c4b67-ac7f-4c54-80d3-737b52b4f4e5" />
+
+___
+
+<img width="2560" height="2376" alt="screencapture-typing-speed-test1212-vercel-app-2026-01-20-13_57_50" src="https://github.com/user-attachments/assets/b3f05c9a-4385-4907-aeb2-adc81a6ee7e1" />
+
+___
+
+<img width="2560" height="1636" alt="screencapture-typing-speed-test1212-vercel-app-leaderboard-2026-01-20-13_59_05" src="https://github.com/user-attachments/assets/5b3de811-6921-4d71-9cb8-3aca60c35d7b" />
+
+___
+
+<img width="2560" height="1446" alt="screencapture-typing-speed-test1212-vercel-app-2026-01-20-13_59_59" src="https://github.com/user-attachments/assets/8f3874c8-81ac-4a1c-b8e6-3cb2c7efe378" />
 
 ### Links
 
